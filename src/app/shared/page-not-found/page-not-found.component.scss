@@ -1,0 +1,120 @@
+.page-not-found {
+    padding: 50px;
+    // height: 80vh;
+    display: flex;
+    align-items: center;
+    // background: #f7f7f7;
+
+    .container {
+        .row {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+
+            .image {
+                width: 550px;
+                align-self: center;
+                align-items: center;
+                margin: auto;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    margin-top: 60px;
+                }
+            }
+
+            .desc {
+                p {
+                    font-size: 1rem;
+                    color: #747474;
+                    font-weight: 600;
+                    text-align: center;
+                }
+
+                .shop {
+                    background: #55b15c;
+                    color: #ffffff;
+                    border-radius: 5px;
+                    font-weight: 600;
+                }
+
+                .head {
+                    font-size: 40px;
+                    animation-name: head;
+                    animation-duration: 6s;
+                }
+
+                @keyframes head {
+                    from {
+                        color: rgb(124, 124, 124);
+                    }
+
+                    to {
+                        color: rgb(0, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width:1200px) {
+    .page-not-found {
+        .container {
+            .row {
+                .image {
+                    width: 450px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:992px) {
+    .page-not-found {
+        .container {
+            .row {
+                .image {
+                    width: 350px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:768px) {
+    .page-not-found {
+        .container {
+            .row {
+                .image {
+                    width: 300px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:425px) {
+    .page-not-found {
+        .container {
+            .row {
+                .image {
+                    width: 250px;
+                }
+
+                .desc {
+                    h1 {
+                        font-size: 1.4rem;
+                    }
+
+                    h2 {
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+        }
+    }
+}

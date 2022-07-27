@@ -1,0 +1,779 @@
+.subscribe_field {
+    // width: 40%;
+    // margin-left: 25%;
+
+    span {
+        background: #2774ba;
+        border: 1px solid #2774ba;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    input {
+        border: 1px solid white;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+}
+.web_img {
+    width: 25%;
+}
+.spinner {
+    display: flex;
+    justify-content: center;
+    z-index: 9;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    opacity: 0.6;
+    background: #000;
+}
+
+
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:link {
+    text-decoration: none;
+    color: #000;
+}
+
+
+a:visited {
+    text-decoration: none;
+    color: #000;
+}
+
+
+a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+
+a:active {
+    text-decoration: none;
+    color: #000;
+}
+
+.model-section {
+    position: relative;
+}
+
+.text-white {
+    cursor: pointer;
+}
+
+.model-section .model-searchlist {
+    background: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.model-section .model-searchlist .model {
+    width: 800px;
+    height: 300px;
+    overflow: auto;
+    background: white;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+.model-section .model-searchlist .model .suggestions {
+    border-bottom: 1px solid #233 3;
+}
+
+.model-section .model-searchlist .model .suggestions h4 {
+    margin: 0;
+    padding: 0;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.model-section .model-searchlist .model .suggestions h4 a {
+    text-decoration: none;
+}
+
+.model-section .model-searchlist .model .suggestions h4:hover {
+    background-color: var(--primary);
+    color: #fff f;
+}
+
+.home-banner {
+    margin: 10px 0;
+}
+
+.home-banner .container .background-image {
+    background-image: url('http://ecolinkfrontend.brandtalks.in/assets/EcoLink Home Page Hero Image 2022.png');
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+    position: relative;
+    background-size: cover;
+    background-position: center right;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    height: 350px;
+}
+
+.home-banner .container .background-image .innerhead {
+    padding: 18px 25px;
+}
+
+.home-banner .container .background-image .innerhead .image {
+    width: 25%;
+}
+
+.home-banner .container .background-image .innerhead .image img {
+    width: 100%;
+}
+
+.home-banner .container .background-image .innerhead .subscribe_field {
+    width: 15%;
+    padding: 0 3%;
+}
+
+.home-banner .container .background-image .innerhead .subscribe_field span {
+    background: #37793a;
+    border: 1px solid #37793a;
+    justify-content: center;
+    width: 150px;
+    border-radius: 20px;
+}
+
+.home-banner .container .background-image .innerhead .subscribe_field span a {
+    text-decoration: none;
+}
+
+.home-banner .container .background-image .innerhead .subscribe_field input {
+    border: 1px solid white;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.home-banner .container .background-image .headings {
+    padding: 3% 2%;
+    width: fit-content;
+    text-align: left;
+    width: 50%;
+}
+
+.home-banner .container .background-image .headings h1 {
+    font-size: 25px;
+    // font-weight: 700;
+    color: #2774ba;
+    // white-space: nowrap;
+}
+.home-banner .container .background-image .headings h1 span{
+    font-weight: 200!important;
+}
+
+.home-banner .container .background-image .bottom-line {
+    padding: 3px 0;
+    background: #2774ba;
+    width: 100%;
+    position: absolute;
+    bottom: 0 !important;
+    left: 0 !important;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.home-banner .container .background-image .bottom-line p {
+    font-size: 18px;
+    margin-bottom: 0;
+    color: white;
+}
+
+.marketing {
+    margin: 30px 0;
+}
+
+.marketing .container .complete-section {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.marketing .container .complete-section .section1 {
+    padding: 25px 5px;
+    align-self: center;
+}
+
+.marketing .container .complete-section .section1 .web-logo {
+    margin: 0 auto;
+    width: 65%;
+}
+
+.marketing .container .complete-section .section1 .web-logo img {
+    width: 100%;
+}
+
+.marketing .container .complete-section .section1 .section-content h5 {
+    margin: 0;
+    padding: 25px 35px;
+    font-weight: 700;
+}
+
+.marketing .container .complete-section .section1 .section-content p {
+    padding: 0 35px;
+    font-weight: 500;
+}
+
+.marketing .container .complete-section .section2 {
+    background: whitesmoke;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.marketing .container .complete-section .section2 .sub-section1 {
+    margin: 20px 0;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.marketing .container .complete-section .section2 .sub-section1 .inner-div {
+    height: 100%;
+    display: grid;
+    // grid-template-rows: 65% auto;
+    // width: 68%;
+}
+.marketing .container .complete-section .section2 .sub-section1 .inner-div .web_link {
+    font-size: 22px;
+    color: #2774ba;
+}
+
+.marketing .container .complete-section .section2 .sub-section1 .inner-div h5 {
+    margin-bottom: 0;
+    width: 66%;
+    margin: auto;
+}
+
+.marketing .container .complete-section .section2 .sub-section1 .inner-div h1 {
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.marketing .container .complete-section .section2 .sub-section1 .inner-div .image-div {
+    display: grid;
+    align-items: center;
+    width: 40%;
+    margin: auto;
+}
+
+.marketing .container .complete-section .section2 .sub-section1 img {
+    width: 100%;
+}
+
+.pricing-section {
+    margin: 30px 0;
+}
+
+.pricing-section .container .pricing {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.pricing-section .container .pricing .pricing-image {
+    height: 200px;
+}
+
+.pricing-section .container .pricing .pricing-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.pricing-section .container .pricing .pricing-text {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.pricing-section .container .pricing .pricing-text h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.pricing-section .container .pricing .pricing-text p {
+    margin: 0;
+    text-align: center;
+}
+
+.tidal-washer-section {
+    margin: 30px 0;
+}
+
+.tidal-washer-section .container .tidal-washer {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.tidal-washer-section .container .tidal-washer .tidal-image {
+    height: 200px;
+}
+
+.tidal-washer-section .container .tidal-washer .tidal-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.tidal-washer-section .container .tidal-washer .tidal-text {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.tidal-washer-section .container .tidal-washer .tidal-text h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.tidal-washer-section .container .tidal-washer .tidal-text p {
+    margin: 0;
+    text-align: center;
+}
+
+.about-section {
+    margin: 30px 0;
+}
+
+.about-section .container .about-us {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.about-section .container .about-us .about-image {
+    height: 200px;
+}
+
+.about-section .container .about-us .about-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.about-section .container .about-us .about-text {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.about-section .container .about-us .about-text h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.about-section .container .about-us .about-text p {
+    margin: 0;
+    text-align: center;
+}
+
+.manufacturing-section {
+    margin: 30px 0;
+}
+
+.manufacturing-section .container .manufacturing {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.manufacturing-section .container .manufacturing .manufacture-image {
+    height: 200px;
+}
+
+.manufacturing-section .container .manufacturing .manufacture-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.manufacturing-section .container .manufacturing .manufacture-text {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.manufacturing-section .container .manufacturing .manufacture-text h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.manufacturing-section .container .manufacturing .manufacture-text p {
+    margin: 0;
+    text-align: center;
+}
+
+.service-section {
+    margin: 30px 0;
+}
+
+.service-section .container .services {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.service-section .container .services .service-image {
+    height: 200px;
+}
+
+.service-section .container .services .service-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.service-section .container .services .service-text {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.service-section .container .services .service-text h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.service-section .container .services .service-text p {
+    margin: 0;
+    text-align: center;
+}
+.subscribe_field {
+    position: absolute;
+    z-index: 99;
+    right: 18%;
+    padding: 70px 0px;
+}
+@media (max-width:1440px) {
+    .subscribe_field {
+        position: absolute;
+        z-index: 99;
+        right: 18%;
+        padding: 70px 0px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .subscribe_field {
+        position: absolute;
+        z-index: 99;
+        right: 13%;
+        padding: 70px 0px;
+    }
+}
+
+@media (max-width: 992px) {
+    .subscribe_field {
+    right: 16%;
+    
+        span {
+            font-size: 11px;
+        }
+    
+        input {
+            font-size: 11px;
+        }
+    }
+    .shop-categories .container .categories-text {
+        grid-template-columns: 100%;
+    }
+
+    .shop-categories .container .categories-text .product-category .categories {
+        grid-template-columns: 100%;
+    }
+
+    .shop-categories .container .categories-text .product-category .categories .category-card .category-image {
+        width: 40%;
+    }
+
+    .marketing .container .complete-section {
+        grid-template-columns: 100%;
+    }
+
+    .marketing .container .complete-section .section1 .web-logo {
+        width: 35%;
+    }
+}
+
+@media (max-width: 768px) {
+    .subscribe_field {
+        position: absolute;
+        z-index: 9;
+        right: 8%;
+        padding: 50px 0;
+    }
+
+    .container {
+        max-width: 725px;
+    }
+
+    .home-banner .container .background-image .headings {
+        width: 50%;
+    }
+
+    .home-banner .container .background-image .headings h1 {
+        font-size: 25px;
+    }
+
+    .home-banner .container .background-image .bottom-line p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 425px) {
+    .home-banner .container .background-image .bottom-line p {
+        font-size: 14px;
+    }
+}
+
+.ask-chemist {
+    margin: 30px 0;
+}
+
+.ask-chemist .container .both-part {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.ask-chemist .container .both-part .first-part {
+    height: 200px;
+}
+
+.ask-chemist .container .both-part .first-part img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.ask-chemist .container .both-part .second-part {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.ask-chemist .container .both-part .second-part h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.ask-chemist .container .both-part .second-part p {
+    margin: 0;
+    text-align: center;
+}
+
+.ask-chemist .container .both-part .second-part svg {
+    width: 25px;
+    justify-self: center;
+}
+
+.pricing-section {
+    margin: 30px 0;
+}
+
+.pricing-section .container .pricing {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid #d7d1d1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.pricing-section .container .pricing .pricing-image {
+    height: 200px;
+}
+
+.pricing-section .container .pricing .pricing-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.pricing-section .container .pricing .pricing-text {
+    padding: 10px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 40% auto;
+}
+
+.pricing-section .container .pricing .pricing-text h3 {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+.pricing-section .container .pricing .pricing-text p {
+    margin: 0;
+    text-align: center;
+}
+
+.pricing-section .container .pricing .pricing-text svg {
+    width: 25px;
+    justify-self: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 725px;
+    }
+
+    .ask-chemist .container .both-part {
+        grid-template-columns: 50% 50%;
+    }
+
+    .pricing-section .container .pricing {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media (max-width: 575px) {
+    .marketing .container .complete-section .section2 .sub-section1 .inner-div {
+        height: 100%;
+        display: grid;
+        width: fit-content;
+    }
+    .marketing .container .complete-section .section2 {
+        background: whitesmoke;
+        display: grid;
+        grid-template-columns: 100%;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .web_img {
+        width: 100%;
+    }
+    .subscribe_field {
+        position: absolute;
+        z-index: 9;
+        left: 10%;
+        padding: 27px 0;
+
+        span {
+            font-size: 13px;
+        }
+
+        input {
+            font-size: 13px;
+        }
+    }
+    .home-banner .container .background-image .headings h1 {
+        font-size: 18px;
+    }
+    .home-banner .container .background-image .headings {
+        width: 100%;
+    }
+    
+    .home-banner .container .background-image .innerhead {
+        padding: 80px 25px 48px 25px;
+    }
+
+    .ask-chemist .container .both-part .second-part h3 {
+        font-size: 1.1rem;
+    }
+
+    .ask-chemist .container .both-part .second-part p {
+        font-size: 0.8rem;
+    }
+
+    .ask-chemist .container .both-part .second-part svg {
+        width: 20px;
+    }
+
+    .pricing-section .container .pricing .pricing-text h3 {
+        font-size: 1.1rem;
+    }
+
+    .pricing-section .container .pricing .pricing-text p {
+        font-size: 0.8rem;
+    }
+
+    .pricing-section .container .pricing .pricing-text svg {
+        width: 20px;
+    }
+}

@@ -1,0 +1,220 @@
+<div class="spinner" *ngIf="cartUpdated">
+    <div class="spinner-border" role="status">
+        <span class="sr-only" id="loading"></span>
+    </div>
+</div>
+
+
+
+<ng-container *ngIf="CardShow">
+    <app-header [length]=length></app-header>
+    <!-- shimmar effect on -->
+    <ng-container *ngIf="CartShimmer; then elseblock else thenblock"></ng-container>
+    <ng-template #elseblock>
+        <div class="container mt-5">
+            <div class="cart-heading">
+                <h1 style="white-space: nowrap;">Shopping Cart</h1>
+            </div>
+            <div class="cart-body">
+                <div class="card-elements table-responsive">
+                    <ng-container *ngFor="let data of [].constructor(3)">
+                        <ngx-shimmer-loading [shape]="'square'" width="'100%'"
+                            height="'200px'"></ngx-shimmer-loading>
+                    </ng-container>
+                </div>
+
+                <div class="cart cart-total pt-0">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #thenblock>
+        <!-- shimmar effect off -->
+        <ng-container *ngIf="!CartShimmer">
+            <div class="container">
+                <div class="cart-heading">
+                    <h1 style="white-space: nowrap;">Shopping Cart</h1>
+                </div>
+                <div class="cart-body" *ngIf="CardShow.length>0">
+                    <!-- product table on cart page  -->
+                    <div class="cart-elements table-responsive">
+                        <p-table [value]="CardShow" #thenblock>
+                            <ng-template pTemplate="header">
+                                <tr class="heading-row">
+                                    <th></th>
+                                    <th style="white-space: nowrap;">Product
+                                        Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <!-- <th style="white-space: nowrap;">Lift Gate
+                                        Service</th> -->
+                                    <th>SubTotal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-product
+                                let-rowIndex="rowIndex">
+                                <tr>
+                                    <td>
+                                        <div class="cart_image" style="cursor:
+                                            pointer;">
+                                            <img [src]="product.product.image"
+                                                [alt]="product.product.alt">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="product_name">
+                                            <div class="product_desc">
+                                                <h6 style="text-align: left;
+                                                    padding-left: 10px;">
+                                                    {{product.product.name}}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{product.product.sale_price|
+                                        currency:'USD'}}</td>
+                                    <td>
+                                        <div class="quantity">
+                                            <button
+                                                (click)="UpdateCart('delete' ,
+                                                product.product_id ,
+                                                product.quantity ,rowIndex ,
+                                                product.lift_gate)"
+                                                [disabled]="product.product.minimum_qty==
+                                                product.quantity">-</button>
+                                            <p>{{product.quantity}}</p>
+                                            <button
+                                                (click)="UpdateCart('add' ,
+                                                product.product_id ,
+                                                product.quantity , rowIndex ,
+                                                product.lift_gate)"
+                                                [disabled]="product.quantity >=
+                                                25">+</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="price-row">
+                                            <span class="price__subtotal">${{product.product.sale_price*product.quantity
+                                                |
+                                                number : '1.2-2'}}</span>
+                                            <br>
+                                            <!-- {{product.product.hazardous}} -->
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="delete_item"
+                                            data-toggle="modal"
+                                            data-target="#exampleXCenter"
+                                            (click)="deleteItemFromCart(product)"><i
+                                                class="pi pi-times"></i></span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="summary">
+                                <div class="d-flex justify-content-between"
+                                    style="align-items: center;">
+                                    <div *ngIf="CardShow?.length==1"
+                                        class="p-d-flex p-ai-center
+                                        p-jc-between">
+                                        In Total There is {{CardShow ?
+                                        CardShow.length : 0 }} Product
+                                    </div>
+                                    <div *ngIf="CardShow?.length>1"
+                                        class="p-d-flex p-ai-center
+                                        p-jc-between">
+                                        In Total There are {{CardShow ?
+                                        CardShow.length : 0 }} Products
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                    <!-- showing product total amount-->
+                    <div class="card cart-total">
+                        <h2 class="mb-0">Cart Totals</h2>
+                        <div class="total-price">
+                            <ul>
+                                <li>
+                                    <h6>Subtotal</h6>
+                                </li>
+                                <li>
+                                    <h6>${{SubTotal | number : '1.2-2'}}</h6>
+                                </li>
+                            </ul>
+                            <div *ngIf="(SubTotal<600)">
+                                <p class="text-danger" style="font-size:11px">*Subtotal
+                                    should be minimum 600</p>
+                            </div>
+                            <ul style="display: flex; align-items: baseline;">
+                                <div class="p-field-checkbox" style="display:
+                                    flex;align-items: baseline;">
+                                    <input type="checkbox"
+                                        (change)="getLiftCharge($event)"
+                                        [value]="this.checked"
+                                        [checked]="checked" /> <label for=""
+                                        class="mx-2"> <h6>Lift Gate Service</h6></label>
+                                </div>
+                                <h6 *ngIf="this.checked">${{this.liftcharges | number:'1.2-2'}}</h6>
+                                <h6 *ngIf="!this.checked">${{ 0 | number:'1.2-2'}}</h6>
+                            </ul>
+                            <ul *ngIf="this.hazardousAmount>0">
+                                <li>
+                                    <h6>Hazardous Product</h6>
+                                </li>
+                                <li>
+                                    <h6>${{this.hazardousAmount | number:'1.2-2'}}</h6>
+                                </li>
+                            </ul>
+                            <ul *ngIf="Total> 0">
+                                <li>
+                                    <h6><b>Total</b></h6>
+                                </li>
+                                <li>
+                                    <h6>${{(checked ?(Total -- liftcharges --
+                                        this.hazardousAmount) : (Total --
+                                        this.hazardousAmount))| number :
+                                        '1.2-2'}}</h6>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="proceed">
+                            <div class="proceed-button">
+                                <button routerLink="/shop/checkout" pButton
+                                    pRipple type="button"
+                                    label="Proceed to Checkout"
+                                    class="p-button-raised p-button-success"
+                                    style="height:40px; width: 100%;"
+                                    [disabled]="SubTotal<this.minimum_amount"
+                                    (click)="saveLiftChargeValue()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- empty cart screen -->
+                <div class="empty-cart" *ngIf="CardShow.length==0">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body cart">
+                                <div class="col-sm-12 empty-cart-cls
+                                    text-center"> <img
+                                        src="{{imageurl}}shopping-cart.png"
+                                        class="img-fluid mb-4">
+                                    <h3 class="empty"><strong>Your Cart is Empty</strong></h3>
+                                    <a routerLink="/shop"
+                                        class="btn btn-success
+                                        cart-btn-transform m-3" data-abc="true">Continue
+                                        Shopping</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-template>
+    <app-footer></app-footer>
+</ng-container>

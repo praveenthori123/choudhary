@@ -1,0 +1,36 @@
+<ng-container *ngFor="let action of helperArray ; index as index">
+    <div *ngIf="index>0">
+        <ng-container *ngIf="index%2 == 0">
+            <section class="media-banner">
+                <div class="container">
+                    <div class="img-text" routerLink="/info/{{action.slug}}">
+                        <div class="img-part" #height>
+                            <img src="{{action.image}}" alt="{{action.alt}}">
+                        </div>
+                        <div class="text-part">
+                            <h3>{{action.title}}</h3>
+                            <p>{{action.short_desc?.slice(0,150)}}</p>
+                            <p class="action-button">Read Article <i class="fa fa-arrow-right"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-container>
+        <ng-container *ngIf="index%2 != 0">
+            <section class="re-media-banner">
+                <div class="container">
+                    <div class="re-img-text" routerLink="/info/{{action.slug}}">
+                        <div class="re-text-part">
+                            <h3>{{action.title}}</h3>
+                            <p>{{action.short_desc?.slice(0,150)}}</p>
+                            <p class="action-button">Read Article <i class="fa fa-arrow-right"></i></p>
+                        </div>
+                        <div class="re-img-part">
+                            <img src="{{action.image}}" alt="{{action.alt}}">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-container>
+    </div>
+</ng-container>

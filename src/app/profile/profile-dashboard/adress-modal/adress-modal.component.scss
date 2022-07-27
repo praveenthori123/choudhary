@@ -1,0 +1,14 @@
+.add-user {
+    text-align: center;
+    .saveuserdetail {
+        width: fit-content;
+        background: var(--primary);
+        text-align: right;
+    }
+}
+
+.alert-danger {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-top: 5px;
+}

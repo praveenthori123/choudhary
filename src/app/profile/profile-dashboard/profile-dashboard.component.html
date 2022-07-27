@@ -1,0 +1,81 @@
+<div class="dashboard-section" *ngIf="showdesc == 'Dashboard'">
+    <h3>Dashboard</h3>
+    <div class="profile-card">
+        <!-- shimmar effect on -->
+        <ng-container *ngIf="shimmerLoad">
+            <div class="row">
+                <div class="col-6 mt-3">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+                <div class="col-6 mt-3">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </div>
+        </ng-container>
+        <!-- shimmar effect off -->
+        <ng-container *ngIf="!shimmerLoad">
+            <div class="row" *ngFor="let item of userDetail">
+                <!-- user detail on dashboard -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="card profile-section">
+                        <div class="profile-image">
+                            <img [src]="item.profile_image != profile_image ? item.profile_image : 'https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg'" alt="">
+                        </div>
+                        <div class="profile-desc">
+                            <div class="profile-detail">
+                                <h4>{{item.name}}</h4>
+                                <p class="m-0 p-0">{{item.email}}</p>
+                            </div>
+
+                            <div class="profile-detail mt-1">
+                                <p *ngIf="item.tax_exempt == 1" class="m-0 p-0"><b>Tax Exemption -</b>&nbsp;<span>Yes</span></p>
+                                <p *ngIf="item.tax_exempt == 0" class="m-0 p-0"><b>Tax Exemption -</b>&nbsp;<span>No</span></p>
+                            </div>
+
+                            <div class="edit-profile-button my-2">
+                                <button (click)="changeTab('Edit Profile')">Edit Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="card address-section">
+                        <div class="customer_name my-3">
+                            <h4>Add Address</h4>
+                            <i (click)="getUserDetail('add')" data-bs-toggle="modal" data-bs-target="#exampleModal123" class="pi pi-plus">
+                            </i>
+                        </div>
+                        <div class="default-Address">
+                            {{item.address|titlecase}}, {{item.city|titlecase}},
+                            <br>
+                            <!-- {{item.state}},  -->
+                            {{item.landmark|titlecase}}
+                            US, {{item.pincode}}
+                        </div>
+                        <span class="address-label">Mobile Number </span>
+                        <span>{{item.mobile}}</span>
+                        <span class="address-label">Email Address</span>
+                        <span>{{item.email}}</span>
+                        <div class="edit-Address-button my-2">
+                            <button (click)="changeTab('Edit Address')">Edit Address</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<!-- add, edit address modal -->
+<div class="modal fade" id="exampleModal123" tabindex="-1">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" *ngFor="let item of profileAddress">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">{{item.heading}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container">
+                <app-adress-modal [profileaddress]="profileAddress"></app-adress-modal>
+            </div>
+        </div>
+    </div>
+</div>

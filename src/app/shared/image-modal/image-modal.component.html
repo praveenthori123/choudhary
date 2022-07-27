@@ -1,0 +1,25 @@
+<ng-container *ngIf="modalcheck">
+    <section class="images-model">
+        <div class="show-images">
+            <div class="header">
+                <div class="close-model" (click)="closeModel(false)">
+                    <i class="fa fa-close" style="color: white;"></i>
+                </div>
+                <div class="complete_model">
+                    <div class="model_title">
+                        <h1>
+                            {{dataObject.title}}
+                        </h1>
+                    </div>
+                    <div class="model_image">
+                        <img src="{{dataObject.image}}" alt="">
+                    </div>
+                    <div class="model_para">
+                        <p>{{dataObject.message}}</p>
+                    </div>
+                </div>
+            </div>
+            <ng-content></ng-content>
+        </div>
+    </section>
+</ng-container>

@@ -1,0 +1,128 @@
+<!-- home page first banner -->
+<!-- <section class="home-banner">
+    <div class="container">
+        <div class="background-image" [ngStyle]="{'background-image': 'url(' + imageurl + 'homeBanner.jpg)'}">
+            <div class="innerhead">
+                <div class="headings">
+                    <h1>Your Cleaners</h1>
+                    <h1>On Time</h1>
+                </div>
+                <div class="bottom-line" style="left: 0;">
+                    <p>Supplying Environmentally preferred industrial degreasers & solvent nationwide and
+                        internationally
+                        for over 30 years</p>
+                </div>
+                <div class="search-bar">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <a (click)="subscribe('true')" class="text-white" style="cursor: pointer;">Stay
+                                Informed
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- home page second marketing banner -->
+<!-- <section class="marketing">
+    <div class="container">
+        <div class="complete-section">
+            <div class="section1">
+                <div class="web-logo">
+                    <img src="{{imageurl}}Ecolink_main.png" alt="">
+                </div>
+                <div class="section-content">
+                    <h5>We Are Growing</h5>
+                    <p>With more than 25 years of implementation experience in manufacturing, aerospace, military,
+                        electronics and more, we can provide the expertise you need to support changes in your critical
+                        cleaning processes. </p>
+                </div>
+            </div>
+            <div class="section2">
+                <div class="sub-section1">
+                    <div class="inner-div">
+                        <div class="image-div">
+                            <img src="{{imageurl}}finallogo.png" alt="">
+                        </div>
+                        <h5>Power Washing Detergents</h5>
+                    </div>
+                </div>
+                <div class="sub-section1">
+                    <div class="inner-div">
+                        <div class="image-div">
+                            <img src="{{imageurl}}BulkChemicals-2go-logo.png" alt="">
+                        </div>
+                        <h5>Bulk Orders</h5>
+                    </div>
+                </div>
+                <div class="sub-section1">
+                    <div class="inner-div">
+                        <div class="image-div">
+                            <img src="{{imageurl}}egs_fevicon.png" alt="">
+                        </div>
+                        <h5>Food Grade Solvents</h5>
+                    </div>
+                </div>
+                <div class="sub-section1">
+                    <div class="inner-div">
+                        <div class="head">
+                            <h3>ChemFM</h3>
+                        </div>
+                        <h5>Custom Solutions</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- call to action section -->
+<!-- <app-call-to-action [data]="action_array"></app-call-to-action> -->
+<!-- product shop category -->
+<div class="container" *ngIf="!showMsg" style="height: 100vh;margin-top: 20px;">
+    <div class="cart-body" >
+        <div class="card-elements" style="height: 200px;">
+            <ng-container *ngFor="let data of [].constructor(3)">
+                <ngx-shimmer-loading [shape]="'square'" [width]="'100%'" [height]="'100px'"></ngx-shimmer-loading>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<ng-container *ngIf="showMsg">
+    <div class="subscribe_field">
+        <div class="input-group">
+            <div class="input-group-prepend" (click)="subscribe_email()" style="cursor: pointer;">
+                <span class="input-group-text" id="basic-addon1"><a class="text-white">Stay
+                        Informed</a></span>
+            </div>
+            <input type="email" class="form-control" placeholder="your@gmail.com" aria-label="email"
+                [(ngModel)]="newsletter_email">
+        </div>
+        <ng-container *ngIf="resSignupMsg">
+            <div *ngIf="resSignupMsgCheck=='danger'" class="pl-0 text-danger text-center" role="alert" id="loginAlert1" #close style="padding: 10px 35px;">
+                {{ resSignupMsg }}
+                <span class="icon-class" style="border: none;background:transparent;">
+                    <!-- <i class="fa fa-close" style="margin-left:30px;"
+                        (click)="closeButton()"></i> -->
+                    </span>
+            </div>
+            <div *ngIf="resSignupMsgCheck=='success'" class="pl-0 text-success text-center" role="alert" id="loginAlert1" #close style="padding: 10px 35px;">
+                <!-- <p class="m-0"> -->
+                    Thank you for subscribing !
+                    <span class="icon-class" style="border: none;background:transparent;">
+                        <!-- <i class="fa fa-close" style="margin-left:30px;" (click)="closeButton()"></i> -->
+                    </span>
+                <!-- </p> -->
+            </div>
+            <div *ngIf="resSignupMsgCheck=='warning'" class="pl-0 text-warning text-center" role="alert" id="loginAlert1" #close style="padding: 10px 35px;">
+                {{ resSignupMsg }}
+            </div>
+        </ng-container>
+    </div>
+    <div [innerHtml]="this._ApiService.getSantizedData(homePageData)"></div>
+    <app-categories></app-categories>
+</ng-container>
+
+
+

@@ -1,0 +1,87 @@
+<ng-container *ngIf="recommended_shimmer_load">
+    <p-carousel [value]="recommended_products" [numVisible]="4" [numScroll]="1" [circular]="false"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item">
+            <div class="product-item">
+                <div class="product-item-content mx-1">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</ng-container>
+
+
+
+
+
+
+
+
+<ng-container *ngIf="!recommended_shimmer_load">
+    <p-carousel [value]="recommended_products" [numVisible]="4" [numScroll]="1" [circular]="false"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item" *ngIf="recommended_products.length>=2">
+            <div class="product-item">
+                <div class="product-item-content mx-1">
+                    <div class="product-cards">
+                        <div class="card">
+                            <div class="card-image">
+                                <img [src]="product.image" [alt]="product.alt">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h6>{{product.name.slice(0,36)}}</h6>
+                                    <!-- <p> Aerosol, Contact Cleaner </p> -->
+                                </div>
+                                <div class="card-price-section">
+                                    <div class="card-price">
+                                        <p>${{product.sale_price}}</p>
+                                    </div>
+                                </div>
+                                <a class="list-buttons" (click)="routeOnSamePage(product.slug)"
+                                    style="text-decoration: none; color: black;">
+                                    <!-- <p>Add to Cart</p> -->
+                                    <p>Show Details</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-product pTemplate="item" *ngIf="recommended_products.length==1">
+            <div class="row">
+                <div class="col-3">
+                    <div class="product-item">
+                        <div class="product-item-content mx-1">
+                            <div class="product-cards">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img [src]="product.image" [alt]="product.alt">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <h6>{{product.name.slice(0,36)}}</h6>
+                                            <!-- <p> Aerosol, Contact Cleaner </p> -->
+                                        </div>
+                                        <div class="card-price-section">
+                                            <div class="card-price">
+                                                <p>${{product.sale_price}}</p>
+                                            </div>
+                                        </div>
+                                        <a class="list-buttons" (click)="routeOnSamePage(product.slug)"
+                                            style="text-decoration: none; color: black;">
+                                            <!-- <p>Add to Cart</p> -->
+                                            <p>Show Details</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</ng-container>

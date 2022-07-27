@@ -1,0 +1,100 @@
+.fa-close:hover {
+    cursor: pointer;
+}
+
+.Addresses-section {
+    padding: 20px 40px;
+    .adderess-head {
+        margin-bottom: 30px;
+    }
+    .address-body {
+        display: grid;
+        grid-template-columns: 49% 49%;
+        grid-gap: 15px;
+        .address-card {
+            margin: 0 0 20px 0;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            border: 1px solid #d7d1d1;
+            border-radius: 10px;
+            .address-text {
+                padding: 10px 20px;
+                p {
+                    margin: 0;
+                }
+                .address {
+                    display: flex;
+                }
+                .sub-address {
+                    display: flex;
+                }
+                .crud-btn {
+                    padding: 15px 0;
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-evenly;
+                    p {
+                        color: #ffffff;
+                        cursor: pointer;
+                        background: #2875b8;
+                        padding: 5px 30px;
+                        cursor: pointer;
+                        border-radius: 5px;
+                        &:hover {
+                            background: #fff;
+                            color: #000;
+                            border: 1px solid #2875b8;
+                        }
+                    }
+                    .delete {
+                        background: rgb(192, 57, 43);
+                        &:hover {
+                            border: 1px solid rgb(192, 57, 43);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .addAddress {
+        cursor: pointer;
+        border: 1px solid #d7d1d1;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border-radius: 5px;
+        background: whitesmoke;
+        margin: 10px 0;
+        .addAddressCol {
+            padding: 10px;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            i {
+                margin: 0 5px;
+                border: 1px solid #d7d1d1;
+                border-radius: 100%;
+                background: whitesmoke;
+                padding: 3px;
+            }
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .Addresses-section {
+        .address-body {
+            display: block;
+            .address-card {
+                .address-text {
+                    .address {
+                        margin: 5px 0;
+                    }
+                    .sub-address {
+                        margin: 5px 0;
+                    }
+                    .crud-btn {
+                        justify-content: space-evenly;
+                    }
+                }
+            }
+        }
+    }
+}

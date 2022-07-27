@@ -1,0 +1,123 @@
+.container {
+    .profile-section {
+        .profile-heading {
+            padding: 30px 0;
+            h1 {
+                margin: 0;
+                padding: 0;
+            }
+        }
+        .card {
+            display: grid;
+            grid-template-columns: 22% 78%;
+
+            .profile-side-bar {
+                padding: 20px 10px;
+                border-right: 1px solid #dedede;
+                ul {
+                    padding: 0;
+                    li {
+                        padding: 10px 5px;
+                        font-size: 18px;
+                        list-style: none;
+                    }
+                    li:hover {
+                        background: whitesmoke;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .responsive-nav {
+                display: none;
+            }
+        }
+    }
+}
+@media (max-width: 992px) {
+    .container {
+        max-width: 950px;
+        .profile-section {
+            .card {
+                .profile-side-bar {
+                    ul {
+                        li {
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .container {
+        .profile-section {
+            .profile-heading {
+                h1 {
+                    font-size: 1.6rem;
+                }
+            }
+            .card {
+                display: block;
+                .profile-side-bar {
+                    display: none;
+                    h3 {
+                        font-size: 1.2rem;
+                    }
+                    ul {
+                        li {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+                .responsive-nav {
+                    display: block;
+                }
+                .open-nav {
+                    position: absolute;
+                    background: #fff;
+                    box-shadow: 0 0.125rem 0.25rem rgb(255 244 244 / 8%);
+                    z-index: 99;
+                    right: 0;
+                    padding: 20px;
+                    margin-top: 60px;
+                    width: 50%;
+                    text-align: center;
+                    ul {
+                        padding-left: 0;
+
+                        li {
+                            list-style: none;
+                            padding: 10px;
+
+                            a {
+                                text-decoration: none;
+                                color: #37793a;
+                            }
+                        }
+
+                        li:hover {
+                            background-color: #37793a;
+                            color: #fff;
+
+                            a {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 425px) {
+    .container {
+        .profile-section {
+            .card {
+                .open-nav {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

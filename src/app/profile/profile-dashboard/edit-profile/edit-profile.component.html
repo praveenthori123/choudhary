@@ -1,0 +1,281 @@
+<div class="Edit-Profile-section" *ngIf="showdesc == 'Edit Profile'"
+    id="backToTop">
+    <!-- <h2>{{heading}}</h2> -->
+    <h4 style="margin-bottom: 30px;">Personal Details</h4>
+    <!-- edit profile form -->
+    <ng-container *ngIf="shimmarload">
+        <div class="row">
+            <div class="col-12 mt-3">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+            </div>
+            <div class="col-12 mt-3">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+            </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="!shimmarload">
+        <ng-container *ngFor="let item of userDetail">
+            <form #editProfileFrom="ngForm"
+                (ngSubmit)="editUserProfile(editProfileFrom)">
+                <ng-container *ngIf="resEditProfileMsg">
+                    <div *ngIf="resEditProfileMsgCheck=='danger'" class="alert
+                        alert-danger" role="alert" id="loginAlert" #test>
+                        {{ resEditProfileMsg }}
+                        <span class="icon-class"><i class="fa fa-close"
+                                (click)="close()"></i></span>
+                    </div>
+                    <div *ngIf="resEditProfileMsgCheck=='success'" class="alert
+                        alert-success" role="alert" id="loginAlert" #test>
+                        {{ resEditProfileMsg }}
+                        <span class="icon-class"><i class="fa fa-close"
+                                (click)="close()"></i></span>
+                    </div>
+                </ng-container>
+                <input type="text" name="id" [(ngModel)]="item.id" style="display:
+                    none;">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="first-name">Full Name</label>
+                                <input #Fname="ngModel"
+                                    pattern="^[a-zA-Z][\sa-zA-Z]*"
+                                    class="form-control" type="text" id="firstname"
+                                    autocomplete="off" name="firstname"
+                                    maxlength='50' [(ngModel)]="item.name" required
+                                    />
+                                <div *ngIf="Fname.errors">
+                                    <div *ngIf="Fname.errors.required"
+                                        class="alert-danger">
+                                        Full Name Required.
+                                    </div>
+                                    <div *ngIf="Fname.errors.pattern"
+                                        class="alert-danger">
+                                        Name not Valid.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="email">Email</label>
+                                <input class="form-control"
+                                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    #mail="ngModel" type="email" id="email"
+                                    autocomplete="off" name="email"
+                                    [(ngModel)]="item.email" required />
+                                <div *ngIf="mail.errors">
+                                    <div *ngIf="mail.errors.required"
+                                        class="alert-danger">
+                                        Email Required.
+                                    </div>
+                                    <div *ngIf="mail.errors.pattern"
+                                        class="alert-danger">
+                                        Email not Valid.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="phone-number">Mobile Number</label>
+                                <input class="form-control" #number="ngModel"
+                                    type="text" id="phonenumber" autocomplete="off"
+                                    name="phonenumber" maxlength="10"
+                                    (input)="validateMobile($event)"
+                                    (keydown)="inputMobile($event)"
+                                    [(ngModel)]="item.mobile" required />
+                                <h6 class="text-danger" *ngIf="invalidMobile">
+                                    {{ invalidMobile ? "Invalid Mobile Number" : ""
+                                    }}
+                                </h6>
+                                <div *ngIf="number.errors">
+                                    <div *ngIf="number.errors.required"
+                                        class="alert-danger">
+                                        Mobile Number Required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="image">Profile Image</label>
+                                <input class="form-control"
+                                    accept="image/x-png,image/gif,image/jpeg"
+                                    type="file" id="image" autocomplete="off"
+                                    name="profile_image"
+                                    (change)="GetFileChange($event)" ngModel />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 style="margin: 30px 0;">Billing Details</h4>
+                <div class="card">
+    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="company">Company Name</label>
+                                <input class="form-control" #company="ngModel"
+                                    pattern="^[#.0-9a-zA-Z\s,-]+$" type="text"
+                                    id="company" autocomplete="off"
+                                    name="company_name"
+                                    [(ngModel)]="item.company_name" required />
+                                <div *ngIf="company.errors">
+                                    <div *ngIf="company.errors.required"
+                                        class="alert-danger">
+                                        Company Name Required.
+                                    </div>
+                                    <div *ngIf="company.errors.pattern"
+                                        class="alert-danger">
+                                        Company Name not Valid.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="landmark">Landmark</label>
+                                <input class="form-control" #landmark="ngModel"
+                                    pattern="^[#.0-9a-zA-Z\s,-]+$" type="text"
+                                    id="landmark" autocomplete="off" name="landmark"
+                                    [(ngModel)]="item.landmark "  />
+                                <div *ngIf="landmark.errors">
+                                    <div *ngIf="landmark.errors.required"
+                                        class="alert-danger">
+                                        Landmark Required.
+                                    </div>
+                                    <div *ngIf="landmark.errors.pattern"
+                                        class="alert-danger">
+                                        Landmark not Valid.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="country">Country</label>
+                                <input class="form-control" name="country"
+                                    value="US" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="state">State*</label>
+                                <select class="form-control form-select mt-2"
+                                    id="state" placeholder="State"
+                                    [(ngModel)]="item.state"
+                                    name="state"
+                                    (change)="getdata($event)"
+                                    required>
+                                    <option disabled selected>Select State</option>
+                                    <option value="{{state.state_code}}" *ngFor="let
+                                        state of statesList">
+                                        {{state.state_name | titlecase}}
+                                    </option>
+                                </select>
+    
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="city">City*</label>
+                                <select class="form-control form-select mt-2"
+                                    id="city" name="city"
+                                    [(ngModel)]="item.city"
+                                    (change)="onChangecity($event)" required>
+                                    <option disabled selected>Select City</option>
+                                        <option value="{{city.city}}" *ngFor="let city of cityLists">
+                                            {{city.city | titlecase}}
+                                        </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="pincode">ZIP Code</label>
+                                <input class="form-control" id="pincode"
+                                    maxlength="6" autocomplete="off" name="pincode"
+                                    [(ngModel)]="item.pincode"
+                                    (input)="validateZip($event)"
+                                    (keydown)="inputZip($event)" readonly />
+                                <h6 class="text-danger" *ngIf="invalidZip">
+                                    {{ invalidZip ? "Invalid ZIP Code" : "" }}
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div>
+                                <label for="address">Address</label>
+                                <input class="form-control" #address="ngModel"
+                                    pattern="^[#.0-9a-zA-Z\s,-]+$" type="text"
+                                    id="address" autocomplete="off" name="address"
+                                    [(ngModel)]="item.address" required />
+                                <div *ngIf="address.errors">
+                                    <div *ngIf="address.errors.required"
+                                        class="alert-danger">
+                                        Address Required.
+                                    </div>
+                                    <div *ngIf="address.errors.pattern"
+                                        class="alert-danger">
+                                        Address not Valid.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" *ngIf="passwrodCheck">
+                            <div>
+                                <label for="address">Password</label>
+                                <input class="form-control" #pass="ngModel"
+                                    type="password" minlength="8" id="password"
+                                    autocomplete="off" name="password" ngModel
+                                    required />
+                                <div *ngIf="pass.errors">
+                                    <div *ngIf="pass.errors.required"
+                                        class="alert-danger">
+                                        Password Required.
+                                    </div>
+                                    <div *ngIf="pass.errors?.minlength"
+                                        class="alert-danger">
+                                        Password Must be Atleast 8 Character Long.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <input class="form-check-input"
+                                style="margin-right:5px;" (click)="changePassword()"
+                                ngModel name="checkbox" type="checkbox"
+                                id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Do you want to change password ?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 add-user">
+                        <button class="edituserdetail btn btn-success my-3
+                            form-control" (click)="goToTop()">Save
+                            Details</button>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+</div>

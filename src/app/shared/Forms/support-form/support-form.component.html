@@ -1,0 +1,145 @@
+<section>
+    <div class="container">
+        <section class="request-form">
+            <h1 class="main-title">Contact Ecolink’s Technical Support Center</h1>
+            <p>
+                <p>Ecolink’s online technical support provides documented responses via email to your product application and handling questions.
+                </p>
+                <p>You may also call <strong>800-563-1305</strong> to speak to an Ecolink technical specialist or send an email to <a href="mailto:techsupport@ecolink.com">techsupport@ecolink.com</a></p>
+                <div class="form-head" id="backToTop">
+                    <h3>Contact Product Support</h3>
+                </div>
+
+                <!-- <form #RequestForm="ngForm" (ngSubmit)="saveSupportFormDetail(RequestForm)" id="backToTop"> -->
+                <form [formGroup]="supportForm" (ngSubmit)="saveSupportFormDetail()" #localForm="ngForm">
+                    <ng-container *ngIf="resSignupMsg">
+                        <div *ngIf="resSignupMsgCheck=='danger'" class="alert alert-danger" role="alert" id="loginAlert" #test>
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                        </div>
+                        <div *ngIf="resSignupMsgCheck=='success'" class="alert alert-success" role="alert" id="loginAlert" #test>
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                        </div>
+                    </ng-container>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Please list your Ecolink product and describe your
+                                product application question or issue:*</label>
+                                <textarea class="form-control mt-2" [class.is-invalid]="localForm.submitted && supportForm.get('textarea')?.invalid" id="exampleFormControlTextarea1" rows="3" formControlName="textarea" required></textarea>
+                                <div class="invalid-feedback">
+                                    Field is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="first-name">First Name*</label>
+                            <input type="text" placeholder="First Name" [class.is-invalid]="localForm.submitted && supportForm.get('firstname')?.invalid" class="form-control mt-2" id="first-name" formControlName="firstname" required>
+                            <div class="invalid-feedback">
+                                First Name is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="last-name">Last Name*</label>
+                            <input type="text" placeholder="Last Name" [class.is-invalid]="localForm.submitted && supportForm.get('lastname')?.invalid" class="form-control mt-2" formControlName="lastname" required>
+                            <div class="invalid-feedback">
+                                Last Name is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label for="user-name">Email*</label>
+                            <input type="text" placeholder="Email" [class.is-invalid]="localForm.submitted && supportForm.get('email')?.invalid" class="form-control mt-2" id="first-name" formControlName="email" (input)="validateEmail($event)" required>
+                            <h6 class="text-danger" *ngIf="invalidEmail">
+                                {{ invalidEmail ? "Invalid Email" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Email is Required
+                            </div>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label for="street-address">Mobile Number*</label>
+                            <input type="text" placeholder="Mobile Number" [class.is-invalid]="localForm.submitted && supportForm.get('phone')?.invalid" class="form-control mt-2" (input)="validateMobile($event)" maxlength="10" (keydown)="inputMobile($event)" formControlName="phone" required>
+                            <h6 class="text-danger" *ngIf="invalidMobile">
+                                {{ invalidMobile ? "Invalid Mobile" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Mobile Number is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <label for="street-address">Address*</label>
+                            <input type="text" placeholder="Address" [class.is-invalid]="localForm.submitted && supportForm.get('address')?.invalid" class="form-control mt-2" formControlName="address" required>
+                            <div class="invalid-feedback">
+                                Address is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <label for="street-address">Address 2</label>
+                            <input type="text" placeholder="Address 2" class="form-control mt-2" formControlName="streetaddress">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="user-name">City*</label>
+                            <input type="text" placeholder="City" [class.is-invalid]="localForm.submitted && supportForm.get('city')?.invalid" class="form-control mt-2" id="first-name" formControlName="city" required>
+                            <div class="invalid-feedback">
+                                City is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="last-name">State*</label>
+                            <input type="text" placeholder="State" [class.is-invalid]="localForm.submitted && supportForm.get('state')?.invalid" class="form-control mt-2" formControlName="state" required>
+                            <div class="invalid-feedback">
+                                State is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="user-name">ZIP Code*</label>
+                            <input type="text" placeholder="ZIP Code" maxlength="6" [class.is-invalid]="localForm.submitted && supportForm.get('pincode')?.invalid" class="form-control mt-2" id="first-name" formControlName="pincode" (input)="validatePincode($event)" (keydown)="inputPincode($event)"
+                                required>
+                            <h6 class="text-danger" *ngIf="invalidPincode">
+                                {{ invalidPincode ? "Invalid ZIP Code" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                ZIP Code is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="last-name">Country*</label>
+                            <input type="text" placeholder="Country" [class.is-invalid]="localForm.submitted && supportForm.get('country')?.invalid" class="form-control mt-2" formControlName="country" required>
+                            <div class="invalid-feedback">
+                                Country is Required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <ngx-recaptcha2 #captchaElem siteKey="6LdK4vwgAAAAAO2xbhd5dgap9bbXByZEEC8_LQIQ" (success)="handleSuccess($event)" [size]="size"
+                            [hl]="lang" [theme]="theme" [type]="type" (reset)="handleReset()" formControlName="recaptcha">
+                            </ngx-recaptcha2>
+                            <p class="" *ngIf="resFormCaptchaMsg" class="captcha-css">{{resFormCaptchaMsg}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="proceed">
+                        <div class="proceed-button">
+                            <button class="btn btn-success submit-btn" (click)="goToTop()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+        </section>
+    </div>
+</section>

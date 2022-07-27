@@ -1,0 +1,263 @@
+<app-header></app-header>
+<div class="container">
+<section class="cannabis-form row">
+        <div class="col-lg-8">
+            <div class="checkout-body">
+                <div class="billing-detail" id="backToTop">
+                    <div class="card">
+                        <h3>Cannabis</h3>
+                        <form [formGroup]="chemistForm"
+                            (ngSubmit)="saveAskChemistDetail()" #chemist="ngForm">
+                            <ng-container *ngIf="resSignupMsg">
+                                <div *ngIf="resSignupMsgCheck=='danger'"
+                                    class="alert alert-danger" role="alert"
+                                    id="loginAlert" #test>
+                                    {{ resSignupMsg }}
+                                    <span class="icon-class"><i class="fa fa-close"
+                                            (click)="close()"></i></span>
+                                </div>
+                                <div *ngIf="resSignupMsgCheck=='success'"
+                                    class="alert alert-success" role="alert"
+                                    id="loginAlert" #test>
+                                    {{ resSignupMsg }}
+                                    <span class="icon-class"><i class="fa fa-close"
+                                            (click)="close()"></i></span>
+                                </div>
+                            </ng-container>
+                            <div id="field_4_11" class="gfield">
+                                <label class="gfield_label" for="input_4_11">What cannabis processing chemicals are you looking for?*</label>
+                                <div class="ginput_container my-2">
+                                    <input type="text" class="form-control fname
+                                    my-2" placeholder=""
+                                    id="" formControlName="input_11"
+                                    [class.is-invalid]="chemist.submitted &&
+                                    chemistForm.get('input_11')?.invalid"
+                                    required>
+                                    <div class="invalid-feedback">
+                                        Please Enter chemicals
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Please
+                                            describe your query here *</label>
+                                        <textarea class="form-control mt-2"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3" formControlName="textarea"
+                                            [class.is-invalid]="chemist.submitted &&
+                                            chemistForm.get('textarea')?.invalid"
+                                            class="form-control mt-2" required></textarea>
+                                        <div class="invalid-feedback">
+                                            Please Add Your Query
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-lg-6 col-12 Fname mb-2">
+                                    <label for="first-name">First Name*</label>
+                                    <input type="text" class="form-control fname
+                                        my-2" placeholder="First name"
+                                        id="first-name" formControlName="firstname"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('firstname')?.invalid"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        First Name is Required
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12 mb-2">
+                                    <label for="last-name">Last Name*</label>
+                                    <input type="text" class="form-control my-2"
+                                        placeholder="Last name"
+                                        formControlName="lastname"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('lastname')?.invalid"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        Last Name is Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-12 Email mb-2">
+                                    <label for="Email Address">Email Address*</label>
+                                    <input type="email" class="form-control my-2
+                                        email" placeholder="Email"
+                                        id="Email-Address"
+                                        (input)="validateEmail($event)"
+                                        formControlName="email"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('email')?.invalid" required>
+                                    <h6 class="text-danger" *ngIf="invalidEmail">
+                                        {{ invalidEmail ? "Invalid Email" : "" }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        Email is Required
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12 mb-2">
+                                    <label for="Phone">Mobile Number*</label>
+                                    <input type="text" class="form-control my-2"
+                                        placeholder="Mobile Number" maxlength="10"
+                                        (input)="validateMobile($event)"
+                                        (keydown)="inputMobile($event)"
+                                        formControlName="phone"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('phone')?.invalid" required>
+                                    <h6 class="text-danger" *ngIf="invalidMobile">
+                                        {{ invalidMobile ? "Invalid Mobile" : "" }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        Mobile Number is Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <label for="street-address">Street Address*</label>
+                                    <input type="text" class="form-control my-2"
+                                        placeholder="Street Address"
+                                        formControlName="address"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('address')?.invalid"
+                                        required />
+                                    <div class="invalid-feedback">
+                                        Address is Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-12 mb-2">
+                                    <label for="Town-city">City*</label>
+                                    <input type="text" class="form-control my-2"
+                                        placeholder="Town / City"
+                                        formControlName="city"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('city')?.invalid" required>
+                                    <div class="invalid-feedback">
+                                        City is Required
+                                    </div>
+                                </div>
+                                <div class="col-6 col-12 mb-2">
+                                    <label for="state">State*</label>
+                                    <input type="text" class="form-control my-2"
+                                        placeholder="State" formControlName="state"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('state')?.invalid" required>
+                                    <div class="invalid-feedback">
+                                        State is Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <label for="State-County">Country*</label>
+                                    <input type="text" class="form-control my-2"
+                                        placeholder="Country"
+                                        formControlName="country"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('country')?.invalid"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        Country is Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <label for="Postcode">ZIP Code*</label>
+                                    <input type="text"
+                                        (input)="validatePincode($event)"
+                                        maxlength="6"
+                                        (keydown)="inputPincode($event)"
+                                        class="form-control my-2" placeholder="ZIP Code" formControlName="zip"
+                                        [class.is-invalid]="chemist.submitted &&
+                                        chemistForm.get('zip')?.invalid" required>
+                                    <h6 class="text-danger"
+                                        *ngIf="invalidPostalCode">
+                                        {{ invalidPostalCode ? "Invalid ZIP Code" :
+                                        "" }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        ZIP Code is Required
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Is there anything else we can help you with? *</label>
+                                        <textarea class="form-control mt-2"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3" formControlName="textarea"
+                                            [class.is-invalid]="chemist.submitted &&
+                                            chemistForm.get('textarea')?.invalid"
+                                            class="form-control mt-2" required></textarea>
+                                        <div class="invalid-feedback">
+                                            Please Add Your Query
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-12">
+                                    <ngx-recaptcha2 #captchaElem
+                                        siteKey="6LdK4vwgAAAAAO2xbhd5dgap9bbXByZEEC8_LQIQ"
+                                        (success)="handleSuccess($event)"
+                                        [size]="size"
+                                        [hl]="lang" [theme]="theme" [type]="type"
+                                        (reset)="handleReset()"
+                                        formControlName="recaptcha">
+                                    </ngx-recaptcha2>
+                                    <p class="" *ngIf="resFormCaptchaMsg"
+                                        class="captcha-css">{{resFormCaptchaMsg}}</p>
+                                </div>
+                            </div>
+    
+                            <div class="proceed">
+                                <div class="proceed-button">
+                                    <button class="btn btn-success submit-btn"
+                                        (click)="goToTop()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="inner_sidebar extralight-border">
+                <section id="text-5" class="widget clearfix widget_text"
+                    style="margin-bottom: 0;">
+                    <div class="textwidget">
+                        <a class="shopButton2020" routerLink="/shop">SHOP<i
+                                class="fa fa-shopping-cart"></i></a>
+                        <br>
+                        <a class="requestButton2020"
+                            (click)="routeOnSamePage('contact/request ')">REQUEST
+                            A
+                            SAMPLE<i class="fa fa-thumbs-up"
+                                aria-hidden="true"></i>
+                        </a><br>
+                        <a class="pdsButton2020"
+                            (click)="routeOnSamePage('contact/support ')">REQUEST
+                            PDS /
+                            TDS<i class="fa fa-calculator"
+                                aria-hidden="true"></i>
+                        </a><br>
+                        <a class="contactButton2020"
+                            (click)="routeOnSamePage('contact ')">CONTACT US<i
+                                class="fa fa-envelope" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <span class="seperator extralight-border"></span>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

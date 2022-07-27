@@ -1,0 +1,777 @@
+<!-- shimmar effect on -->
+<ng-container *ngIf="formShimmer">
+    <form>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="mt-3" class="form-shimmer">
+            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+        </div>
+    </form>
+</ng-container>
+<!-- shimmar effect off -->
+<ng-container *ngIf="UserLogin && !formShimmer">
+    <span *ngIf="shippingerror == 0" class="text-danger" style="text-align: right;font-size:
+                                            12px;">*ZIP Code not Serviceable
+    </span>
+    <div class="row" style="padding: 10px 0;">
+        <ng-container *ngFor="let item of getAllUserAddresses; let i= index">
+            <div class="col-lg-6" style="padding-bottom: 10px;">
+                <div class="form-check" style="font-size: 14px;height: 100%;">
+                    <div class="card-radio" style="justify-content: center;">
+                        <p-radioButton name="payment_method{{i}}" [value]="i" (click)="getRadioButtonValue()"
+                            [(ngModel)]="selectedAddress" inputId="payment_method{{i}}" style="padding: 5px
+                            10px;">
+                        </p-radioButton>
+
+                        <div class="address_detail px-3">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                {{item.landmark?item.landmark+',':''}}
+                                {{item.address}}
+                            </label><br>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                {{item.city}}, {{item.state}}
+                            </label><br>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                ({{item.pincode}})
+                            </label><br>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%;justify-content: center; text-align:
+                        center;">
+                        <button class="edit_address" (click)="getUserDetail(item)" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+
+    <!-- user detail form -->
+
+    <div style="display:flex;align-items: center;cursor: pointer;" data-toggle="collapse" data-target="#collapseOne"
+        aria-expanded="true" aria-controls="collapseOne" (click)="openform()">
+        <h5 style="padding: 20px 0;margin: 0;">Add New Address</h5>
+        <i class="fa fa-plus" style="border: 1px solid
+            gray;border-radius:100%;margin-left: 10px;padding: 2px 3px;"></i>
+    </div>
+    <form #shippingform="ngForm" id="collapseOne" class="collapse" aria-labelledby="headingOne" *ngIf="formCheck">
+        <ng-container *ngIf="resAddressMsg.length>0">
+            <div *ngIf="resAddressMsgCheck=='danger'" class="alert alert-danger" role="alert" style="justify-content: space-between;
+                display: flex;">
+                {{ resAddressMsg }}
+                <span class="icon-class"><i class="fa fa-close" (click)="close()" style="cursor: pointer;"></i></span>
+            </div>
+            <div *ngIf="resAddressMsgCheck=='success'" class="alert
+                alert-success" role="alert">
+                {{ resAddressMsg }}
+                <span class="icon-class"><i class="fa fa-close" (click)="close()" style="cursor: pointer;"></i></span>
+            </div>
+        </ng-container>
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control mt-2" placeholder="Full Name" id="shippingname"
+                    name="shippingname" [(ngModel)]="CheckoutProductBackUp.name" (blur)="formvalid()" required #data>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Email Address">Email Address</label>
+                <input type="text" class="form-control mt-2" placeholder="Email Address" id="shippingEmail-Address"
+                    name="shippingemail" [(ngModel)]="CheckoutProductBackUp.email" required
+                    (input)="validateEmail1($event)" (blur)="formvalid()">
+                <h6 class="text-danger" *ngIf="invalidEmail1">
+                    {{ invalidEmail1 ? "Invalid Email" : "" }}
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Phone">Mobile No.</label>
+                <input type="text" maxlength="10" class="form-control mt-2" placeholder="Mobile No"
+                    name="shippingmobile" [(ngModel)]="CheckoutProductBackUp.mobile" required
+                    (input)="validateMobile1($event)" (keydown)="inputMobile1($event)" (blur)="formvalid()">
+                <h6 class="text-danger" *ngIf="invalidMobile1">
+                    {{ invalidMobile1 ? "Invalid Mobile" : "" }}
+                </h6>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="streetaddress">Street Address</label>
+                <input type="text" class="form-control mt-2" placeholder="Street Address" name="shippingstreetaddress"
+                    [(ngModel)]="CheckoutProductBackUp.address" (blur)="formvalid()" required>
+            </div>
+            <!-- <div class="col-lg-6 mb-3">
+                <label for="name">Company Name</label>
+                <input type="text" class="form-control mt-2" placeholder="Company Name" id="shippingname"
+                    name="shippingcompanyname" [(ngModel)]="nonloggedinuser.company_name" (blur)="formvalid()" required
+                    #data>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="landmark">Landmark</label>
+                <input type="text" class="form-control mt-2"
+                    placeholder="Landmark" name="landmark"
+                    [(ngModel)]="CheckoutProductBackUp.landmark"
+                    (blur)="formvalid()" >
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="countryname">Country</label>
+                <input type="text" class="form-control mt-2" placeholder="Country / Region" id="shippingcountry"
+                    name="shippingcountryname" (blur)="formvalid()" [(ngModel)]="CheckoutProductBackUp.country" required
+                    readonly>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="state">State</label>
+                <select class="form-control form-select mt-2" id="state" name="shippingstate"
+                    (change)="getdata($event , 0)" [(ngModel)]="CheckoutProductBackUp.state" (blur)="formvalid()"
+                    required>
+                    <option disabled selected>Select State</option>
+                    <option value="{{state.state_code}}" *ngFor="let
+                        state of statesList">
+                        {{state.state_name | titlecase}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Town-city">City</label>
+                <select type="text" class="form-control form-select mt-2" name="shippingcity"
+                    [(ngModel)]="CheckoutProductBackUp.city" (blur)="formvalid()" id="city"
+                    (change)="onChangecity($event , 0)" required>
+                    <option disabled selected>Select City</option>
+                    <ng-container *ngFor="let city of cityLists">
+                        <option value="{{city.city}}">
+                            {{city.city | titlecase}}
+                        </option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Postcode">ZIP Code</label>
+                <input type="text" class="form-control mt-2" placeholder="ZIP Code" name="shippingpincode"
+                    [(ngModel)]="CheckoutProductBackUp.pincode" (input)="validatePincode($event)"
+                    (keydown)="inputPincode($event)" (blur)="formvalid()" [maxLength]="6" readonly required>
+                <div *ngIf="pincodeerror" class="text-danger">{{pincodeerror}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-lg-6 col-12 mb-3">
+                <label for="landmark">Landmark</label>
+                <input type="text" class="form-control mt-2" placeholder="Landmark" name="landmark"
+                    [(ngModel)]="CheckoutProductBackUp.landmark" (blur)="formvalid()" required>
+            </div> -->
+            <div class="col-lg-6 col-12 mb-3" *ngIf="UserLogin == null">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control mt-2" placeholder="Password" id="password" name="password"
+                    [(ngModel)]="password" (blur)="formvalid()" required>
+            </div>
+        </div>
+        <div class="row" *ngIf="UserLogin == null">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control mt-2" placeholder="Confirm Password" id="confirm_password"
+                    name="confirm_password" [(ngModel)]="confirm_password" (blur)="formvalid()" required>
+                <h6 class="text-danger" *ngIf="confirm_password">
+                    {{ password === "" && confirm_password != "" ? "Enter password" : "" }} {{ password != ""
+                    && password != confirm_password ? "Password Not Match" : ""}}</h6>
+                <div class="invalid-feedback">
+                    Confirm Password is Required
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 mb-3" *ngIf="UserLogin == null">
+                <div>
+                    <label for="taxes">Tax Exemption</label><br>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-6"><input type="radio" id="radio1" name="radio2" value="1" [(ngModel)]="radio1"
+                                (blur)="formvalid()" />
+                            Yes</div>
+                        <div class="col-6"><input type="radio" id="radio2" name="radio2" value="0" [(ngModel)]="radio1"
+                                (blur)="formvalid()" />
+                            No <br></div>
+                        <ng-container *ngIf="errormsg">
+                            <div class="text-danger col-12">*{{errormsg}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-lg-12 my-2">
+            <label for="" class="mb-2">Order Notes (optional)</label>
+            <textarea name="" id="" cols="30" rows="5" placeholder= "Notes about your order, e.g. special notes for delivery." style="width:100%;" [(ngModel)]="extra_value.order_notes" (blur)="getExtraValue()"></textarea>
+        </div>    
+    </div>
+    <div class="row mt-2">
+        <div class="col-lg-12">
+            <label for="" class="mb-2">What keyword phrase did you enter to find our website? (optional)</label>
+            <input type="text" class="form-control" [(ngModel)]="extra_value.search_keyword" placeholder="(e.g. industrial degreasers, rust removers, etc.)" (blur)="getExtraValue()">
+        </div>    
+    </div>
+
+    <h3 style="padding: 20px 0;">Billing Details</h3>
+    <form #signupform="ngForm" *ngFor="let data of userBillingDetail">
+        <div class="address-card">
+            <div class="address-text">
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>Name :</h6>
+                    </div>
+                    <div class="col-6">
+                        <h6>{{data.name | titlecase}}</h6>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>Company Name :</h6>
+                    </div>
+                    <div class="col-6">
+                        <h6>{{data.company_name | titlecase}}</h6>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>Email :</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{data.email}}</p>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>Mobile No. :</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{data.mobile}}</p>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>Address :</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{data.landmark?(data.landmark | titlecase)
+                            +',':''}}{{data.address | titlecase}}</p>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>City :</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{data.city | titlecase}}</p>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>State :</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{data.state | titlecase}}({{data.pincode}})</p>
+                    </div>
+                </div>
+                <div class="username row">
+                    <div class="col-6">
+                        <h6>Country :</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{data.country | uppercase}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button (click)="editbillingdetail()" class="edit_billing_address">Edit Billing
+                            Address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-container>
+
+<ng-container *ngIf="!UserLogin">
+    <form #shippingform="ngForm">
+        <ng-container *ngIf="resAddressMsg.length>0">
+            <div *ngIf="resAddressMsgCheck=='danger'" class="alert alert-danger" role="alert" style="justify-content: space-between;
+                display: flex;">
+                {{ resAddressMsg }}
+                <span class="icon-class"><i class="fa fa-close" (click)="close()" style="cursor: pointer;"></i></span>
+            </div>
+            <div *ngIf="resAddressMsgCheck=='success'" class="alert
+                alert-success" role="alert">
+                {{ resAddressMsg }}
+                <span class="icon-class"><i class="fa fa-close" (click)="close()" style="cursor: pointer;"></i></span>
+            </div>
+            <div *ngIf="resAddressMsgCheck=='warning'" class="alert
+                alert-warning" role="alert">
+                {{ resAddressMsg }}
+                <span class="icon-class"><i class="fa fa-close"
+                        (click)="close()" style="cursor: pointer;"></i></span>
+            </div>
+        </ng-container>
+
+
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control mt-2" id="shippingname" name="shippingname"
+                    placeholder="Full Name" [(ngModel)]="nonLoggedInUserBilling[0].name" (blur)="formvalid()" required #data>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Email Address">Email Address</label>
+                <input type="text" class="form-control mt-2" placeholder="Email Address" id="shippingEmail-Address"
+                    name="shippingemail" [(ngModel)]="nonLoggedInUserBilling[0].email" required (input)="validateEmail2($event)"
+                    (blur)="formvalid()">
+                <h6 class="text-danger" *ngIf="invalidEmail2">
+                    {{ invalidEmail2 ? "Invalid Email" : "" }}
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mb-3">
+                <label for="name">Company Name</label>
+                <input type="text" class="form-control mt-2" placeholder="Company Name" id="shippingname"
+                    name="shippingcompanyname" [(ngModel)]="nonLoggedInUserBilling[0].company_name" (blur)="formvalid()" required
+                    #data>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Phone">Mobile No.</label>
+                <input type="text" maxlength="10" class="form-control mt-2" placeholder="Mobile No"
+                    name="shippingmobile" [(ngModel)]="nonLoggedInUserBilling[0].mobile" required
+                    (input)="validateMobile2($event)" (keydown)="inputMobile1($event)" (blur)="formvalid()">
+                <h6 class="text-danger" *ngIf="invalidMobile2">
+                    {{ invalidMobile2 ? "Invalid Mobile" : "" }}
+                </h6>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="streetaddress">Address</label>
+                <input type="text" class="form-control mt-2" name="shippingstreetaddress"
+                    [(ngModel)]="nonLoggedInUserBilling[0].address" placeholder="Street Address" (blur)="formvalid()" required>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="countryname">Country</label>
+                <input type="text" class="form-control mt-2" id="shippingcountry" id="country"
+                    [(ngModel)]="nonLoggedInUserBilling[0].country" autocomplete="off" name="shippingcountryname" readonly>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="state">State</label>
+                <select class="form-control form-select mt-2" id="state" name="shippingstate"
+                    (change)="getdata($event , 0)" [(ngModel)]="nonLoggedInUserBilling[0].state" (blur)="formvalid()" required>
+                    <option disabled selected>Select State</option>
+                    <option value="{{state.state_code}}" *ngFor="let
+                        state of statesList">
+                        {{state.state_name | titlecase}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Town-city">City</label>
+                <select class="form-control form-select mt-2" name="shippingcity" [(ngModel)]="nonLoggedInUserBilling[0].city"
+                    (blur)="formvalid()" id="city" (change)="onChangecity($event , 0)" required>
+                    <option disabled selected>Select City</option>
+                    <ng-container *ngFor="let city of cityLists">
+                        <option value="{{city.city}}">
+                            {{city.city | titlecase}}
+                        </option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="Postcode">ZIP Code</label>
+                <input type="text" class="form-control mt-2" name="shippingpincode" placeholder="ZIP Code"
+                    [(ngModel)]="nonLoggedInUserBilling[0].pincode" (input)="validatePincode($event)"
+                    (keydown)="inputPincode($event)" (blur)="formvalid()" [maxLength]="6" readonly required>
+                <div *ngIf="pincodeerror" class="text-danger">{{pincodeerror}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="landmark">Landmark</label>
+                <input type="text" class="form-control mt-2" placeholder="Landmark" name="landmark"
+                    [(ngModel)]="nonLoggedInUserBilling[0].landmark" (blur)="formvalid()" required>
+            </div>
+            <div class="col-lg-6 col-12 mb-3">
+                <label for="taxes">Tax Exemption</label><br>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-6"><input type="radio" id="radio1" name="radio2" value="1"
+                            [(ngModel)]="nonLoggedInUserBilling[0].tax_exempt" (blur)="formvalid()"
+                            (click)="gotoprofile(1)" />
+                        Yes</div>
+                    <div class="col-6"><input type="radio" id="radio2" name="radio2" value="0"
+                            [(ngModel)]="nonLoggedInUserBilling[0].tax_exempt" (blur)="formvalid()"
+                            (click)="gotoprofile(0)" />
+                        No <br></div>
+                    <ng-container *ngIf="errormsg">
+                        <div class="text-danger col-12">*{{errormsg}}</div>
+                    </ng-container>
+                    <ng-container *ngIf="checkfortexmsg">
+                        <div class="text-danger col-12">*If you want Tax
+                            Exemption please click here. <a routerLink="/profile" (click)="clicktosignup()">Click
+                                Here</a></div>
+                    </ng-container>
+                </div>
+            </div>
+            <!-- <div class="col-lg-6 col-12 mb-3" *ngIf="UserLogin == null">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control mt-2" placeholder="Password" id="password" name="password"
+                    [(ngModel)]="nonLoggedInUserBilling[0].password" (blur)="formvalid()" required>
+            </div> -->
+        </div>
+        <div class="row" *ngIf="UserLogin == null">
+            <!-- <div class="col-lg-6 col-12 mb-3">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control mt-2" placeholder="Confirm Password" id="confirm_password"
+                    name="confirm_password" [(ngModel)]="nonLoggedInUserBilling[0].confirm_password" (blur)="formvalid()"
+                    required>
+                <h6 class="text-danger" *ngIf="nonLoggedInUserBilling[0].confirm_password">
+                    {{ nonLoggedInUserBilling[0].password === "" &&
+                    nonLoggedInUserBilling[0].confirm_password != "" ? "Enter password" : "" }} {{ nonLoggedInUserBilling[0].password != ""
+                    && nonLoggedInUserBilling[0].password !=
+                    nonLoggedInUserBilling[0].confirm_password ? "Password Not Match" : ""
+                    }}
+                </h6>
+                <div class="invalid-feedback">
+                    Confirm Password is Required
+                </div>
+            </div> -->
+        </div>
+    </form>
+</ng-container>
+
+
+<ng-container *ngIf="!UserLogin">
+    <input type="checkbox" (click)="getDifferentShippingAddress()" >&nbsp;<label for="">Ship to different address</label>
+
+<div *ngIf="differentShipCheckbox">
+    <div class="dropdown-address mt-3">
+        <h3>Shipping Details</h3>
+    </div>
+    <ng-container *ngIf="!UserLogin">
+        <form #shippingform="ngForm">
+            <ng-container *ngIf="resAddressMsg.length>0">
+                <div *ngIf="resAddressMsgCheck=='danger'" class="alert alert-danger" role="alert" style="justify-content: space-between;
+                    display: flex;">
+                    {{ resAddressMsg }}
+                    <span class="icon-class"><i class="fa fa-close" (click)="close()" style="cursor: pointer;"></i></span>
+                </div>
+                <div *ngIf="resAddressMsgCheck=='success'" class="alert
+                    alert-success" role="alert">
+                    {{ resAddressMsg }}
+                    <span class="icon-class"><i class="fa fa-close" (click)="close()" style="cursor: pointer;"></i></span>
+                </div>
+                <div *ngIf="resAddressMsgCheck=='warning'" class="alert
+                    alert-warning" role="alert">
+                    {{ resAddressMsg }}
+                    <span class="icon-class"><i class="fa fa-close"
+                            (click)="close()" style="cursor: pointer;"></i></span>
+                </div>
+            </ng-container>
+    
+    
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="name">Full Name</label>
+                    <input type="text" class="form-control mt-2" id="shippingname" name="shippingname"
+                        placeholder="Full Name" [(ngModel)]="nonloggedinuser.name" (blur)="formvalid()" required #data>
+                </div>
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="Email Address">Email Address</label>
+                    <input type="text" class="form-control mt-2" placeholder="Email Address" id="shippingEmail-Address"
+                        name="shippingemail" [(ngModel)]="nonloggedinuser.email" required (input)="validateEmail1($event)"
+                        (blur)="formvalid()">
+                    <h6 class="text-danger" *ngIf="invalidEmail1">
+                        {{ invalidEmail1 ? "Invalid Email" : "" }}
+                    </h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mb-3">
+                    <label for="name">Company Name</label>
+                    <input type="text" class="form-control mt-2" placeholder="Company Name" id="shippingname"
+                        name="shippingcompanyname" [(ngModel)]="nonloggedinuser.company_name" (blur)="formvalid()" required
+                        #data>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="Phone">Mobile No.</label>
+                    <input type="text" maxlength="10" class="form-control mt-2" placeholder="Mobile No"
+                        name="shippingmobile" [(ngModel)]="nonloggedinuser.mobile" required
+                        (input)="validateMobile1($event)" (keydown)="inputMobile1($event)" (blur)="formvalid()">
+                    <h6 class="text-danger" *ngIf="invalidMobile1">
+                        {{ invalidMobile1 ? "Invalid Mobile" : "" }}
+                    </h6>
+                </div>
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="streetaddress">Address</label>
+                    <input type="text" class="form-control mt-2" name="shippingstreetaddress"
+                        [(ngModel)]="nonloggedinuser.address" placeholder="Street Address" (blur)="formvalid()" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="countryname">Country</label>
+                    <input type="text" class="form-control mt-2" id="shippingcountry" id="country"
+                        [(ngModel)]="nonloggedinuser.country" autocomplete="off" name="shippingcountryname" readonly>
+                </div>
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="state">State</label>
+                    <select class="form-control form-select mt-2" id="state" name="shippingstate"
+                        (change)="getdata($event , 0)" [(ngModel)]="nonloggedinuser.state" (blur)="formvalid()" required>
+                        <option disabled selected>Select State</option>
+                        <option value="{{state.state_code}}" *ngFor="let
+                            state of statesList">
+                            {{state.state_name | titlecase}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="Town-city">City</label>
+                    <select class="form-control form-select mt-2" name="shippingcity" [(ngModel)]="nonloggedinuser.city"
+                        (blur)="formvalid()" id="city" (change)="onChangecity($event , 0)" required>
+                        <option disabled selected>Select City</option>
+                        <ng-container *ngFor="let city of cityLists">
+                            <option value="{{city.city}}">
+                                {{city.city | titlecase}}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="Postcode">ZIP Code</label>
+                    <input type="text" class="form-control mt-2" name="shippingpincode" placeholder="ZIP Code"
+                        [(ngModel)]="nonloggedinuser.pincode" (input)="validatePincode($event)"
+                        (keydown)="inputPincode($event)" (blur)="formvalid()" [maxLength]="6" readonly required>
+                    <div *ngIf="pincodeerror" class="text-danger">{{pincodeerror}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-3">
+                    <label for="landmark">Landmark</label>
+                    <input type="text" class="form-control mt-2" placeholder="Landmark" name="landmark"
+                        [(ngModel)]="nonloggedinuser.landmark" (blur)="formvalid()" required>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</div>
+<!-- <ng-container *ngIf="!UserLogin"> -->
+    <div class="row">
+        <div class="col-lg-12 my-2">
+            <label for="" class="mb-2">Order Notes (optional)</label>
+            <textarea name="" id="" cols="30" rows="5" placeholder= "Notes about your order, e.g. special notes for delivery." style="width:100%;" [(ngModel)]="extra_value.order_notes" (blur)="getExtraValue()"></textarea>
+        </div>    
+    </div>
+    <div class="row mt-2">
+        <div class="col-lg-12">
+            <label for="" class="mb-2">What keyword phrase did you enter to find our website? (optional)</label>
+            <input type="text" class="form-control" [(ngModel)]="extra_value.search_keyword" placeholder="(e.g. industrial degreasers, rust removers, etc.)" (blur)="getExtraValue()">
+        </div>    
+    </div>
+<!-- </ng-container> -->
+</ng-container>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" *ngFor="let item of profileAddress index as index">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">{{item.heading}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container">
+                <form #addressform="ngForm" (ngSubmit)="addUserAddress(addressform)">
+                    <ng-container *ngIf="resAddmsg">
+                        <div *ngIf="resAddmsgCheck=='danger'" class="alert alert-danger" role="alert" id="loginAlert"
+                            #test>
+                            {{ resAddmsg }}
+                            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngFor="let item of profileAddress">
+                        <input type="text" name="id" [(ngModel)]="item.id" style="display:
+                            none;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <label for="first-name">Full Name</label>
+                                    <input #fname="ngModel" pattern="^[a-zA-Z][\sa-zA-Z]*" class="form-control"
+                                        type="text" id="firstname" autocomplete="off" name="firstname" maxlength='50'
+                                        [(ngModel)]="item.name" required />
+                                    <div *ngIf="fname.touched && fname.invalid" class="alert-danger">Invalid Full Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>
+                                    <label for="email">Email</label>
+                                    <input class="form-control" #mail="ngModel" type="email" id="email"
+                                        autocomplete="off" name="email" (input)="validateEmail($event)"
+                                        [(ngModel)]="item.email" required />
+                                    <h6 class="text-danger" *ngIf="invalidEmail">
+                                        {{ invalidEmail ? "Invalid Email" : "" }}
+                                    </h6>
+                                    <div *ngIf="mail.touched && mail.invalid" class="alert-danger">
+                                        Please Fill the Value
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <label for="phone-number">Mobile Number</label>
+                                    <input class="form-control" #number="ngModel" type="text" id="phonenumber"
+                                        autocomplete="off" name="phonenumber" maxlength="10"
+                                        (input)="validateMobile($event)" (keydown)="inputMobile($event)"
+                                        [(ngModel)]="item.mobile" required />
+                                    <h6 class="text-danger" *ngIf="invalidMobile">
+                                        {{ invalidMobile ? "Invalid Mobile" : "" }}
+                                    </h6>
+                                    <div *ngIf="number.touched && number.invalid" class="alert-danger">
+                                        Please Fill the Value
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <label for="landmark">Landmark</label>
+                                    <input class="form-control" #landmark="ngModel"
+                                        pattern="^[#.0-9a-zA-Z\s,-]+$" type="text" id="landmark"
+                                        autocomplete="off" name="landmark"
+                                        [(ngModel)]="item.landmark" />
+                                    <div *ngIf="landmark.touched && landmark.invalid"
+                                        class="alert-danger">
+                                        Invalid Landmark
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <label for="address">Address</label>
+                                    <input class="form-control" #address="ngModel" pattern="^[#.0-9a-zA-Z\s,-]+$"
+                                        type="text" id="address" autocomplete="off" name="address"
+                                        [(ngModel)]="item.address" required />
+                                    <div *ngIf="address.touched && address.invalid" class="alert-danger">
+                                        Invalid Address
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>
+                                    <label for="country">Country</label>
+                                    <input class="form-control" type="text" id="country" readonly value="US"
+                                        autocomplete="off" name="country" />
+                                    <!-- <div *ngIf="country.touched && country.invalid"
+                                        class="alert-danger">
+                                        Invalid Country
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <label for="state">State</label>
+                                    <select class="form-control form-select" #state="ngModel" type="text" id="state"
+                                        (change)="getdata($event , index)" placeholder="Select State" autocomplete="off"
+                                        name="state" [(ngModel)]="item.state" required>
+                                        <option disabled selected>Select State</option>
+                                        <option value="{{state.state_code}}" *ngFor="let
+                                            state of statesList">
+                                            {{state.state_name | titlecase}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="state.touched && state.invalid" class="alert-danger">
+                                        Invalid State
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>
+                                    <label for="city">City*</label>
+                                    <select id="city" class="form-control form-select" #city="ngModel"
+                                        (change)="onChangecity($event , index)" autocomplete="off" name="city"
+                                        [(ngModel)]="item.city" required>
+                                        <option disabled selected>Select City</option>
+                                        <ng-container *ngFor="let city of cityLists">
+                                            <option value="{{city.city}}">
+                                                {{city.city | titlecase}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                    <div *ngIf="city.touched && city.invalid" class="alert-danger">
+                                        Invalid City
+                                    </div>
+
+                                    <!-- <label for="city">City</label>
+                                    <input class="form-control" #city="ngModel"
+                                        pattern="^[a-zA-Z][\sa-zA-Z]*" type="text" id="city"
+                                        autocomplete="off" name="city" [(ngModel)]="item.city"
+                                        required />
+                                    <div *ngIf="city.touched && city.invalid"
+                                        class="alert-danger">
+                                        Invalid City
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <label for="pincode">ZIP Code</label>
+                                    <input class="form-control" type="text" id="pincode" autocomplete="off"
+                                        name="pincode" maxlength="6" [(ngModel)]="item.zip" required readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 add-user">
+                                <button class="saveuserdetail btn btn-success my-3 form-control" [disabled]="addressform.invalid || invalidEmail ||
+                                    invalidMobile" data-bs-dismiss="modal">Save
+                                    Address</button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

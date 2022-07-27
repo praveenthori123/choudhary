@@ -1,0 +1,133 @@
+.dashboard-section {
+    padding: 20px 40px;
+    .profile-card {
+        padding: 20px 0;
+        .profile-section {
+            text-align: center;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            align-items: center;
+            .profile-image {
+                width: 160px;
+                height: 150px;
+                margin: auto;
+                border-radius: 100%;
+                img {
+                    width: 100%;
+                    border-radius: 100%;
+                    height: 100%;
+                }
+            }
+            .profile-desc {
+                h4 {
+                    font-size: 20px;
+                    margin: 0;
+                }
+            }
+            .edit-profile-button {
+                button {
+                    border: none;
+                    background: none;
+                    border: 1px solid #dedede;
+                    padding: 6px 10px;
+                    border-radius: 3px;
+                    font-weight: 500;
+                    &:hover {
+                        background: var(--primary);
+                        color: white;
+                    }
+                }
+            }
+        }
+        .address-section {
+            padding: 30px 20px;
+            .customer_name {
+                display: inline-flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+                h4 {
+                    margin: 0;
+                }
+                i {
+                    border: 1px solid var(--primary);
+                    padding: 5px;
+                    border-radius: 100%;
+                }
+            }
+            span.address-label {
+                font-size: 14px;
+                margin-top: 10px;
+                color: #7e7979;
+            }
+            .edit-Address-button {
+                button {
+                    border: none;
+                    background: none;
+                    border: 1px solid #dedede;
+                    padding: 6px 10px;
+                    border-radius: 3px;
+                    font-weight: 500;
+                    &:hover {
+                        background: var(--primary);
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .dashboard-section {
+        .profile-card {
+            .profile-section {
+                display: block;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-section {
+        h2 {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .dashboard-section {
+        .profile-card {
+            .profile-section {
+                margin-bottom: 20px;
+            }
+            .address-section {
+                .customer_name {
+                    h4 {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+    }
+    .Order-History-section {
+        .order-history-header {
+            display: block;
+        }
+        .dropdown {
+            margin-top: 20px;
+            width: 50%;
+        }
+        .search-ordered-item {
+            width: 100%;
+        }
+    }
+}
+
+::ng-deep {
+    .ngx-shimmer {
+        height: 200px !important;
+    }
+}

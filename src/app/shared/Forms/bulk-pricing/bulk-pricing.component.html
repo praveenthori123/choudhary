@@ -1,0 +1,170 @@
+<section>
+    <div class="container">
+        <section class="bulk-pricing-form">
+            <div class="head">
+                <div class="banner" [ngStyle]="{'background-image': 'url(' + imageurl + 'form_background_image.jpeg)'}">
+                    <div class="title">
+                        <h2 class="heading">COMMODITY BULK PRICING</h2>
+                        <h2 class="sub-heading">IPA / ACETONE / HEXANE / DENATURED ALCOHOL / PROPYLENE GLYCOL / 142</h2>
+                    </div>
+                </div>
+            </div>
+            <h2 class="main-title" style="text-align: center;">BULK PRICING IS AVAILABLE AT 12 DRUMS, 24 DRUMS AND MORE.
+            </h2>
+            <p>
+                <p style="text-align: center;">Complete the Form Below Or CALL (800) 563-1305
+                </p>
+                <p style="text-align: center;">One of our qualified customer service representatives will correspond to your needs.
+                </p>
+                <div class="form-head" id="backToTop">
+                    <h3>Bulk Order Contact</h3>
+                </div>
+
+                <!-- <form #RequestForm="ngForm" (ngSubmit)="saveBulkFormDetail(RequestForm)" id="backToTop"> -->
+                <form [formGroup]="pricingForm" (ngSubmit)="saveBulkFormDetail()" #localForm="ngForm">
+                    <ng-container *ngIf="resSignupMsg">
+                        <div *ngIf="resSignupMsgCheck=='danger'" class="alert alert-danger" role="alert" id="loginAlert" #test>
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                        </div>
+                        <div *ngIf="resSignupMsgCheck=='success'" class="alert alert-success" role="alert" id="loginAlert" #test>
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                        </div>
+                    </ng-container>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">What can we help you clean?*</label>
+                                <input type="text" placeholder="Type here ...." [class.is-invalid]="localForm.submitted && pricingForm.get('help')?.invalid" class="form-control mt-2" id="help" formControlName="help" required>
+                                <div class="invalid-feedback">
+                                    Field is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="field_4_11" class="gfield">
+                        <label class="gfield_label" for="input_4_11">What chemical are you interested in ordering in
+                        bulk?*</label>
+                        <div class="ginput_container mt-2">
+                            <select formControlName="input_11" [class.is-invalid]="localForm.submitted && pricingForm.get('input_11')?.invalid" id="input_4_11" class="gfield_select mb-2" aria-required="true" aria-invalid="false" required>
+                            <option value="IPA">IPA</option>
+                            <option value="Acetone">Acetone
+                            </option>
+                            <option value="Denatured Alcohol">Denatured Alcohol</option>
+                            <option value="Hexane">Hexane</option>
+                            <option value="Propylene Glycol">Propylene Glycol</option>
+                            <option value="142 Solvent">142 Solvent</option>
+                            <option value="Other">Other</option>
+                        </select>
+                            <div class="invalid-feedback">
+                                Please Select Atleast One Option
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="first-name">First Name*</label>
+                            <input type="text" placeholder="First Name" [class.is-invalid]="localForm.submitted && pricingForm.get('firstname')?.invalid" class="form-control mt-2" id="first-name" formControlName="firstname" required>
+                            <div class="invalid-feedback">
+                                First Name is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="last-name">Last Name*</label>
+                            <input type="text" placeholder="last Name" [class.is-invalid]="localForm.submitted && pricingForm.get('lastname')?.invalid" class="form-control mt-2" formControlName="lastname" required>
+                            <div class="invalid-feedback">
+                                Last Name is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="user-name">Email*</label>
+                            <input type="email" placeholder="Email" [class.is-invalid]="localForm.submitted && pricingForm.get('email')?.invalid" (input)="validateEmail($event)" class="form-control mt-2" id="first-name" formControlName="email" required>
+                            <h6 class="text-danger" *ngIf="invalidEmail">
+                                {{ invalidEmail ? "Invalid Email" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Email is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="street-address">Mobile Number*</label>
+                            <input type="text" placeholder="Mobile Number" [class.is-invalid]="localForm.submitted && pricingForm.get('phone')?.invalid" maxlength="10" (input)="validateMobile($event)" (keydown)="inputMobile($event)" class="form-control mt-2" formControlName="phone" required>
+                            <h6 class="text-danger" *ngIf="invalidMobile">
+                                {{ invalidMobile ? "Invalid Mobile" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Mobile Number is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="street-address">Address*</label>
+                            <input type="text" placeholder="Address" [class.is-invalid]="localForm.submitted && pricingForm.get('address')?.invalid" class="form-control mt-2" formControlName="address" required>
+                            <div class="invalid-feedback">
+                                Address is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="street-address">State*</label>
+                            <input type="text" placeholder="State" [class.is-invalid]="localForm.submitted && pricingForm.get('state')?.invalid" class="form-control mt-2" formControlName="state" required>
+                            <div class="invalid-feedback">
+                                State is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="street-address">Address 2</label>
+                            <input type="text" placeholder="Address 2" class="form-control mt-2" formControlName="address2">
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="user-name">City*</label>
+                            <input type="text" placeholder="City" [class.is-invalid]="localForm.submitted && pricingForm.get('city')?.invalid" class="form-control mt-2" id="first-name" formControlName="city" required>
+                            <div class="invalid-feedback">
+                                City is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="user-name">ZIP Code*</label>
+                            <input type="text" placeholder="ZIP Code" (input)="validatePincode($event)" (keydown)="inputPincode($event)" [class.is-invalid]="localForm.submitted && pricingForm.get('pincode')?.invalid" class="form-control mt-2" id="first-name" maxlength="6" formControlName="pincode"
+                                required>
+                            <h6 class="text-danger" *ngIf="invalidPincode">
+                                {{ invalidPincode ? "Invalid ZIP Code" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Pincode is Required
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 mb-2">
+                            <label for="last-name">Country*</label>
+                            <input type="text" placeholder="Country" [class.is-invalid]="localForm.submitted && pricingForm.get('country')?.invalid" class="form-control mt-2" formControlName="country" required>
+                            <div class="invalid-feedback">
+                                Country is Required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <ngx-recaptcha2 #captchaElem siteKey="6LdK4vwgAAAAAO2xbhd5dgap9bbXByZEEC8_LQIQ" (success)="handleSuccess($event)" [size]="size"
+                            [hl]="lang" [theme]="theme" [type]="type" (reset)="handleReset()" formControlName="recaptcha">
+                            </ngx-recaptcha2>
+                            <p class="" *ngIf="resFormCaptchaMsg" class="captcha-css">{{resFormCaptchaMsg}}</p>
+                        </div>
+                    </div>
+
+                    <div class="proceed">
+                        <div class="proceed-button">
+                            <button class="btn btn-success submit-btn" (click)="goToTop()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+        </section>
+    </div>
+</section>

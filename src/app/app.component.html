@@ -1,0 +1,6 @@
+<div *ngIf="isConnected ; else offline">
+    <router-outlet></router-outlet>
+</div>
+<ng-template #offline>
+    <app-page-not-found></app-page-not-found>
+</ng-template>

@@ -1,0 +1,198 @@
+<div class="container">
+    <div class="contact-us-section">
+        <div class="detail-section">
+            <div class="contact-heading">
+                <h5>ECOLINK CORPORATE HEADQUARTERS</h5>
+                <p>P. O. Box 9</p>
+                <p>Tucker, GA 30085</p>
+                <p>800-563-1305 toll free number</p>
+                <p>770-621-8240 local number</p>
+                <p>Email : info@ecolink.com</p>
+                <div class="country-buttons">
+                    <div class="row button-row">
+                        <div class="col-6 button-col">
+                            <button (click)="gotomail()">ASIA</button>
+                        </div>
+                        <div class="col-6 button-col">
+                            <button (click)="gotomail()">CANADA</button>
+                        </div>
+                        <div class="col-6 button-col">
+                            <button (click)="gotomail()">EUROPE</button>
+                        </div>
+                        <div class="col-6 button-col">
+                            <button (click)="gotomail()">AMERICA</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="map-section">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d423976.63487513247!2d-84.151759!3d33.88147699999994!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc425a8157699cf5!2sEcolink+Inc!5e0!3m2!1sen!2sus!4v1402985217757" width="100%" height="300"
+                frameborder="0" style="border:0"></iframe>
+        </div>
+    </div>
+    <div class="sample-policy-section">
+        <div class="policy-content">
+            <p>For additional information or to request a product sample, please use this form.</p>
+
+            <p><strong>Sample Policy</strong> : <br>Established companies and military users are welcome to request samples of Ecolink products at no charge. For international samples, we request only that you pay the freight costs by providing your shipper’s
+                account number (FedEx, UPS, etc.) In order to determine the most effective products for your needs, please describe your application using this short form.</p>
+        </div>
+    </div>
+    <div class="contact-us-form" id="backToTop">
+        <div class="contact-form-heading">
+            <h2>Contact Us</h2>
+        </div>
+        <!-- <form #contactdetail="ngForm" (ngSubmit)="saveContactUsDetail(contactdetail)" id="backToTop"> -->
+        <form [formGroup]="contactForm" (ngSubmit)="saveContactUsDetail()" #contactform="ngForm">
+            <ng-container *ngIf="resSignupMsg">
+                <div *ngIf="resSignupMsgCheck=='danger'" class="alert alert-danger" role="alert" id="loginAlert" #test>
+                    {{ resSignupMsg }}
+                    <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                </div>
+                <div *ngIf="resSignupMsgCheck=='success'" class="alert alert-success" role="alert" id="loginAlert" #test>
+                    {{ resSignupMsg }}
+                    <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+                </div>
+            </ng-container>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-2">
+                    <label for="first-name">First Name*</label>
+                    <input type="text" class="form-control my-2" placeholder="First name" id="first-name" formControlName="firstname" [class.is-invalid]="contactform.submitted && contactForm.get('firstname')?.invalid" required>
+                    <div class="invalid-feedback">
+                        First Name is Required
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-2">
+                    <label for="last-name" class="lname">Last Name*</label>
+                    <input type="text" class="form-control my-2" placeholder="Last name" formControlName="lastname" [class.is-invalid]="contactform.submitted && contactForm.get('lastname')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Last Name is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-2">
+                    <label for="Email Address">Email Address*</label>
+                    <input type="email" class="form-control my-2" placeholder="Email" id="Email-Address" (input)="validateEmail($event)" formControlName="email" [class.is-invalid]="contactform.submitted && contactForm.get('email')?.invalid" required>
+                    <h6 class="text-danger" *ngIf="invalidEmail">
+                        {{ invalidEmail ? "Invalid Email" : "" }}
+                    </h6>
+                    <div class="invalid-feedback">
+                        Email is Required
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mb-2">
+                    <label for="Phone">Mobile Number*</label>
+                    <input type="text" class="form-control my-2" placeholder="Mobile Number" maxlength="10" (input)="validateMobile($event)" (keydown)="inputMobile($event)" formControlName="phone" [class.is-invalid]="contactform.submitted && contactForm.get('phone')?.invalid" required>
+                    <h6 class="text-danger" *ngIf="invalidMobile">
+                        {{ invalidMobile ? "Invalid Mobile" : "" }}
+                    </h6>
+                    <div class="invalid-feedback">
+                        Mobile Number is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="street-address">Street Address*</label>
+                    <input type="text" class="form-control my-2" placeholder="Street Address" formControlName="address" [class.is-invalid]="contactform.submitted && contactForm.get('address')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Address is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-2">
+                    <label for="Town-city">City*</label>
+                    <input type="text" class="form-control my-2" placeholder="Town / City" formControlName="city" [class.is-invalid]="contactform.submitted && contactForm.get('city')?.invalid" required>
+                    <div class="invalid-feedback">
+                        City is Required
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mb-2">
+                    <label for="state">State*</label>
+                    <input type="text" class="form-control my-2" placeholder="State" formControlName="state" [class.is-invalid]="contactform.submitted && contactForm.get('state')?.invalid" required>
+                    <div class="invalid-feedback">
+                        State is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="State-County">Country*</label>
+                    <input type="text" class="form-control my-2" placeholder="Country" formControlName="country" [class.is-invalid]="contactform.submitted && contactForm.get('country')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Country is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="Postcode">ZIP Code*</label>
+                    <input type="text" maxlength="6" (input)="validatePincode($event)" (keydown)="inputPincode($event)" class="form-control my-2" placeholder="ZIP Code" formControlName="zip" [class.is-invalid]="contactform.submitted && contactForm.get('zip')?.invalid"
+                        required>
+                    <h6 class="text-danger" *ngIf="invalidPincode">
+                        {{ invalidPincode ? "Invalid ZIP Code" : "" }}
+                    </h6>
+                    <div class="invalid-feedback">
+                        ZIP Code is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="query1">What item do you wish to clean & what is the surface material ?*
+                    </label>
+                    <input type="text" class="form-control my-2" placeholder="Type here ...." id="query1" formControlName="query1" [class.is-invalid]="contactform.submitted && contactForm.get('query1')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Field is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="query2">What kind of soil, grease or coating do you wish to remove ?*
+                    </label>
+                    <input type="text" class="form-control my-2" placeholder="Type here ...." id="query2" formControlName="query2" [class.is-invalid]="contactform.submitted && contactForm.get('query2')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Field is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="query3">How do you currently clean this item ?*
+                    </label>
+                    <input type="text" class="form-control my-2" placeholder="Type here ...." id="query3" formControlName="query3" [class.is-invalid]="contactform.submitted && contactForm.get('query3')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Field is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label for="query4">What chemicals or products do you currently use and in what amounts ?*
+                    </label>
+                    <input type="text" class="form-control my-2" placeholder="Type here ...." id="query4" formControlName="query4" [class.is-invalid]="contactform.submitted && contactForm.get('query4')?.invalid" required>
+                    <div class="invalid-feedback">
+                        Field is Required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <ngx-recaptcha2 #captchaElem siteKey="6LdK4vwgAAAAAO2xbhd5dgap9bbXByZEEC8_LQIQ" (success)="handleSuccess($event)" [size]="size"
+                    [hl]="lang" [theme]="theme" [type]="type" (reset)="handleReset()" formControlName="recaptcha">
+                    </ngx-recaptcha2>
+                    <p class="" *ngIf="resFormCaptchaMsg" class="captcha-css">{{resFormCaptchaMsg}}</p>
+                </div>
+            </div>
+            <div class="proceed" style="text-align: left;">
+                <div class="proceed-button">
+                    <button class="btn btn-success submit-btn" (click)="goToTop()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

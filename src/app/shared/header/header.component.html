@@ -1,0 +1,213 @@
+<ng-container *ngIf="modalcheck">
+    <app-image-modal (closeModal)="closeModalEvent($event)"></app-image-modal>
+</ng-container>
+<section class="top-head-section">
+    <div class="container">
+        <div class="top-head-line">
+            <p>Environmentally preferred industrial degreasers & solvents
+                nationwide and internationally for over 30 years.
+            </p>
+        </div>
+    </div>
+</section>
+<section class="nav-link-section">
+    <div class="container navbar navbar-expand-lg">
+        <div class="logo" routerLink='/'>
+            <img
+                src="https://ecolink.com/wp-content/uploads/2017/09/New_Ecolink_Logo-33.png"
+                alt="">
+            <h1>ECOLINK</h1>
+            <div class="location-section" (click)="goToLocation()"
+                style="cursor: pointer;">
+                <div class="location">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </div>
+                <ng-container *ngIf="customerLocation!=''">
+                    <div class="address">
+                        <a>{{customerLocation}}</a>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <!-- Responsive header -->
+        <div class="responsive-navbar">
+            <span class="p-input-icon-right">
+                <i class="pi pi-search"></i>     
+                <input type="text" pInputText placeholder="Search Products" (keyup)="globalSearch()" [(ngModel)]="searchItem">   
+            </span>
+            <div class="global-search-model" *ngIf="this.showGlobalSearchSuggestion">
+                <ng-container *ngFor="let data of suggestionList">
+                    <div class="suggestions">
+                        <h6 (click)="routeOnSamePage('shop' , data.category.slug , data.slug)" (click)="this.showGlobalSearchSuggestion = !this.showGlobalSearchSuggestion" style="cursor: pointer;"><a>{{data.name}} </a></h6>
+                        <hr>
+                    </div>
+                </ng-container>
+            </div>            
+            <div class="cart-icon" style="position: relative;">
+                <i class="fa fa-shopping-cart text-white" routerLink="/cart"></i><span
+                    style="position: absolute;" *ngIf="length>0">{{length}}</span>
+            </div>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span (click)="openmenu()" *ngIf="!openMenu"><i
+                        style="font-size:24px" class="fa">&#xf0c9;</i></span>
+                <span (click)="openmenu()" *ngIf="openMenu"><i
+                        style="font-size:24px" class="fa">&#xf00d;</i></span>
+            </button>
+            <div class="menus collapse navbar-collapse"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <ng-container *ngFor="let item of homePageData">
+                        <li class="nav-item">
+                            <a (click)="routeOnSamePage(item.slug)">{{item.title
+                                | uppercase}}</a>
+                            <ul class="header-dropdown"
+                                *ngIf="item.subpage.length>0">
+                                <li
+                                    (click)="routeOnSamePage(item.slug,sublink.slug)"
+                                    class="test" *ngFor="let sublink of
+                                    item.subpage">
+                                    <a>
+                                        <div>{{sublink.title| uppercase}}</div>
+                                    </a>
+                                    <ul *ngIf="sublink.subpage.length>0"
+                                        class="sub-header-dropdown">
+                                        <div class="subsublink">
+                                            <ng-container *ngFor="let subsublink
+                                                of sublink.subpage">
+                                                <li class="test1"
+                                                    (click)="routeOnSamePage(item.slug
+                                                    , sublink.slug ,
+                                                    subsublink.slug)">
+                                                    <a>
+                                                        <div>{{subsublink.title|
+                                                            uppercase}}
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ng-container>
+                                        </div>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="location-head">
+    <div class="container">
+        <div class="chat-section">
+            <a style="cursor: pointer;" (click)="goToLocation()"></a>
+        </div>
+        <div class="right-sec">
+            <div>
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>     
+                    <input type="text" pInputText placeholder="Search Products" (keyup)="globalSearch()" [(ngModel)]="searchItem">   
+                </span>
+                <div class="global-search-model" *ngIf="this.showGlobalSearchSuggestion">
+                    <ng-container *ngFor="let data of suggestionList">
+                        <div class="suggestions">
+                            <h6 (click)="routeOnSamePage('shop' , data.category.slug , data.slug)" (click)="this.showGlobalSearchSuggestion = !this.showGlobalSearchSuggestion" style="cursor: pointer;"><a>{{data.name}} </a></h6>
+                            <hr>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="cart-icon">
+                <i class="fa fa-shopping-cart text-white" routerLink="/cart"></i><span
+                    *ngIf="length>0">{{length}}</span>
+            </div>
+            <div class="header-bottom">
+                <a (click)="profile()" style="cursor: pointer; color: #fff;"
+                    *ngIf="this.userName">
+                    {{userName}}
+                </a>
+                <a (click)="profile()" style="cursor: pointer; color: #fff;"
+                    *ngIf="!this.userName">
+                    <span>Login/SignUp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <ng-container *ngIf="responseSubscribe.resSignupMsg">
+        <div *ngIf="responseSubscribe.resSignupMsgCheck=='danger'" class="alert
+            alert-danger" role="alert" id="loginAlert1" #close>
+            {{ responseSubscribe.resSignupMsg }}
+            <span class="icon-class"><i class="fa fa-close"
+                    (click)="closeButton()"></i></span>
+        </div>
+        <div *ngIf="responseSubscribe.resSignupMsgCheck=='success'" class="alert
+            alert-success" role="alert" id="loginAlert1" #close>
+            <p>Thank you for subscribing ! </p>
+            <span class="icon-class"><i class="fa fa-close"
+                    (click)="closeButton()"></i></span>
+        </div>
+        <div *ngIf="responseSubscribe.resSignupMsgCheck=='warning'" class="alert
+            alert-warning" role="alert" id="loginAlert1" #close>
+            {{ responseSubscribe.resSignupMsg }}
+        </div>
+    </ng-container>
+</div>
+<div class="open-menu" *ngIf="openMenu">
+    <ul *ngFor="let item of homePageData" class="responsive-menu">
+        <li class="parent-menu">
+            <a (click)="routeOnSamePage(item.slug)">{{item.title| uppercase}}</a>
+            <a>
+                <i *ngIf="item.subpage.length>0" style="margin: 0 5px;"
+                    class="fa fa-caret-down" (click)="openDropDown()"></i>
+            </a>
+            <div class="open-menu-responsive">
+                <ng-container *ngIf="openSubmenu">
+                    <ul class="sub-link-responsive" *ngIf="item.subpage">
+                        <li class="sub-link" *ngFor="let sublink of
+                            item.subpage" (click)="opensubDropDown()">
+                            <a (click)="routeOnSamePage(item.slug ,
+                                sublink.slug)">{{sublink.title| uppercase}}</a>
+                            <a>
+                                <i *ngIf="sublink.subpage.length>0"
+                                    style="margin: 0 5px;" class="fa
+                                    fa-caret-down"></i>
+                            </a>
+                            <div class="sub-sub-link-responsive">
+                                <ng-container *ngIf="opensubSubmenu">
+                                    <ul *ngIf="sublink.subpage.length>0"
+                                        class="sub-sub-link">
+                                        <ng-container *ngFor="let subsublink of
+                                            sublink.subpage">
+                                            <li class="sub-sub-link-title">
+                                                <a
+                                                    (click)="routeOnSamePage(item.slug
+                                                    , sublink.slug ,
+                                                    subsublink.slug)">{{subsublink.title|
+                                                    uppercase}}</a>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </ng-container>
+                            </div>
+                        </li>
+                    </ul>
+                </ng-container>
+            </div>
+        </li>
+    </ul>
+    <li class="user-icon">
+        <div class="header-bottom">
+            <a (click)="profile()" style="cursor: pointer; color: #37793a;
+                text-transform: uppercase" *ngIf="this.userDetail">
+                {{userName}}
+            </a>
+            <a (click)="profile()" style="cursor: pointer; color: #37793a;
+                text-transform: uppercase" *ngIf="!this.userDetail">
+                <span>Login/SignUp</span>
+            </a>
+        </div>
+    </li>
+</div>

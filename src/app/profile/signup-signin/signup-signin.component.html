@@ -1,0 +1,511 @@
+<app-header></app-header>
+<ng-container *ngIf="!checkString">
+    <div class="container authentication">
+        <div class="signup-form">
+            <!-- user sign up form -->
+            <form [formGroup]="profileForm" (ngSubmit)="signUp()"
+                #signup="ngForm">
+                <ng-container>
+                    <div class="signup-head">
+                        <span id="auth-head">
+                            <h2>Sign Up</h2>
+                        </span>
+                    </div>
+                </ng-container>
+                <!-- pop ups -->
+                <ng-container *ngIf="resSignupMsg">
+                    <div *ngIf="resSignupMsgCheck=='danger'" class="alert
+                        alert-danger" role="alert" id="loginAlert"
+                        #test>
+                        {{ resSignupMsg }}
+                        <span class="icon-class"><i class="fa fa-close"
+                                (click)="close()"></i></span>
+                    </div>
+                    <div *ngIf="resSignupMsgCheck=='success'" class="alert
+                        alert-success" role="alert" id="loginAlert"
+                        #test>
+                        {{ resSignupMsg }}
+                        <span class="icon-class"><i class="fa fa-close"
+                                (click)="close()"></i></span>
+                    </div>
+                    <div *ngIf="resSignupMsgCheck=='warning'" class="alert
+                        alert-warning" role="alert" id="loginAlert"
+                        #test>
+                        {{ resSignupMsg }}
+                    </div>
+                </ng-container>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div>
+                            <label for="first-name">Full Name*</label>
+                            <input type="text" class="form-control"
+                                id="firstname" autocomplete="off"
+                                formControlName="firstname"
+                                [(ngModel)]="fromcheckoutdetail.name"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('firstname')?.invalid"
+                                maxlength='50'
+                                required />
+                            <div class="invalid-feedback">
+                                Name is Required
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="last-name">Last Name*</label>
+                            <input class="form-control" type="text" id="lastname" autocomplete="off" maxlength='50' formControlName="lastname" [class.is-invalid]="signup.submitted && profileForm.get('lastname')?.invalid" required />
+                            <div class="invalid-feedback">
+                                Last name is Required
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div>
+                            <label for="first-name">Company Name*</label>
+                            <input type="text" class="form-control"
+                                id="companyname" autocomplete="off"
+                                formControlName="companyname"
+                                [(ngModel)]="fromcheckoutdetail.company_name"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('companyname')?.invalid"
+                                maxlength='50'
+                                required />
+                            <div class="invalid-feedback">
+                                Company Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="email">Email*</label>
+                            <input class="form-control" type="email" id="email"
+                                autocomplete="off"
+                                formControlName="email"
+                                (input)="validateEmail($event)"
+                                [(ngModel)]="fromcheckoutdetail.email"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('email')?.invalid" required />
+                            <h6 class="text-danger" *ngIf="invalidEmail">
+                                {{ invalidEmail ? "Invalid Email" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Email is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="phone-number">Mobile No*</label>
+                            <input class="form-control" type="text"
+                                id="phonenumber" autocomplete="off"
+                                [(ngModel)]="fromcheckoutdetail.mobile"
+                                formControlName="phonenumber" maxlength="10"
+                                (input)="validateMobile($event)"
+                                (keydown)="inputMobile($event)"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('phonenumber')?.invalid"
+                                required />
+                            <h6 class="text-danger" *ngIf="invalidMobile">
+                                {{ invalidMobile ? "Invalid Mobile" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Mobile Number is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="password">Password*</label>
+                            <input class="form-control" type="password"
+                                id="password" autocomplete="off"
+                                formControlName="password"
+                                [(ngModel)]="fromcheckoutdetail.password?
+                                fromcheckoutdetail.password : password"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('password')?.invalid"
+                                required />
+                            <div class="invalid-feedback">
+                                Password is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="confirm-password">Confirm Password*</label>
+                            <input class="form-control" type="password"
+                                id="confirmpassword"
+                                autocomplete="off"
+                                formControlName="confirmpassword"
+                                [(ngModel)]="fromcheckoutdetail.password ?
+                                fromcheckoutdetail.password : confirmPassword"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('confirmpassword')?.invalid"
+                                required />
+                            <h6 class="text-danger" *ngIf="confirmPassword">
+                                {{ password === "" && confirmPassword != "" ?
+                                "Enter password" : "" }} {{ password != ""
+                                && password != confirmPassword ? "Password Not Match" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                Confirm Password is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="address">Address*</label>
+                            <input class="form-control" type="text" id="address"
+                                autocomplete="off"
+                                formControlName="address"
+                                [(ngModel)]="fromcheckoutdetail.address"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('address')?.invalid" required />
+                            <div class="invalid-feedback">
+                                Address is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="address">Landmark</label>
+                            <input class="form-control" type="text"
+                                id="landmark" autocomplete="off"
+                                formControlName="landmark"
+                                [(ngModel)]="fromcheckoutdetail.landmark"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('landmark')?.invalid"
+                                 />
+                            <div class="invalid-feedback">
+                                Landmark is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="country">Country</label>
+                            <input class="form-control" type="text" id="country"
+                                autocomplete="off"
+                                formControlName="country"
+                                value="US"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('country')?.invalid" readonly
+                                required />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="city">State*</label>
+                            <select class="form-control form-select mt-2"
+                                formControlName="state" id="state"
+                                placeholder="State / County"
+                                [(ngModel)]="fromcheckoutdetail.state"
+                                (change)="getdata($event)"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('state')?.invalid" required>
+                                <option disabled selected>Select State</option>
+                                <option value="{{state.state_code}}" *ngFor="let
+                                    state of statesList">
+                                    {{state.state_name | titlecase}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                State is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="city">City*</label>
+                            <select formControlName="city" id="city"
+                                class="form-control form-select mt-2"
+                                [(ngModel)]="fromcheckoutdetail.city"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('city')?.invalid"
+                                (change)="onChangecity($event)" required>
+                                <option disabled selected>Select City</option>
+                                <ng-container *ngFor="let city of cityLists">
+                                    <option value="{{city.city}}">
+                                        {{city.city | titlecase}}
+                                    </option>
+                                </ng-container>
+                            </select>
+                            <div class="invalid-feedback">
+                                City is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="pincode">ZIP Code*</label>
+                            <input class="form-control" type="text" id="pincode"
+                                autocomplete="off"
+                                placeholder="Zip Code"
+                                formControlName="pincode"
+                                [(ngModel)]="fromcheckoutdetail.pincode"
+                                maxlength="6" (input)="validateZip($event)"
+                                (keydown)="inputZip($event)"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('pincode')?.invalid" readonly />
+                            <h6 class="text-danger" *ngIf="invalidZip">
+                                {{ invalidZip ? "Invalid ZIP Code" : "" }}
+                            </h6>
+                            <div class="invalid-feedback">
+                                ZIP Code is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="photo">Profile Image*</label>
+                            <input class="form-control"
+                                accept="image/x-png,image/gif,image/jpeg"
+                                type="file" id="image"
+                                autocomplete="off" formControlName="image"
+                                [class.is-invalid]="signup.submitted &&
+                                profileForm.get('image')?.invalid"
+                                (change)="GetFileChange($event , 0)" required />
+                            <div class="invalid-feedback">
+                                Image is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div>
+                            <label for="taxes">Tax Exemption*</label><br>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-6"><input type="radio"
+                                        id="radio1" formControlName="radio2"
+                                        (click)="clickonradio('yes')" value="1"
+                                        [class.is-invalid]="signup.submitted &&
+                                        profileForm.get('radio2')?.invalid"
+                                        required /> Yes
+                                    <div *ngIf="radiocheck"
+                                        class="invalid-feedback">
+                                        Please Select Atleast One Option
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <input type="radio" id="radio2"
+                                        formControlName="radio2" value="0"
+                                        (click)="clickonradio('no')"
+                                        [class.is-invalid]="signup.submitted &&
+                                        profileForm.get('radio2')?.invalid"
+                                        required /> No
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row doc" *ngIf="documentcheck">
+                    <div class="col-lg-6 col-md-12">
+                        <label for="photo">Upload Document/s*</label>
+                        <input class="form-control"
+                            id="document1"
+                            [class.is-invalid]="signup.submitted &&
+                            profileForm.get('document1')?.invalid"
+                            required formControlName="document1"
+                            (change)="onFileChange($event)"
+                            type="file"
+                            accept="image/jpg,image/jpeg,image/png,application/pdf"
+                            multiple>
+                        <div class="invalid-feedback">
+                            Document is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="review-images">
+                    <div class="preview-wrapper row">
+                        <div class="col-lg-3" *ngIf="url">
+                            <div class="img-preview" *ngFor='let url of images'>
+                                <img [src]="url" width="80px" height="80px">
+                                <i type="button" class="fa fa-close"
+                                    (click)="removeImage(url)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 py-3">
+                        <ngx-recaptcha2 #captchaElem
+                            siteKey="6LdK4vwgAAAAAO2xbhd5dgap9bbXByZEEC8_LQIQ"
+                            (success)="handleSuccess($event)" [size]="size"
+                            [hl]="lang" [theme]="theme" [type]="type"
+                            formControlName="recaptcha">
+                        </ngx-recaptcha2>
+                    </div>
+                    <p *ngIf="resSignupCaptchaMsg" class="captcha-css">{{ resSignupCaptchaMsg }}</p>
+                    <!-- <ng-container *ngIf="resSignupCaptchaMsg">
+                        <div *ngIf="resSignupCaptchaMsgCheck == 'danger'"
+                            class="alert
+                            alert-danger" role="alert" id="loginAlert">
+                            {{ resSignupCaptchaMsg }}
+                            <span class="icon-class"><i class="fa fa-close"
+                                    (click)="close()"></i></span>
+                        </div>
+                        <div *ngIf="resSignupMsgCheck=='warning'" class="alert
+                            alert-warning" role="alert" id="loginAlert">
+                            {{ resSignupCaptchaMsg }}
+                        </div>
+                    </ng-container> -->
+                </div>
+
+
+
+                <!-- <div class="form-group">
+                    <label for="file">File</label>
+                    <input formControlName="file" id="file" type="file"
+                        class="form-control-file" multiple=""
+                        (change)="onFileChange($event)">
+                    
+                </div> -->
+                <!-- <div class="preview-wrapper">
+                    <div class="img-preview" *ngFor='let url of images'>
+                        <img [src]="url" width="200px">
+                        <button type="button" class="btn btn-danger btn-sm"
+                            (click)="removeImage(url)">Remove</button>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-success submit-btn"
+                            (click)="goToTop()">Sign
+                            Up</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p>Already have an account? <a (click)="SignIn()"
+                                class="primary" style="cursor: pointer;color:
+                                #0d6efd!important;text-decoration:
+                                underline!important;">Click
+                                to Login</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="checkString">
+    <div class="container authenticated">
+        <div class="signin-form">
+            <!-- user sign in form -->
+            <form #signUpForm="ngForm" (submit)="signinWithEmail(signUpForm)">
+                <ng-container>
+                    <div class="signin-head">
+                        <span id="auth-head">
+                            <h2>Sign In</h2>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="resSignInMsg">
+                        <div *ngIf="resSignInMsgCheck=='danger'" class="alert
+                            alert-danger" role="alert" id="loginAlert"
+                            #test>
+                            {{ resSignInMsg }}
+                            <span class="icon-class"><i class="fa fa-close"
+                                    (click)="close()"></i></span>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <div class="row">
+                    <div class="col-12">
+                        <div>
+                            <label for="EmailorPhone">Email*</label>
+                            <input class="form-control" type="text"
+                                id="emailphone" autocomplete="off"
+                                name="emailphone"
+                                (input)="validateEmail($event)" ngModel required
+                                />
+                            <h6 class="text-danger" *ngIf="invalidEmail ||
+                                invalidMobile">
+                                {{ invalidEmail ? "Invalid Email" :
+                                invalidMobile ? "Invalid Mobile" : "" }}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div>
+                            <label for="password">Password*</label>
+                            <input class="form-control" type="password"
+                                id="password" autocomplete="off" name="password"
+                                ngModel required>
+                            <label for="forgot-password" style="width:
+                                100%;text-align: right;"><a
+                                    routerLink="/profile/reset-password" style="color: #0d6efd!important;
+                                    text-decoration: underline!important;">Forgot
+                                    Password</a></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 py-3">
+                        <ngx-recaptcha2 #captchaElement
+                            siteKey="6LdK4vwgAAAAAO2xbhd5dgap9bbXByZEEC8_LQIQ"
+                            (success)="handleSuccess($event)" [size]="size"
+                            [hl]="lang" [theme]="theme" [type]="type" ngModel
+                            name="recaptcha" (reset)="handleReset()" >
+                        </ngx-recaptcha2>
+                        <p *ngIf="resSignInCaptchaMsg" class="captcha-css">{{ resSignInCaptchaMsg }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="form-control signin-btn" type="submit">Sign
+                            In</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p>If you don't have account <a (click)="SignIn()"
+                                class="primary"
+                                style="cursor: pointer;color:
+                                #0d6efd!important;text-decoration:
+                                underline!important;">Create Account</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-12 text-center">
+                        <button class="form-control google-btn" type="submit" (click)="signInWithGoogle()"><svg
+                                _ngcontent-wqn-c83="" viewBox="0 0 18 18" role="presentation" aria-hidden="true"
+                                focusable="false">
+                                <g _ngcontent-wqn-c83="" fill="none" fill-rule="evenodd">
+                                    <path _ngcontent-wqn-c83=""
+                                        d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"
+                                        fill="#EA4335"></path>
+                                    <path _ngcontent-wqn-c83=""
+                                        d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"
+                                        fill="#4285F4"></path>
+                                    <path _ngcontent-wqn-c83=""
+                                        d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"
+                                        fill="#FBBC05"></path>
+                                    <path _ngcontent-wqn-c83=""
+                                        d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"
+                                        fill="#34A853"></path>
+                                    <path _ngcontent-wqn-c83="" d="M0 0h18v18H0V0z"></path>
+                                </g>
+                            </svg>Continue with Google</button>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+<app-footer></app-footer>

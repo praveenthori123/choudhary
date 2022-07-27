@@ -1,0 +1,32 @@
+.screen-btn {
+    .aths {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .screen-btn {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        .aths {
+            padding: 10px;
+            display: block;
+            width: 50%;
+            overflow: hidden;
+            margin: auto;
+            background: #55b15c;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            justify-content: center;
+        }
+    }
+}
+@media (max-width:425px) {
+    .screen-btn {
+        .aths {
+            border-radius: 0;
+            width: 100%;
+        }
+    }   
+}

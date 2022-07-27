@@ -1,0 +1,280 @@
+.scholarship {
+    margin: 40px 0;
+
+    .checkout-body {
+        .fa-close:hover {
+            cursor: pointer;
+        }
+
+        .billing-detail {
+            .card {
+                padding: 20px 30px;
+
+                h3 {
+                    padding: 20px 0;
+                }
+
+                label {
+                    font-weight: 400;
+                }
+
+                .row {
+                    .alert {
+                        padding: 7px;
+                        font-size: 13px;
+                    }
+                }
+
+                .checkbox {
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        margin-left: 5px;
+                    }
+                }
+
+                .gfield {
+                    .ginput_container {
+                        .gfield_select {
+                            border-color: #e1e1e1;
+                            background-color: #fcfcfc;
+                            padding: 0.375rem 0.75rem;
+                            line-height: 1.5;
+                            color: #212529;
+                            background-color: #fff;
+                            border: 1px solid #ced4da;
+                            border-radius: 0.25rem;
+
+                            option {
+                                font-size: 13px;
+                                max-width: 100px !important;
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+                    border: 1px solid #d7d1d1;
+                    border-radius: 5px;
+                    font-size: 18px;
+                    margin: 20px auto;
+                    color: white;
+                    background: #55b15c;
+                    padding: 5px 25px;
+                }
+            }
+        }
+
+        .your-order {
+            .card {
+                padding: 20px 30px;
+            }
+        }
+
+        .proceed-button {
+            text-align: left;
+        }
+    }
+
+    .inner_sidebar {
+        // margin-left: 50px;
+        // position: sticky;
+        top: 80px;
+
+        .widget {
+            margin-bottom: 100px;
+
+            ul {
+                list-style: none;
+                padding: 0;
+
+                li {
+                    // padding: 10px 0;
+                    color: #3f661c;
+                }
+
+                li:hover {
+                    color: #0a6fbd;
+                }
+            }
+        }
+
+        .widget_text {
+            .textwidget {
+
+                // p {
+                i {
+                    margin: 0 10px;
+                }
+
+                .shopButton2020 {
+                    a {
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+
+                    background-color: #0a6fbd;
+                    border-radius: 3px;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: #ffffff !important;
+                    font-family: Arial;
+                    font-size: 17px;
+                    padding: 16px 31px;
+                    text-decoration: none;
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+
+                .requestButton2020 {
+                    background-color: #009e49;
+                    border-radius: 3px;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: #ffffff !important;
+                    font-family: Arial;
+                    font-size: 17px;
+                    padding: 16px 31px;
+                    text-decoration: none;
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+
+                .pdsButton2020 {
+                    background-color: #000000;
+                    border-radius: 3px;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: #ffffff !important;
+                    font-family: Arial;
+                    font-size: 17px;
+                    padding: 16px 31px;
+                    text-decoration: none;
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+
+                .contactButton2020 {
+                    background-color: #777777;
+                    border-radius: 3px;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: #ffffff !important;
+                    font-family: Arial;
+                    font-size: 17px;
+                    padding: 16px 31px;
+                    text-decoration: none;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                // }
+            }
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .Fname {
+        .fname {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .Email {
+        .email {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .checkout-body {
+        grid-template-columns: 100%;
+
+        .proceed-button {
+            text-align: center;
+        }
+    }
+
+    .inner_sidebar {
+        display: none;
+    }
+}
+
+@media (max-width:425px) {
+    .card {
+        .alert-success {
+            font-size: 13px;
+            padding: 7px;
+        }
+
+        .alert-danger {
+            font-size: 13px;
+            padding: 7px;
+        }
+    }
+}
+
+::ng-deep {
+    @media (max-width: 500px) {
+        .wp-image-3097 {
+            width: 100%;
+            object-fit: contain;
+            height: 200px !important;
+        }
+
+        .wp-image-3098 {
+            width: 100%;
+            object-fit: contain;
+            height: 200px !important;
+        }
+    }
+
+//   @media(min-width : 1441px){
+    .scholarship{
+        .p-calendar {
+            width: 100%;
+            .p-inputtext {
+                margin-top: 8px;
+                height: 36px!important;
+                width: 100%!important;
+            }
+        }
+    }
+//   }
+
+  @media(max-width:1440px){
+    .scholarship{
+        .p-calendar .p-inputtext{
+            margin-top: 8px;
+            // width: 380px!important;
+            height: 36px!important;
+        }
+    }
+  }
+  @media(max-width:1024px){
+    .scholarship{
+        .p-calendar .p-inputtext{
+            margin-top: 8px;
+            // width: 260px!important;
+            height: 36px!important;
+        }
+    }
+  }
+
+  @media(max-width:768px){
+    .scholarship{
+        .p-calendar .p-inputtext{
+            margin-top: 8px;
+            // width: 611px!important;
+            height: 40px!important;
+        }
+    }
+  }
+}

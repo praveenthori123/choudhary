@@ -1,0 +1,396 @@
+<!-- header -->
+<app-header></app-header>
+
+<div class="container">
+    <ng-container *ngIf="wishlistMsg" id="backToTop">
+        <div *ngIf="wishlistMsgCheck=='success'" style="margin: auto; width:400px; height: fit-content; text-align: center;  padding: 0.5rem;" class="alert alert-success" role="alert" id="loginAlert" #test>
+            {{ wishlistMsg }}
+        </div>
+    </ng-container>
+    <!-- shimmer -->
+    <div class="listing-section" *ngIf="shimmerLoad">
+        <div class="card-page">
+            <div class="list-header">
+                <div class="list-heading">
+                </div>
+                <div class="grid-list-view">
+                    <div class="sort-by-search">
+                        <div class="dropdown">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="suggestion-list" *ngIf="value1!='' && suggestions">
+                    <div class="card">
+                        <ul *ngFor="let prod of this.ProductListData[0].data.products | searchPipe:value1">
+                            <li (click)="getselecteddata(prod.name)">{{prod.name}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="product-list">
+                <div class="absolute">
+                </div>
+                <div class="filter">
+                    <ngx-shimmer-loading [shape]="'rect'"></ngx-shimmer-loading>
+                </div>
+                <div class="product-cards">
+                    <div class="subcategory">
+                        <ng-container>
+                            <div class="row">
+                                <ng-container *ngFor="let data of [].constructor(1)">
+                                    <div class="col-xl-4 col-md-6 col-sm-6 col-lg-6">
+                                        <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="row">
+                                <ng-container *ngFor="let data of [].constructor(6)">
+                                    <div class="col-4">
+                                        <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="product-listing"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Falseshimmer -->
+    <div class="listing-section" *ngIf="!shimmerLoad">
+        <ng-container *ngIf="ProductListData.length > 0">
+            <div class="card-page" *ngFor="let listdata of ProductListData">
+                <div class="container" style="padding-right: 0;">
+                    <!-- product listing header -->
+                    <div class="list-header">
+                        <div class="list-heading">
+                            <h2>{{listdata.data.name}}</h2>
+                            <span><a routerLink="/"  style="cursor:pointer;">Home/</a></span>
+                            <span><a routerLink="/shop" style="cursor:pointer;">Product-Category/</a></span>
+                            <span><a>{{listdata.data.name}}</a></span>
+                        </div>
+                        <div class="grid-list-view">
+                            <ul class="nav nav-pills product_view" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="pill" role="tab" aria-selected="true"
+                                        (click)="showlist('card')"><i class="fa fa-th" aria-hidden="true"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" role="tab" aria-selected="false"
+                                        (click)="showlist('list')"><i class="fa fa-list" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                            <div class="sort-by-search">
+                                <div class="dropdown">
+                                    <select (change)="selected($event)" class="form-select">
+                                        <option selected>Default</option>
+                                        <option *ngFor="let item of popularity" [value]="item.slug">{{item.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!-- <span class="p-input-icon-left" style="display: flex;">
+                                    <input type="text" pInputText placeholder="Search" [(ngModel)]="value1"
+                                        (keyup)="getkeypressdata()" />
+                                    <div class="search-icon">
+                                        <i class="pi pi-search" (click)="getselecteddata(value1)"
+                                            style="cursor: pointer;"></i>
+                                    </div>
+                                </span> -->
+                            </div>
+                        </div>
+
+
+                        <div class="suggestion-list" *ngIf="value1 != '' && suggestions">
+                            <ng-container *ngIf="dataFound === true">
+                                <div class="card" *ngIf="SuggestionArray">
+                                    <ul *ngFor="let prod of SuggestionArray[0]">
+                                        <li (click)="getselecteddata(prod.name)">{{prod.name}}</li>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="dataFound === false">
+                                <div class="card">
+                                    <ul>
+                                        <li>Data not found</li>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-list">
+                    <!-- filter icon for mobile screen  -->
+                    <div class="absolute">
+                        <h5 (click)="showFiterModel = !showFiterModel" title="Filter">
+                            <i class="fa fa-filter"></i>
+                        </h5>
+                    </div>
+                    <!-- filter for desktop screen -->
+                    <div class="filter">
+                        <div class="filter-heading">
+                            <h3>Filters</h3>
+                            <p (click)="ClearAll()" style="cursor: pointer;"><a>Clear All</a></p>
+                        </div>
+                        <div class="filter-body">
+                            <section class="categories" *ngIf="listdata.data.subcategory.length>0">
+                                <h4>Categories</h4>
+                                <ul *ngFor="let subcategory of listdata.data.subcategory;index as index">
+                                    <div class="p-field-checkbox">
+                                        <!-- <p-checkbox name="{{index}}" value="{{subcategory.id}}"
+                                            [(ngModel)]="selectedCategory" inputId="{{index}}" #checkbox></p-checkbox> -->
+                                        <label for="cc" style="color: #55b15c;" routerLink="{{subcategory.slug}}">{{subcategory.name}}</label>
+                                    </div>
+                                </ul>
+                            </section>
+                            <section class="price-section">
+                                <div class="price-heading">
+                                    <h4>Price</h4>
+                                </div>
+                                <div class="price-slider">
+                                    <ng-container *ngIf="rangeValues">
+                                        <p-slider [(ngModel)]="rangeValues" [range]="true" [min]="1" [max]="maximum">
+                                        </p-slider>
+                                        <div style="
+                                              display: flex;
+                                              justify-content: space-between;
+                                              align-items: center;
+                                              margin-top: 15px;
+                                              font-size: 14px;
+                                              color: #1e2022;
+                                            ">
+                                            <b>${{ rangeValues[0]}}</b>
+                                            <b>${{ rangeValues[1]}}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </section>
+                            <div class="apply-button">
+                                <button pButton pRipple type="button" (click)="getDataForFilter()" label="Apply Filter"
+                                    class="p-button  filter-button" style="border: none;"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Cards -->
+                    <div class="product-cards" *ngIf="view_card">
+                        <ng-container *ngIf="!shimmerLoad">
+                            <div class="subcategory">
+                                <div class="row">
+                                    <ng-container *ngFor="let data of listdata.data.subcategory">
+                                        <div class="col-xl-4 col-md-6 col-sm-6 col-lg-6">
+                                            <div routerLink="{{data.slug}}" class="card" style="cursor: pointer;">
+                                                <div class="card-image">
+                                                    <img [src]="data.image" alt="">
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="card-title">
+                                                        <h5>{{data.name.slice(0,36)}}</h5>
+                                                    </div>
+                                                    <div class="list-buttons">
+                                                        <p routerLink="{{data.slug}}">Show Details
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="products">
+                                <div class="row">
+                                    <ng-container *ngIf="productCheck!=true">
+                                        <ng-container *ngFor="let product of listdata.data.products">
+                                            <div class="col-xl-4 col-md-6 col-sm-6 col-lg-6">
+                                                <div class="card" style="cursor: pointer;">
+                                                    <div class="card-image">
+                                                        <img [src]="product.image" alt="" routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">
+                                                        <div *ngIf="!product.wishlist_item">
+                                                            <span (click)="addWishList(product)"><i
+                                                                    style="color: white;" class="pi pi-heart"
+                                                                    aria-hidden="true" title="Wishlist"></i></span>
+                                                        </div>
+                                                        <div *ngIf="product.wishlist_item">
+                                                            <span (click)="goToTop()" (click)="deleteWishlistItems(product)"><i
+                                                                    style="color: white;" class="fa fa-heart"
+                                                                    aria-hidden="true" title="Wishlist"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="card-title" routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">
+                                                            <h6>{{product.name.slice(0,45)}}</h6>
+                                                        </div>
+                                                        <div class="card-price-section" routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">
+                                                            <div class="card-price">
+                                                                <ng-container
+                                                                    *ngIf="product.regular_price > product.sale_price; then thenBlock else elseBlock">
+                                                                </ng-container>
+                                                                <ng-template #thenBlock>
+                                                                    <p class="product-price mb-1"
+                                                                        style="text-decoration-line: line-through; font-size: 14px;">
+                                                                        {{product.regular_price | currency}}</p>
+                                                                    <p class="product-price">{{product.sale_price |
+                                                                        currency}}
+                                                                    </p>
+                                                                </ng-template>
+                                                                <ng-template #elseBlock>
+                                                                    <p class="product-price">{{product.sale_price |
+                                                                        currency}}
+                                                                    </p>
+                                                                </ng-template>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-buttons">
+                                                        <button (click)=AddProductToCart(product) pButton pRipple
+                                                            type="button" label="Add to Cart"
+                                                            class="p-button-raised p-button-success card_button"
+                                                            style="height:38px; background-color: #55b15c;"></button>
+                                                        <p class="card_button" routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">
+                                                            Show Details
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div *ngIf="listdata.data.products.length==0 || productCheck"
+                                style="text-align: center; border: 1px solid #dedede; margin: 100px 0;">
+                                <h3>No data found</h3>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <!-- Product Lists -->
+                    <div class="product-listing" *ngIf="view_list">
+                        <ng-container *ngIf="productCheck!=true">
+                            <ng-container *ngIf="listdata.data.products.length>0">
+                                <ng-container *ngFor="let product of listdata.data.products">
+                                    <div class="card" style="cursor: pointer;">
+                                        <div class="card-image">
+                                            <img [src]="product.image" alt="" routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">
+                                            <div *ngIf="!product.wishlist_item">
+                                                <span (click)="addWishList(product)"><i
+                                                        style="color: white;" class="pi pi-heart"
+                                                        aria-hidden="true" title="Wishlist"></i></span>
+                                            </div>
+                                            <div *ngIf="product.wishlist_item">
+                                                <span (click)="goToTop()" (click)="deleteWishlistItems(product)"><i
+                                                        style="color: white;" class="fa fa-heart"
+                                                        aria-hidden="true" title="Wishlist"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="card-desc" routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">
+                                            <div class="card-title">
+                                                <h6>{{product.name}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="card-price-section">
+                                            <ng-container
+                                                *ngIf="product.regular_price < product.sale_price; then thenBlock else elseBlock">
+                                            </ng-container>
+                                            <ng-template #thenBlock>
+                                                <p class="product-price mb-1"
+                                                    style="text-decoration-line: line-through; font-size: 14px;">
+                                                    {{product.sale_price | currency}}</p>
+                                                <p class="product-price">{{product.regular_price | currency}}</p>
+                                            </ng-template>
+                                            <ng-template #elseBlock>
+                                                <p class="product-price">{{product.regular_price | currency}}</p>
+                                            </ng-template>
+                                            <div class="list-buttons">
+                                                <p routerLink="/cart" (click)=AddProductToCart(product)
+                                                    style="height:38px; background-color: #55b15c; color: #fff;">Add to
+                                                    Cart
+                                                </p>
+                                                <p routerLink="/shop/{{this.slug.slug}}/{{product.slug}}">Show Details
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="listdata.data.products.length==0 || productCheck">
+                            <div style="text-align: center; border: 1px solid #dedede; margin: 100px 0;">
+                                <h3>No data found</h3>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- filter model for mobile screen -->
+<div class="filter_model" *ngIf="showFiterModel">
+    <div class="filter">
+        <div class="filter-heading">
+            <h3>
+                <button type="button" class="btn-close" aria-label="Close" id="close" (click)="getFilterModel()" style="
+              border: none;
+              background: none;
+              font-weight: bolder;
+              width: 30px;
+            "></button>Filters
+            </h3>
+            <p (click)="ClearAll()" (click)="showFiterModel=false" style="cursor: pointer;"><a>Clear All</a></p>
+        </div>
+        <hr>
+        <div class="filter-body" *ngFor="let listdata of ProductListData">
+            <section class="categories" *ngIf="listdata.data.subcategory.length>0">
+                <h4>Categories</h4>
+                <ul *ngFor="let subcategory of listdata.data.subcategory">
+                    <div class="p-field-checkbox">
+                        <!-- <p-checkbox name="group1" value="{{subcategory.name}}" [(ngModel)]="selectedCategory"
+                            inputId="cc"></p-checkbox> -->
+                        <label for="cc" style="color: #55b15c;" routerLink="{{subcategory.slug}}" >{{subcategory.name}}</label>
+                    </div>
+                </ul>
+            </section>
+
+            <section class="price-section">
+                <div class="price-heading">
+                    <h4>Price</h4>
+                </div>
+                <div class="price-slider">
+                    <ng-container *ngIf="rangeValues">
+                        <p-slider [(ngModel)]="rangeValues" [range]="true" [min]="0" [max]="maximum">
+                        </p-slider>
+                        <div style="
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                              margin-top: 15px;
+                              font-size: 14px;
+                              color: #1e2022;
+                            ">
+                            <b>${{ rangeValues[0]}}</b>
+                            <b>${{ rangeValues[1]}}</b>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="dropdown">
+                    <select (change)="selected($event)" class="form-select">
+                        <option selected>Default</option>
+                        <option *ngFor="let item of popularity" [value]="item.slug">{{item.name}}</option>
+                    </select>
+                </div>
+            </section>
+            <div class="apply-button">
+                <button pButton pRipple type="button" (click)="getDataForFilter()" (click)="showFiterModel=false"
+                    label="Apply Filter" class="p-button  filter-button"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- footer -->
+<app-footer></app-footer>

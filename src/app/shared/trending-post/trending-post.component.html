@@ -1,0 +1,57 @@
+<section class="category-section">
+    <div class="container">
+        <ng-container *ngFor="let item of getCategory.data">
+            <div class="categories" routerLink="/product-category/{{item.slug}}">
+                <div class="category-image">
+                    <img src="{{item.image}}" alt="">
+                </div>
+                <h6>{{item.name}}</h6>
+            </div>
+        </ng-container>
+    </div>
+</section>
+<div class="container trending-section">
+    <hr>
+    Trending
+    <hr>
+</div>
+<section class="trending-chemicals">
+    <div class="container">
+        <div class="chemical-card">
+            <div class="first-card">
+                <div class="card-img">
+                    <img src="https://www.sciencenewsforstudents.org/wp-content/uploads/2020/09/1030_SS_Chemical.jpg"
+                        alt="">
+                </div>
+                <div style="margin: 20px 0;">
+                    <div class="card-txt">
+                        <h6>History of Women's Chemical Exposure to Household Chemicals</h6>
+                    </div>
+
+                </div>
+            </div>
+            <div class="first-card">
+                <div class="card-img">
+                    <img src="https://www.sciencenewsforstudents.org/wp-content/uploads/2020/09/1030_SS_Chemical.jpg"
+                        alt="">
+                </div>
+                <div style="margin: 20px 0;">
+                    <div class="card-txt">
+                        <h6>History of Women's Chemical Exposure to Household Chemicals</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="first-card">
+                <div class="card-img">
+                    <img src="https://www.sciencenewsforstudents.org/wp-content/uploads/2020/09/1030_SS_Chemical.jpg"
+                        alt="">
+                </div>
+                <div style="margin: 20px 0;">
+                    <div class="card-txt">
+                        <h6>History of Women's Chemical Exposure to Household Chemicals</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

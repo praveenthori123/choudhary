@@ -1,0 +1,200 @@
+.category-section {
+    margin: 30px 0;
+
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+
+        .categories {
+            align-items: center;
+            cursor: pointer;
+            .category-image {
+                height: 100px;
+                width: 100px;
+                position: relative;
+                margin: auto;
+
+                img {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 100%;
+                }
+            }
+
+            h6 {
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.trending-section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    hr {
+        width: 40%;
+    }
+}
+
+.trending-chemicals {
+    margin: 30px 0;
+    .container {
+        .chemical-card {
+            margin: 0 70px;
+            cursor: pointer;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            border: 1px solid #d7d1d1;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 33.33% 33.33% 33.33%;
+
+            .first-card:last-child {
+                .card-txt {
+                    h6 {
+                        border-right: none;
+                    }
+                }
+                .card-img {
+                    img {
+                        border-top-right-radius: 10px;
+                        border-top-left-radius: 0px;
+                    }
+                }
+            }
+            .first-card:nth-child(2) {
+                .card-img {
+                    img {
+                        border-top-left-radius: 0px;
+                    }
+                }
+            }
+
+            .first-card {
+                height: 100%;
+                .card-img {
+                    padding: 15px;
+                    height: 250px;
+                    img {
+                        border-top-left-radius: 10px;
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .card-txt {
+                    // padding: 15px 0 15px 15px;
+                    border-right: 1px solid black;
+                    h6 {
+                        font-size: 20px;
+                        font-weight: 600;
+                        text-align: center;
+                        margin: 0 10px;
+                    }
+                }
+            }
+            .first-card:last-child {
+                .card-txt {
+                    border-right: none;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 992px) {
+    .trending-chemicals {
+        .container {
+            .chemical-card {
+                margin: 0;
+            }
+        }
+    }
+    .category-section  {
+        .container {
+            overflow-y: scroll;
+            justify-content: normal;
+            .categories {
+                .category-image {
+                    width: 70px;
+                    height: 70px;
+                }
+                h6 {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .container {
+        max-width: 700px;
+    }
+    .trending-chemicals {
+        .container {
+            .chemical-card {
+                .first-card {
+                    .card-img {
+                        height: 180px;
+                    }
+                    .card-txt {
+                        h6 {
+                            font-size: 1rem;
+                            margin: 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 550px) {
+    .trending-chemicals {
+        .container {
+            .chemical-card {
+                display: block;
+                .first-card {
+                    .card-img {
+                        img{
+                            border-radius: 0;
+                        }
+                    }
+                    .card-txt {
+                        border: none;
+                    }
+                }
+                .first-card:last-child {
+                    .card-img {
+                        img {
+                            border-radius: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .category-section {
+        .container {
+            .categories {
+                .category-image {
+                    height: 70px;
+                    width: 70px;
+                }
+            }
+        }
+    }
+}
+@media (max-width:350px) {
+    .category-section {
+        .container {
+            .categories {
+                .category-image {
+                    height: 70px;
+                    width: 70px;
+                }
+            }
+        }
+    }
+}

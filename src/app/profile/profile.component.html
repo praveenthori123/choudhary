@@ -1,0 +1,55 @@
+<app-header></app-header>
+<div class="container">
+    <div class="profile-section my-2">
+        <div class="profile-heading">
+            <h2>My Account</h2>
+        </div>
+        <div class="card">
+            <div class="profile-side-bar">
+                <h4 class="mx-1">Navigation</h4>
+                <ul>
+                    <li (click)="togglebutton='Dashboard'"><i class="fa fa-tachometer mx-2"></i>Dashboard</li>
+                    <li (click)="togglebutton='Edit Profile'"><i class="fa fa-edit mx-2"></i>Edit Profile</li>
+                    <li (click)="togglebutton='Order History'"><i class="fa fa-opencart mx-2"></i>Order History</li>
+                    <li (click)="togglebutton='Addresses'"><i class="fa fa-address-book mx-2"></i>Addresses</li>
+                    <li (click)="togglebutton='Wishlist'" routerLink="/shop/wishlist"><i class="fa fa-heart mx-2"></i>Wishlist</li>
+                    <!-- <li (click)="togglebutton='Return Order'">Return Order</li> -->
+                    <li (click)="getUserLogout()"><i class="fa fa-sign-out mx-2"></i>Logout</li>
+                    <!-- <li (click)="togglebutton='order_description'" style="visibility: hidden;">Order History</li> -->
+                </ul>
+            </div>
+            <nav class="responsive-nav">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" style="float: right; margin: 20px; box-shadow: none;" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span (click)="openNavbar()" *ngIf="!openNav"><i style="font-size:24px"
+                                class="fa">&#xf0c9;</i></span>
+                        <span (click)="openNavbar()" *ngIf="openNav"><i style="font-size:24px "
+                                class="fa">&#xf00d;</i></span>
+                    </button>
+                    <div class="open-nav" *ngIf="openNav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li (click)="togglebutton='Dashboard'" (click)="openNavbar()"><i class="fa fa-tachometer mx-2"></i>Dashboard</li>
+                            <li (click)="togglebutton='Edit Profile'" (click)="openNavbar()"><i class="fa fa-edit mx-2"></i>Edit Profile</li>
+                            <li (click)="togglebutton='Order History'" (click)="openNavbar()"><i class="fa fa-opencart mx-2"></i>Order History</li>
+                            <li (click)="togglebutton='Addresses'" (click)="openNavbar()"><i class="fa fa-address-book mx-2"></i>Addresses</li>
+                            <li (click)="togglebutton='Wishlist'" routerLink="/shop/wishlist" (click)="openNavbar()"><i class="fa fa-heart mx-2"></i>
+                                Wishlist</li>
+                            <!-- <li (click)="to  -->
+                            <li (click)="getUserLogout()"><i class="fa fa-sign-out mx-2"></i>Logout</li>
+                            <!-- <li (click)="togglebutton='order_description'" (click)="openNavbar()" style="visibility: hidden;">Order History</li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="profile-sidebar-desc">
+                <app-addresses [showdesc]="togglebutton"></app-addresses>
+                <app-adress-modal [showdesc]="togglebutton"></app-adress-modal>
+                <app-profile-dashboard [showdesc]="togglebutton" (itemEvent)="event($event)"></app-profile-dashboard>
+                <app-edit-profile [showdesc]="togglebutton"></app-edit-profile>
+                <app-order-history [showdesc]="togglebutton"> </app-order-history>
+                <!-- <app-show-order-history [showdesc]="togglebutton" (itemEvent)="event($event)"> </app-show-order-history> -->
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

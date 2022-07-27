@@ -1,0 +1,118 @@
+<app-header></app-header>
+<section class="inner-pages">
+    <!-- shimmer -->
+    <div class="container" *ngIf="innershimmerLoad">
+        <div class="list-heading">
+            <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="page-desc">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="inner_sidebar extralight-border">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Falseshimmer -->
+    <div class="container" *ngIf="!innershimmerLoad">
+        <h5>{{data.title}}</h5>
+        <!-- top page links -->
+        <div class="list-heading">
+            <span><a routerLink="/">Home</a></span>
+            <span><a *ngIf="this.slug.slug">/{{this.slug.slug | titlecase}}</a></span>
+            <span><a *ngIf="this.slug.sublink"
+                    routerLink="/{{this.slug.sublink}}">/{{this.slug.sublink |
+                    titlecase}}</a></span>
+            <span><a *ngIf="this.slug.subsublink"
+                    routerLink="/{{this.slug.subsublink}}">/{{this.slug.subsublink
+                    |
+                    titlecase}}</a></span>
+            <span><a *ngIf="this.slug.subsubsublink"
+                    routerLink="/{{this.slug.subsubsublink}}">/{{this.slug.subsubsublink
+                    | titlecase}}</a></span>
+            <span><a *ngIf="this.slug.subsubsubsublink"
+                    routerLink="/{{this.slug.subsubsubsublink}}">/{{this.slug.subsubsubsublink
+                    | titlecase}}</a></span>
+        </div>
+        <div class="row">
+            <section *ngIf="data.slug=='ask-the-chemist'">
+                <app-call-to-action [data]=chemist_array></app-call-to-action>
+            </section>
+            <div class="col-8">
+                <!-- bind inner pages forms -->
+                <div class="page-desc">
+                    <section *ngIf="data.slug=='ask-the-chemist'">
+                        <app-ask-chemist></app-ask-chemist>
+                    </section>
+                    <div
+                        [innerHtml]=this._apiService.getSantizedData(data.description)
+                        *ngIf="data.description"></div>
+                    <section *ngIf="data.slug=='contact'">
+                        <app-google-map></app-google-map>
+                    </section>
+                    <section *ngIf="data.slug=='request'">
+                        <app-products-request></app-products-request>
+                    </section>
+                    <section *ngIf="data.slug=='supportform'">
+                        <app-support-form></app-support-form>
+                    </section>
+                    <section *ngIf="data.slug=='bulk-pricing'">
+                        <app-bulk-pricing></app-bulk-pricing>
+                    </section>
+                    <section *ngIf="data.slug=='shop'">
+                        <app-gsa-product></app-gsa-product>
+                    </section>
+                </div>
+            </div>
+            <!-- side bar call to action buttons -->
+            <div class="col-4">
+                <div class="inner_sidebar extralight-border">
+                    <nav class="widget widget_nav_menu widget_nav_hide_child"
+                        *ngIf="data.links?.length>0">
+                        <ul class="nested_nav" *ngFor="let link of data.links">
+                            <ng-container
+                                *ngIf="link.related_page.title!='prodpage'">
+                                <li class="page_item page-item-17541"
+                                    style="cursor: pointer;"
+                                    routerLink="/{{link.related_page.slug}}">{{link.related_page.title
+                                    | uppercase}}
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </nav>
+                    <section id="text-5" class="widget clearfix widget_text"
+                        style="margin-bottom: 0;">
+                        <div class="textwidget">
+                            <a class="shopButton2020" routerLink="/shop">SHOP<i
+                                    class="fa fa-shopping-cart"></i></a>
+                            <br>
+                            <a class="requestButton2020"
+                                (click)="routeOnSamePage('contact/request ')">REQUEST
+                                A
+                                SAMPLE<i class="fa fa-thumbs-up"
+                                    aria-hidden="true"></i>
+                            </a><br>
+                            <a class="pdsButton2020"
+                                (click)="routeOnSamePage('contact/support ')">REQUEST
+                                PDS /
+                                TDS<i class="fa fa-calculator"
+                                    aria-hidden="true"></i>
+                            </a><br>
+                            <a class="contactButton2020"
+                                (click)="routeOnSamePage('contact ')">CONTACT US<i
+                                    class="fa fa-envelope" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <span class="seperator extralight-border"></span>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

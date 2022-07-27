@@ -1,0 +1,94 @@
+.images-model {
+    background: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    .show-images {
+        .header {
+            background: transparent;
+            .close-model {
+                margin:10px 93%;
+                width: fit-content;
+                border-radius: 5px;
+                height: 85%;
+                border: 1px solid #fff;
+                display: flex;
+                align-items: center;
+                padding: 8px 10px;
+                cursor: pointer;
+                ion-icon {
+                    color: #fff !important;
+                    font-size: 1.8rem;
+                }
+                button {
+                    font-size: 1.2rem;
+                    height: 100%;
+                    border-radius: 5px;
+                    background-color: transparent;
+                    font-weight: 500;
+                    color: #fff;
+                    margin-left: 3px;
+                }
+            }
+            .complete_model{
+                background: white;
+                width: 500px;
+                padding: 20px;
+                .model_title {
+                    h1 {
+                        text-align: center;
+                        padding:10px;
+                        font-size: 20px;
+                    }
+                }
+                .model_image {
+                    padding: 25px 0; 
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+                .model_para {
+                    p {
+                        padding: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 671px) {
+    .images-model {
+        .show-images {
+            .header {
+                .close-model {
+                    margin:10px 89%;
+                }
+                .complete_model{
+                    width: 300px;
+                    .model_title {
+                        h1 {
+                            padding:0px;
+                        }
+                    }
+                    .model_image {
+                        padding: 0;
+                    }
+                    .model_para {
+                        p {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

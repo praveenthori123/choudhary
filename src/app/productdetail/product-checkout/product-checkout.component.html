@@ -1,0 +1,432 @@
+<div class="spinner" *ngIf="Responsewait">
+    <div class="spinner-border" role="status">
+        <span class="sr-only" id="loading"></span>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="checkout-section">
+        <div class="checkout-heading">
+            <h1>Checkout </h1>
+        </div>
+        <div class="checkout-body">
+            <div class="billing-detail">
+                <div class="card">
+                    <ng-container *ngIf="resSignupMsg.length>0">
+                        <div *ngIf="resSignupMsgCheck=='danger'" class="alert
+                            alert-danger" role="alert" style="justify-content:
+                            space-between;
+                            display: flex;">
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close"
+                                    style="cursor: pointer;"></i></span>
+                        </div>
+                        <div *ngIf="resSignupMsgCheck=='success'" class="alert
+                            alert-success" role="alert">
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close"
+                                    style="cursor: pointer;"></i></span>
+                        </div>
+                        <div *ngIf="resSignupMsgCheck=='warning'" class="alert
+                            alert-warning" role="alert">
+                            {{ resSignupMsg }}
+                            <span class="icon-class"><i class="fa fa-close"
+                                    style="cursor: pointer;"></i></span>
+                        </div>
+                    </ng-container>
+                    <div class="dropdown-address" >
+                        <h3 *ngIf="this.user_credential">Shipping Details</h3>
+                        <h3 *ngIf="!this.user_credential">{{formLabelForNonLoggedInUser}}</h3>
+                    </div>
+
+                    <!-- user billing form -->
+                    <app-billing-form [userBillingDetail]="billingUserDetail"
+                        (shippingDetail)="getSelectedShippingAddress($event)" (LabelChange)="SelectedLabel($event)"
+                        (SelectedPaymentMethod)="PaymentCheck($event)" [shippingerror]="shippingerror" (nonloggedBillingDetail)="getBillingDetail($event)" (extra_notes)="getExtraNotes($event)"></app-billing-form>
+                </div>
+            </div>
+            <!-- shimmar effect true-->
+            <div class="your_order" *ngIf="checkoutShimmer">
+                <div class="card" style="padding: 20px 30px;">
+                    <h3 style="padding: 20px 0;">Your Order</h3>
+                    <div class="checkout-product-heading">
+                        <ng-container *ngFor="let data of [].constructor(3)">
+                            <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+                        </ng-container>
+                        <div class="bank-detail">
+                            <div *ngFor="let data of [].constructor(5)">
+                                <ngx-shimmer-loading width="'100%'"></ngx-shimmer-loading>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- shimmar effect false-->
+            <div class="your-order" *ngIf="!checkoutShimmer">
+                <div class="card">
+                    <h3>Your Order</h3>
+                    <div class="checkout-product-heading">
+                        <ul>
+                            <li>Product</li>
+                            <li>Total</li>
+                        </ul>
+                    </div>
+                    <!-- product detail on checkout page -->
+                    <ng-container *ngFor="let cart of CheckoutProduct">
+                        <div class="checkout-products">
+                            <ul *ngFor="let data of cart.carts">
+                                <li>{{data.product.name}} X {{data.quantity}}</li>
+                                <li>${{(data.product.sale_price *data.quantity)
+                                    | number : '0.2-2'}}</li>
+                            </ul>
+                        </div>
+                        <div class="checkout-products-subtotal">
+                            <ul *ngIf="totalLiftCharge>0">
+                                <li>Lift Gate Service :</li>
+                                <li>${{totalLiftCharge | number
+                                    : '0.2-2'}}</li>
+                            </ul>
+                            <ul *ngIf="hazardous>0">
+                                <li>Hazardous:</li>
+                                <li>${{hazardous}}</li>
+                            </ul>
+                            <ul>
+                                <li class="subtotal-list-element">Subtotal :
+                                </li>
+                                <li *ngIf="user_credential">${{(cart.payable) --
+                                    totalLiftCharge | number : '0.2-2' }}</li>
+                                <li *ngIf="!user_credential">${{(cart.payable)
+                                    -- totalLiftCharge -- hazardous| number
+                                    : '0.2-2'}}</li>
+                            </ul>
+                            <ul *ngIf="taxCheck">
+                                <li class="subtotal-list-element">Taxes : </li>
+                                <ng-container *ngIf="rate>0">
+                                    <li>${{rate}}</li>
+                                </ng-container>
+                                <ng-container *ngIf="rate==-1">
+                                    <div class="text-danger" style="font-size:
+                                        12px;">
+                                        {{taxerror}}
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="rate==0">
+                                    <span><i class="pi pi-spin pi-spinner"
+                                            style="font-size: 1rem"></i></span>
+                                </ng-container>
+                            </ul>
+                            <div class="Shipping_class mt-3">
+                                <ul>
+                                    <!-- <li>
+                                        <div>Shipment Via : </div>
+                                    </li> -->
+                                    <li>
+                                        <div class="Shipping_key">
+                                            <ng-container *ngIf="totalweight>70">
+                                                <div class="d-flex"
+                                                    style="align-items:
+                                                    center;">
+                                                    <!-- <input type="radio" id="saia" name="shipping"
+                                                        [(ngModel)]="selectedShippingMethod" (click)="updatepaymentmethod()" value="saia" class="saia"> -->
+                                                    <label for="saia" class="">Shipment
+                                                        Via : (SAIA)</label>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="totalweight<=70">
+                                                <div class="d-flex"
+                                                    style="align-items:
+                                                    center;">
+                                                    <!-- <input type="radio" id="fedex" name="shipping" value="fedex"
+                                                        class="fedex" [(ngModel)]="selectedShippingMethod" (click)="updatepaymentmethod()"> -->
+                                                    <label for="fedex">Shipment
+                                                        Via : (FedEx)</label>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </li>
+                                    <ng-container
+                                        *ngIf="selectedShippingMethod=='fedex'
+                                        && !fedexSpinner">
+                                        <span style="text-align: right;"
+                                            *ngIf="shippingCharge">${{shippingCharge}}
+                                        </span>
+                                        <span style="text-align: right;
+                                            font-size: 12px;"
+                                            class="text-danger"
+                                            *ngIf="shippingChargeError.length> 0
+                                            && !shippingCharge">{{shippingChargeError}}
+                                        </span>
+                                        <!-- <span style="text-align: right; font-size: 12px; " class="text-danger"
+                                            *ngIf="shippingChargeError.length == 0 && !shippingCharge">{{shippingChargeError?shippingChargeError:'*Enter Valid ZIP Code'}}
+                                        </span> -->
+                                    </ng-container>
+                                    <ng-container *ngIf="fedexSpinner &&
+                                        selectedShippingMethod=='fedex'">
+                                        <span><i class="pi pi-spin pi-spinner"
+                                                style="font-size: 1rem"></i></span>
+                                    </ng-container>
+
+                                    <ng-container
+                                        *ngIf="selectedShippingMethod=='saia' &&
+                                        !saiaSpinner">
+                                        <span *ngIf="saiaValues> 0">${{saiaAmount}}</span>
+                                        <span *ngIf="saiaValues == 0"
+                                            class="text-danger"
+                                            style="text-align: right;font-size:
+                                            12px;">*ZIP Code not Serviceable
+                                        </span>
+                                        <!-- <span *ngIf="saiaValues == -1" class="text-danger"
+                                            style="text-align: right;font-size: 12px;">*Enter Valid ZIP Code
+                                        </span> -->
+                                    </ng-container>
+                                    <ng-container *ngIf="saiaSpinner &&
+                                        selectedShippingMethod=='saia'">
+                                        <span><i class="pi pi-spin pi-spinner"
+                                                style="font-size: 1rem"></i></span>
+                                    </ng-container>
+                                </ul>
+                            </div>
+                            <ul *ngIf="discountCheck && user_credential">
+                                <!-- <ng-container *ngIf="checkforcoupon"> -->
+                                <li class="subtotal-list-element"><input
+                                        type="text" [(ngModel)]="couponValue"
+                                        class="form-control" style="padding:
+                                        0.25rem 0.5rem;">
+                                </li>
+                                <li><button (click)="couponButton()"
+                                        style="padding: 0.25rem
+                                        0.5rem;white-space:nowrap;">Apply
+                                        Coupon</button></li>
+                                <!-- </ng-container> -->
+                            </ul>
+                            <ul *ngIf="errormsg">
+                                <li class="subtotal-list-element">
+                                    <h6 class="text-danger"
+                                        style="font-size:12px;">{{errormsg}}</h6>
+                                </li>
+                            </ul>
+                            <div *ngIf="couponDiscount" style="border: 1px solid
+                                rgba(0,0,0,.125);border-radius:
+                                0.25rem;box-shadow: rgba(149, 157, 165, 0.2) 0px
+                                8px 24px;margin-bottom: 5px;display: grid;
+                                grid-template-columns: 90% 10%;margin: 0 5px
+                                5px;">
+                                <div>
+                                    <ul style="padding: 5px 15px;">
+                                        <li class="subtotal-list-element">Coupon
+                                            Code : </li>
+                                        <li style="color: #55b15c;"><mark>{{coupon_code}}</mark></li>
+                                    </ul>
+                                    <ul style="padding: 5px 15px;">
+                                        <li class="subtotal-list-element">Coupon
+                                            Discount : </li>
+                                        <li style="color: #55b15c;">${{couponDiscount
+                                            | number:'2.1-2'}}</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div style="padding: 5px;">
+                                        <i class="fa fa-close" style="cursor: pointer;"
+                                            (click)="removediscount()"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-products-total">
+                            <ul>
+                                <li class="subtotal-list-element"><b>Total :
+                                    </b></li>
+                                <li *ngIf="user_credential"><b>${{((rate ?
+                                        ((rate==-1)?0 : rate) : 0) --
+                                        cart.payable -- totalLiftCharge --
+                                        ((totalweight>70)?saiaAmount:shippingCharge))
+                                        - couponDiscount |
+                                        number
+                                        : '0.2-2'}}</b></li>
+                                <li *ngIf="!user_credential"><b>${{((rate ?
+                                        ((rate==-1)?0 : rate) : 0) --
+                                        cart.payable -- totalLiftCharge --
+                                        hazardous -- ((totalweight>70)?saiaAmount:shippingCharge))
+                                        - couponDiscount |
+                                        number
+                                        : '0.2-2'}}</b></li>
+                            </ul>
+                        </div>
+                    </ng-container>
+                    <div class="warning-message" *ngIf="paymentMethod">
+                    </div>
+                    <ng-container *ngIf="user_credential">
+                        <span class="text-danger" style="font-size: 11px;"
+                            *ngIf="((saiaValues==0) && shippingChargeError) ||
+                            (saiaAmount==0 && shippingCharge==0)">*Please
+                            select valid address to proceed!</span>
+                    </ng-container>
+                    <ng-container *ngIf="!user_credential">
+                        <span class="text-danger" style="font-size: 11px;"
+                            *ngIf="((saiaValues==0) && shippingChargeError) ||
+                            (saiaAmount==0 && shippingCharge==0)">*Please
+                            fill valid information to proceed!</span>
+                    </ng-container>
+                    <div class="bank-detail">
+                        <div class="card mx-1">
+                            <h6>Direct bank transfer</h6>
+                            <p class="m-0">Make your payment directly into our
+                                bank account. Please use your Order ID as
+                                the payment reference. Your order will not be
+                                shipped until the funds have cleared in
+                                our account.
+                            </p>
+                            <div class="field-radiobutton mt-3"
+                                (click)="checkPaymentTab()">
+                                <p-radioButton name="payment_method2"
+                                    value="paypal"
+                                    [(ngModel)]="selectedPaymentMethod"
+                                    inputId="payment_method2">
+                                </p-radioButton>
+                                <label for="payment_method2" class="mx-2"><b>PayPal</b></label>
+                            </div>
+                            <div class="field-radiobutton mt-3"
+                                (click)="checkPaymentTab()">
+                                <p-radioButton name="payment_method1"
+                                    value="credit_card"
+                                    [(ngModel)]="selectedPaymentMethod"
+                                    inputId="payment_method1">
+                                </p-radioButton>
+                                <label for="payment_method1" class="mx-2"><b>Credit
+                                        Card</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Paypal buttons -->
+                    <div class="paypal-integration"
+                        *ngIf="showPaypal &&
+                        ((selectedShippingMethod=='saia'?(saiaAmount>0?true:false):(shippingChargeError==''?shippingCharge:false)))
+                        && ((rate>0) || !taxCheck)">
+                        <!-- <ng-container *ngIf="paymentCheck"> -->
+                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                        <!-- </ng-container> -->
+                    </div>
+                    <div class="mx-1 my-2"
+                        *ngIf="selectedPaymentMethod=='credit_card'
+                        && (saiaAmount>0 || shippingCharge) && ((rate>0) ||
+                        !taxCheck)">
+                        <div *ngIf="carderror" class="text-danger"
+                            style="font-size: 11px;">{{carderror}}</div>
+
+
+                        <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label for="card_number">Card Holder Name*</label>
+                                    <input class="form-control my-2"
+                                        placeholder="Enter Card Holder Name"
+                                        id="cc-name"
+                                        formControlName="creditCardHolderName"
+                                        (keydown)="inputName($event)" required>
+                                    <h6 class="text-danger" *ngIf="invalidName">
+                                        {{ invalidName ? "Invalid Card Holder
+                                        Name" :
+                                        "" }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        Card Name is Required
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 my-2">
+                                    <label for="card_number">Card Number*</label>
+                                    <input class="form-control my-2"
+                                        placeholder=".... .... .... ...."
+                                        id="cc-number"
+                                        formControlName="creditCard" type="tel"
+                                        autocomplete="cc-number" maxlength="16"
+                                        (input)="validateCard($event)"
+                                        (keydown)="inputCard($event)" required>
+                                    <h6 class="text-danger" *ngIf="invalidCard">
+                                        {{ invalidCard ? "Invalid Card Number" :
+                                        "" }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        Card Number is Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label for="ccmonth">Month</label>
+                                    <input class="form-control my-2"
+                                        placeholder="Month"
+                                        id="cc-month"
+                                        (input)="validatemonth($event)"
+                                        (keydown)="inputmonth($event)"
+                                        formControlName="exp_month"
+                                        maxlength="2" minlength="2" required>
+                                    <h6 class="text-danger"
+                                        *ngIf="invalidmonth">
+                                        {{ invalidmonth ? "Invalid Month" : ""
+                                        }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        Month is Required
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="ccyear">Year</label>
+                                    <input class="form-control my-2"
+                                        placeholder="Year"
+                                        id="cc-year"
+                                        (input)="validateyear($event)"
+                                        (keydown)="inputyear($event)"
+                                        formControlName="exp_year" maxlength="4"
+                                        minlength="4" required>
+                                    <h6 class="text-danger"
+                                        *ngIf="invalidyear">
+                                        {{ invalidyear ? "Invalid Year" : ""
+                                        }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        Year is Required
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label for="CVC">CSC*</label>
+                                    <input class="form-control my-2"
+                                        id="cc-cvc"
+                                        placeholder="CSC"
+                                        formControlName="cvc"
+                                        type="tel" autocomplete="off"
+                                        maxlength="3"
+                                        (input)="validateCSC($event)"
+                                        (keydown)="inputCSC($event)"
+                                        required>
+                                    <h6 class="text-danger"
+                                        *ngIf="invalidCSC">
+                                        {{ invalidCSC ? "Invalid CSC" : ""
+                                        }}
+                                    </h6>
+                                    <div class="invalid-feedback">
+                                        CSC Number is Required
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="place-order my-2 mx-1">
+                        <div class="proceed-button">
+                            <button pButton pRipple type="button"
+                                label="Place
+                                Order" (click)="getOrderInfo()"
+                                class="p-button-raised p-button-success"
+                                style="height:45px; width: 100%;"
+                                [disabled]="paymentCheck ||
+                                selectedPaymentMethod=='' || !(saiaValues>0
+                                || shippingCharge) || (!(rate>0) &&
+                                taxCheck) ||
+                                !shippingDataObj.valid "></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

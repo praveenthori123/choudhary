@@ -1,0 +1,156 @@
+<app-header></app-header>
+<ng-container *ngIf="innershimmerLoad">
+    <section class="media-section">
+        <div class="container">
+            <div class="head-section">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+            </div>
+        </div>
+    </section>
+    <section class="media-banner" *ngIf="!backupBlog.data">
+        <div class="container">
+            <div class="media-calltoaction" style="display:
+                grid;grid-template-columns: 65% 35%;">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                <!-- <div class="caltoaction"> -->
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                <!-- </div> -->
+            </div>
+        </div>
+    </section>
+</ng-container>
+<ng-container *ngIf="!innershimmerLoad">
+    <section class="media-section">
+        <div class="container">
+            <div class="head-section">
+                <div class="search-input">
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search" (click)="getInputValue($event)"></i>
+                        <input class="form-control" [(ngModel)]="userQuestion"
+                            type="text" placeholder="Search the blog"
+                            name="userQuestion" id="userQuestions"
+                            (ngModelChange)="this.userQuestionUpdate.next($event)">
+                    </span>
+                </div>
+                <div class="month-dropdown">
+                    <div class="p-field p-col-12">
+                        <p-calendar [(ngModel)]="rangeDates"
+                            selectionMode="range" [readonlyInput]="true"
+                            #calendar
+                            [maxDate]="maxDate"
+                            (onSelect)="selectedDate()"
+                            placeholder="Select Date Range : MM/DD/YYYY"
+                            showClear="true" (onClearClick)="clear($event)"
+                            [showButtonBar]="true">
+                        </p-calendar>
+                    </div>
+
+                </div>
+                <div class="category-dropdown">
+                    <input type="text" pInputText class="select-category" (input)="getCategoryInputValue()"
+                        [(ngModel)]="selected_category" placeholder="Select Category" /><img src="https://cdn1.iconfinder.com/data/icons/arrows-vol-1-5/24/dropdown_arrow2-512.png" (click)="showCategoryDropdown = !showCategoryDropdown" style="width: 20px; height: 20px; position: absolute; cursor: pointer;
+                        right: 10px; top
+                        : 10px;" alt="">
+                    <!-- <div class="dropdown-list" *ngIf="category_dropdown_list">
+                        <ng-container *ngFor="let category of
+                            allCategories">
+                            <option value="{{category.blog_category}}"
+                                (click)="selectedValues($event)"
+                                style="width: 50px;">{{category.blog_category.length
+                                > 20 ? category.blog_category.slice(0,20)+'...'
+                                : category.blog_category + ''}}</option>
+                        </ng-container>
+                    </div> -->
+                    <div class="global-search-model" *ngIf="showCategoryDropdown">
+                        <ng-container *ngFor="let data of allCategories">
+                                <h6 style="cursor: pointer;" (click)="getCategory(data.blog_category)" (click)="showCategoryDropdown=!showCategoryDropdown"><a>{{data.blog_category}} </a></h6>
+                                <hr>
+                        </ng-container>
+                    </div>
+                    <!-- <select class="form-select select-category"
+                        (change)="selectedValues($event)" [(ngModel)]="selected_category">
+                        <option selected>Select Category</option>
+                        <ng-container *ngFor="let category of
+                            allCategories">
+                            <option value="{{category.blog_category}}"
+                                style="width: 50px;">{{category.blog_category.length
+                                > 20 ? category.blog_category.slice(0,50)+'...'
+                                : category.blog_category + ''}}</option>
+                        </ng-container>
+                    </select> -->
+                    <!-- <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [editable]="true" optionLabel="name"></p-dropdown> -->
+                </div>
+
+                <div class="clear-filter">
+                    <button class="btn btn btn-filter" (click)="clearFilter()">Clear
+                        Filter</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container breadcrumbs">
+        <section class="m-0">
+            <ul class="p-0 m-0">
+                <a routerLink="/" style="text-decoration: none;"> <span
+                        style="color:
+                        #6b6666;">Home</span> </a>
+                <a routerLink="/info" style="text-decoration: none;"> <span
+                        style="color: #6b6666;">/News</span> </a>
+            </ul>
+        </section>
+    </div>
+    <section class="media-banner" *ngIf="getAllBlog.length>0">
+        <div class="container">
+            <div class="media-calltoaction">
+                <ng-container *ngFor="let item of getAllBlog; index as index">
+                    <div *ngIf="index==0">
+                        <div class="media" routerLink="/info/{{item.slug}}">
+                            <div class="spotlight-banner">
+                                <img src="{{item.image}}" alt="{{item.alt}}">
+                            </div>
+                            <div class="spotlight-desc">
+                                <h5>{{item.title}}</h5>
+                                <p>{{item.short_desc?.slice(0,130)}}</p>
+                                <p class="action-button">Read Article <i
+                                        class="fa fa-arrow-right"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <div></div>
+                <div class="calltoaction">
+                    <img src="{{imageurl}}calltoaction.jpeg" alt="">
+                    <div class="chemical">
+                        <button>
+                            <a (click)="routeOnSamePage('/shop')">Shop Chemicals</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container>
+
+
+<!-- <app-trending-post></app-trending-post> -->
+<ng-container *ngIf="getAllBlog?.length>0">
+    <div class="container trending-section">
+        <hr> Latest Posts
+        <hr>
+    </div>
+    <ng-container>
+        <app-media-banner [data_input]="getAllBlog"></app-media-banner>
+    </ng-container>
+</ng-container>
+
+
+<ng-container *ngIf="getAllBlog?.length==0 && !innershimmerLoad">
+    <div class="not-found-section">
+        <h2>No Result Found</h2>
+    </div>
+</ng-container>
+<app-footer></app-footer>

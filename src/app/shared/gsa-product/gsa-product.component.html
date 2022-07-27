@@ -1,0 +1,39 @@
+<section class="shop-categories">
+    <div class="container">
+        <div class="row">
+            <div class="categories-text">
+                <div class="product-category">
+                    <div class="heading-section">
+                        <h3>INDUSTRIAL DEGREASERS & SOLVENTS</h3>
+                    </div>
+                    <div class="shop-text">
+                        <h3>Shop Chemicals</h3>
+                        <p>Ecolink provides a broad range of industrial solutions including EPA compliant solvents, aqueous
+                            cleaners & degreasers, job specific specialty solvents, high performance janitorial maintenance
+                            products and custom chemical solutions. These products reduce hazardous waste and minimize
+                            worker exposure to toxic substances, while meeting demanding performance requirements.</p>
+                    </div>
+                    <div class="categories">
+                        <div class="category-card" *ngFor="let category of getCategory.data">
+                            <div class="category-image">
+                                <img src="{{category.image}}" alt="">
+                            </div>
+                            <div class="category-text">
+                                <div class="content">
+                                    <h5>{{category.name}}</h5>
+                                <p>{{category.short_desc}}</p>
+
+                                    <!-- <hr style="margin: 0;">
+                                    <p>{{category.short_desc}}</p> -->
+                                    <div class="button-div">
+                                        <button routerLink="/product-category/{{category.slug}}">Shop Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,140 @@
+<div class="container">
+    <!-- Shimmar Effect -->
+    <ng-container *ngIf="shimmerLoad">
+        <div class="row">
+            <ng-container *ngFor="let data of [].constructor(1)">
+                <div class="mt-3">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="shimmerLoad">
+        <div class="row">
+            <ng-container *ngFor="let data of [].constructor(1)">
+                <div class="mt-3">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+    <!-- False Shimmer -->
+    <ng-container *ngIf="!shimmerLoad">
+        <ng-container *ngIf="wishlistMsg" id="backToTop">
+            <div *ngIf="wishlistMsgCheck=='success'" style="margin: 10px auto 0 auto; width:400px; height: fit-content; text-align: center;  padding: 0.5rem;" class="alert alert-success" role="alert" id="loginAlert" #test>
+                {{ wishlistMsg }}
+            </div>
+        </ng-container>
+        <div class="product-detail-section">
+            <!-- product detail card  -->
+            <ng-container *ngFor="let detail of productDetail">
+                <div class="product-image">
+                    <img [src]="detail.data.product.image" alt="">
+                </div>
+                <div class="product-detail">
+                    <div class="product-name">
+                        <h3>{{detail.data.product.name}} - {{detail.data.product.variant}}</h3>
+                    </div>
+                    <div class="product-rate">
+                        <ng-container
+                            *ngIf="detail.data.regular_price > detail.data.sale_price; then thenBlock else elseBlock">
+                        </ng-container>
+                        <ng-template #thenBlock>
+                            <h4 class="product-price mb-1" style="text-decoration-line: line-through; font-size: 14px;">
+                                {{detail.data.product.sale_price | currency}}</h4>
+                            <h4 class="product-price">{{detail.data.product.regular_price | currency}}</h4>
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <h4 class="product-price">{{detail.data.product.regular_price | currency}}</h4>
+                        </ng-template>
+
+                        <ng-container *ngIf="detail.data.product.in_stock==1">
+                            <p>In Stock : {{detail.data.product.stock}}</p>
+                        </ng-container>
+                        <ng-container *ngIf="detail.data.product.in_stock==0">
+                            <p>Availability : Out of Stock</p>
+                        </ng-container>
+                    </div>
+                    <div class="product-desc">
+                        <div [innerHtml]="this._ApiService.getSantizedData(detail.data.product.short_desc)"
+                            *ngIf="detail.data.product.short_desc"></div>
+                    </div>
+                    <div class="product-info">
+                        <ul>
+                            <li *ngIf="detail.data.product.sku">SKU: {{detail.data.product.sku}}</li>
+                            <li *ngIf="detail.data.product.hsn">hsn :{{detail.data.product.hsn}}</li>
+                            <li *ngIf="detail.data.product.tag">Tag: {{detail.data.product.tag}}</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown" *ngIf="detail.data.variants.length>0">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-toggle="dropdown" aria-expanded="false">
+                            {{detail.data.product.variant}}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li *ngFor="let item of detail.data.variants">
+                                <p class="dropdown-item" (click)="routeOnSamePage(item.slug)">
+                                    {{item.variant}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cart">
+                        <div class="add-to-cart">
+                            <div class="counter">
+                                <button (click)="Count('decrease')"
+                                    [disabled]="ItemCount== detail.data.product.minimum_qty || ItemCount==1 || DisabledCartButton">-</button>
+                                <p>{{ItemCount}}</p>
+                                <button (click)="Count('increase')" [disabled]="ItemCount>=25 || DisabledCartButton">+</button>
+                            </div>
+                            <div class="addtocartbutton">
+                                <button (click)=AddProductToCart(detail.data.product) pButton pRipple type="button"
+                                    [label]="CartButton" class="p-button-raised p-button-success"
+                                    style="width:max-content; height: fit-content;"
+                                    *ngIf="!DisabledCartButton"></button>
+                                <button pButton pRipple type="button" [label]="CartButton" routerLink="/cart"
+                                    *ngIf="DisabledCartButton" class="p-button-raised p-button-success"
+                                    style="width:max-content; height: fit-content;"></button>
+                            </div>
+                        </div>
+                        <div class="wishlist">
+                            <span *ngIf="wishlistcheck"><i class="fa fa-heart" style="color: white;" aria-hidden="true" title="Wishlist"
+                                    (click)="deleteWishlistItems(detail.data.product.id)"></i></span>
+                            <span *ngIf="!wishlistcheck"><i class="pi pi-heart" style="color: white;" aria-hidden="true" title="Wishlist"
+                                    (click)="addWishList(detail.data.product)"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="product-detail-tab my-3">
+            <!-- product detail description -->
+            <ng-container *ngFor="let detail of productDetail">
+                <p-tabView>
+                    <p-tabPanel header="Description" *ngIf="detail.data.product.description.length>0">
+                        <div class="desc"
+                            [innerHtml]="this._ApiService.getSantizedData(detail.data.product.description)"></div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Additional Information">
+                        <ul>
+                            <li style="font-size: 18px;" *ngIf="detail.data.product.weight">
+                                <b>Weight</b> : {{detail.data.product.weight}} lbs
+                            </li>
+                            <li style="font-size: 18px;" *ngIf="detail.data.product.height">
+                                <b>Dimensions</b> : {{detail.data.product.height}} x {{detail.data.product.width}} x {{detail.data.product.length}} in
+                            </li>
+                            <li style="font-size: 18px;" *ngIf="detail.data.product.shipping_class">
+                                <b>Shipping class</b> : {{detail.data.product.shipping_class}}
+                            </li>
+                        </ul>
+                    </p-tabPanel>
+                </p-tabView>
+            </ng-container>
+            <!-- recommendation product -->
+            <div class="recommendation-product" *ngIf="recommended_products.length>0">
+                <h3>Recommended Products</h3>
+                <app-card-slider [recommended_products]="recommended_products" [category]="this.slug.category">
+                </app-card-slider>
+            </div>
+        </div>
+    </ng-container>
+</div>

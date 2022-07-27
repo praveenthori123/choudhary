@@ -1,0 +1,101 @@
+<div class="Addresses-section" *ngIf="showdesc == 'Addresses'">
+    <div class="adderess-head">
+        <h4 id="backToTop">Shipping Addresses</h4>
+        <!-- <p>To select a default shipping address for checkout, click "Set as my default".</p> -->
+    </div>
+    <ng-container *ngIf="shimmarload">
+        <div class="row">
+            <div class="col-6 mt-3">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+            </div>
+            <div class="col-6 mt-3">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="resSignupMsg">
+        <div *ngIf="resSignupMsgCheck=='success'" class="alert alert-success" role="alert" id="loginAlert" #test>
+            {{ resSignupMsg }}
+            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="allUserAddresses.length>0">
+        <div class="address-body">
+            <!-- address card -->
+            <ng-container *ngFor="let item of allUserAddresses; index as index">
+                <div class="address-card">
+                    <div class="address-text">
+                        <h5>{{item.name}}</h5>
+                        <div>
+                            <p>{{item.address}}, {{item.landmark}}</p>
+                        </div>
+                        <div>
+                            <p>{{item.city}}</p>
+                        </div>
+                        <div>
+                            <p>{{item.state}}({{item.zip}}), {{item.country}}</p>
+                        </div>
+                        <p>{{item.mobile}}</p>
+                        <div class="crud-btn">
+                            <p (click)="getUserDetail(item)" data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
+                            </p>
+                            <p class="delete" data-bs-toggle="modal" data-bs-target="#confirmationModal">Delete</p>
+                            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Address</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="popup_image" style="text-align: center;padding: 15px 15px 0 15px;">
+                                        <i class="fa fa-times-circle" style="font-size: 90px;"></i>
+                                    </div>
+                                    <div class="modal-body" style="text-align:center;font-size: 18px;">
+                                      Do you want to delete this address?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn" data-bs-dismiss="modal" style="padding: 6px 28px;border: 1px solid gray;">No</button>
+                                      <button type="button" class="btn" data-bs-dismiss="modal" (click)="deleteUserAddress(item.id)" style="padding: 6px 28px;background-color: #56b15c;color: white;">Yes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row addAddress" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            (click)="getUserDetail('add')">
+            <div class="col-12 addAddressCol">
+                <h4 class="m-0">Add Address</h4>
+                <i class="pi pi-plus"></i>
+            </div>
+        </div>
+    </ng-container>
+    <!-- add address button -->
+    <ng-container *ngIf="!(allUserAddresses.length>0)">
+        <div class="row addAddress" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            (click)="getUserDetail('add')">
+            <div class="col-12 addAddressCol">
+                <h4 class="m-0">Add Address</h4>
+                <i class="pi pi-plus"></i>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- add address modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" *ngFor="let item of profileAddress">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">{{item.heading}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container">
+                <app-adress-modal [profileaddress]="profileAddress"></app-adress-modal>
+            </div>
+        </div>
+    </div>
+</div>

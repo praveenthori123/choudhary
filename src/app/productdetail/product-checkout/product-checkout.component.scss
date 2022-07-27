@@ -1,0 +1,294 @@
+.spinner {
+    display: flex;
+    justify-content: center;
+    z-index: 9;
+    position: absolute;
+    width: 100%;
+    height: 250vh;
+    align-items: center;
+    opacity: 0.6;
+    background: #000;
+}
+
+.checkout-section {
+    margin: 30px 60px;
+
+    .checkout-heading {
+        margin: 30px 0;
+    }
+
+    h3,
+    h2 {
+        font-weight: 600;
+        margin: 0;
+        padding: 0;
+    }
+
+    .checkout-body {
+        display: grid;
+        grid-template-columns: 60% 39%;
+        grid-gap: 10px;
+
+        .billing-detail {
+            .card {
+                padding: 20px 30px;
+
+                label {
+                    font-weight: 400;
+                }
+
+                .checkbox {
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        margin-left: 5px;
+                    }
+                }
+
+                .dropdown-address {
+                    padding: 20px 0;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .dropdown-menu {
+                        width: 100%;
+                        padding: 0.375rem 0.75rem;
+                    }
+
+                    .add-button {
+                        cursor: pointer;
+                        align-items: center;
+                        border: 1px solid gainsboro;
+                        border-radius: 5px;
+                        justify-content: center;
+                    }
+                }
+                .form-check {
+                    border: 1px solid rgba(0,0,0,.125);
+                    border-radius: 0.25rem;
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                    padding-left:30px;
+                    padding-top: 6px;
+                    .edit_address {
+                        padding: 5px 25px;
+                        white-space: nowrap;
+                        background: #55b15c;
+                        color: white;
+                        box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+                        border: 1px solid #d7d1d1;
+                        border-radius: 0.25rem;
+                        margin: 10px 0px;
+                    }
+                }
+            }
+        }
+
+        .your-order {
+            .card {
+                padding: 20px 30px;
+
+                h3 {
+                    padding: 20px 0;
+                }
+
+                .checkout-product-heading {
+                    border-bottom: 1px solid #dedede;
+
+                    ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 0 5px;
+                        margin-bottom: 0.5rem;
+
+                        li {
+                            list-style: none;
+                            font-weight: 600;
+                        }
+                    }
+                }
+
+                .checkout-products {
+                    border-bottom: 1px solid #dedede;
+                    margin: 20px 0;
+
+                    ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 0 5px;
+
+                        li {
+                            list-style: none;
+                            max-width: 250px;
+                        }
+                    }
+                }
+
+                .checkout-products-subtotal {
+                    border-bottom: 1px solid #dedede;
+
+                    ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 0 5px;
+
+                        .subtotal-list-element,
+                        li {
+                            list-style: none;
+                        }
+
+                        button {
+                            background: #55b15c;
+                            color: white;
+                            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                            border: 1px solid #d7d1d1;
+                            border-radius: 0.25rem;
+                            padding: 5px;
+                            width: 100%;
+                        }
+
+                        .subtotal-list-element {
+                            font-weight: 500;
+                        }
+                    }
+
+                    .Shipping_class {
+                        .Shipping_key {
+                            // display: flex;
+                            align-items: center;
+                            div { 
+                                padding: 5px 10px 5px 0;
+                                input {
+                                    margin-right: 5px;
+                                }
+                            }
+                            label {
+                                font-weight: 500;
+                                // margin-top: -5px;
+                            }
+                        }
+                    }
+                }
+
+                .checkout-products-total {
+                    ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 5px 5px;
+
+                        li {
+                            list-style: none;
+                            font-size: 20px;
+                        }
+
+                        .subtotal-list-element {
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                .bank-detail {
+                    .card {
+                        background: #f7f7f7;
+                        font-size: 14px;
+                    }
+                }
+
+                .paypal-integration {
+                    padding: 0 0.25rem;
+                    margin: 10px 0;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep {
+    .checkout-body {
+        .your_order {
+            .card {
+                .checkout-product-heading {
+                    .shimmer-loading {
+                        .ngx-shimmer {
+                            height: 45px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .proceed-button {
+        .p-button.p-button-success,
+        .p-buttonset.p-button-success>.p-button,
+        .p-splitbutton.p-button-success>.p-button {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            font-size: 18px;
+        }
+    }
+
+    .p-button.p-button-success:enabled:focus,
+    .p-buttonset.p-button-success>.p-button:enabled:focus,
+    .p-splitbutton.p-button-success>.p-button:enabled:focus {
+        box-shadow: none;
+    }
+
+    .p-button.p-button-success:enabled:hover,
+    .p-buttonset.p-button-success>.p-button:enabled:hover,
+    .p-splitbutton.p-button-success>.p-button:enabled:hover {
+        background: var(--primary);
+        border-color: var(--primary);
+    }
+
+    .p-button.p-button-success:enabled:focus,
+    .p-buttonset.p-button-success>.p-button:enabled:hover,
+    .p-splitbutton.p-button-success>.p-button:enabled:focus {
+        box-shadow: 0 0 0 0.2rem #95dc9b;
+    }
+}
+
+@media (max-width: 1200px) {
+    .checkout-section {
+        margin: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 950px;
+    }
+
+    .checkout-section {
+        .checkout-body {
+            grid-template-columns: 50% 49%;
+
+            .billing-detail {
+                .card {
+                    .dropdown-address {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        h3 {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .checkout-section {
+        .checkout-body {
+            display: block;
+
+            .billing-detail {
+                margin-bottom: 50px;
+            }
+        }
+    }
+}

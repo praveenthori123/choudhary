@@ -1,0 +1,199 @@
+<!-- form when modal opens -->
+<form #signUpForm="ngForm" (ngSubmit)="addUserAddress(signUpForm)">
+    <ng-container *ngIf="resAddmsg">
+        <div *ngIf="resAddmsgCheck=='danger'" class="alert alert-danger"
+            role="alert" id="loginAlert" #test>
+            {{ resAddmsg }}
+            <span class="icon-class"><i class="fa fa-close" (click)="close()"></i></span>
+        </div>
+    </ng-container>
+    <ng-container *ngFor="let item of profileaddress">
+        <input type="text" name="id" [(ngModel)]="item.id" style="display:
+            none;">
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <label for="first-name">Full Name</label>
+                    <input #fname="ngModel" pattern="^[a-zA-Z][\sa-zA-Z]*"
+                        class="form-control" type="text" id="firstname"
+                        autocomplete="off" name="firstname" maxlength='50'
+                        [(ngModel)]="item.name" required />
+                    <div *ngIf="fname.touched && fname.invalid"
+                        class="alert-danger">Invalid Full Name</div>
+                </div>
+            </div>
+            <!-- <div class="col-6">
+                <div>
+                    <label for="last-name">Last Name</label>
+                    <input class="form-control" #lname="ngModel" pattern="^[a-zA-Z][\sa-zA-Z]*" type="text" id="lastname" autocomplete="off" maxlength='50' name="lastname" [(ngModel)]="item.lastname" required />
+                    <div *ngIf="lname.touched && lname.invalid" class="alert-danger">Invalid Last Name</div>
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div>
+                    <label for="email">Email</label>
+                    <input class="form-control" #mail="ngModel" type="email"
+                        id="email" autocomplete="off" name="email"
+                        (input)="validateEmail($event)" [(ngModel)]="item.email"
+                        required />
+                    <h6 class="text-danger" *ngIf="invalidEmail">
+                        {{ invalidEmail ? "Invalid Email" : "" }}
+                    </h6>
+                    <div *ngIf="mail.touched && mail.invalid"
+                        class="alert-danger">
+                        Please Fill the Value
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div>
+                    <label for="phone-number">Mobile Number</label>
+                    <input class="form-control" #number="ngModel" type="text"
+                        id="phonenumber" autocomplete="off" name="phonenumber"
+                        maxlength="10" (input)="validateMobile($event)"
+                        (keydown)="inputMobile($event)"
+                        [(ngModel)]="item.mobile" required />
+                    <h6 class="text-danger" *ngIf="invalidMobile">
+                        {{ invalidMobile ? "Invalid Mobile" : "" }}
+                    </h6>
+                    <div *ngIf="number.touched && number.invalid"
+                        class="alert-danger">
+                        Please Fill the Value
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <label for="landmark">Landmark</label>
+                    <input class="form-control" #landmark="ngModel"
+                        pattern="^[#.0-9a-zA-Z\s,-]+$" type="text" id="landmark"
+                        autocomplete="off" name="landmark"
+                        [(ngModel)]="item.landmark" />
+                    <div *ngIf="landmark.touched && landmark.invalid"
+                        class="alert-danger">
+                        Invalid Landmark
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <label for="address">Address</label>
+                    <input class="form-control" #address="ngModel"
+                        pattern="^[#.0-9a-zA-Z\s,-]+$" type="text" id="address"
+                        autocomplete="off" name="address"
+                        [(ngModel)]="item.address" required />
+                    <div *ngIf="address.touched && address.invalid"
+                        class="alert-danger">
+                        Invalid Address
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div>
+                    <label for="country">Country</label>
+                    <input
+                        class="form-control" type="text" id="country"
+                         readonly value="US"
+                        autocomplete="off" name="country"
+                        />
+                    <!-- <div *ngIf="country.touched && country.invalid"
+                        class="alert-danger">
+                        Invalid Country
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-6">
+                <div>
+                    <label for="state">State</label>
+                    <select class="form-control form-select"
+                        #state="ngModel"
+                        type="text" id="state"
+                        (change)="getdata($event)"
+                        placeholder="Select State"
+                        autocomplete="off" name="state" [(ngModel)]="item.state"
+                        required>
+                        <option disabled selected>Select State</option>
+                        <option value="{{state.state_code}}" *ngFor="let
+                            state of statesList">
+                            {{state.state_name | titlecase}}
+                        </option>
+                    </select>
+                    <div *ngIf="state.touched && state.invalid"
+                        class="alert-danger">
+                        Invalid State
+                    </div>
+                    <!-- <input class="form-control" #state="ngModel"
+                        type="text" id="state" (change)="getdata($event)"
+                        autocomplete="off" name="state" [(ngModel)]="item.state"
+                        required />
+                    <div *ngIf="state.touched && state.invalid"
+                        class="alert-danger">
+                        Invalid State
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div>
+                    <label for="city">City*</label>
+                    <select id="city"
+                        class="form-control form-select"
+                        #city="ngModel" (change)="onChangecity($event)"
+                        autocomplete="off" name="city" [(ngModel)]="item.city"
+                        required>
+                        <option disabled selected>Select City</option>
+                        <ng-container *ngFor="let city of cityLists">
+                            <option value="{{city.city}}">
+                                {{city.city | titlecase}}
+                            </option>
+                        </ng-container>
+                    </select>
+                    <div *ngIf="city.touched && city.invalid"
+                        class="alert-danger">
+                        Invalid City
+                    </div>
+
+                    <!-- <label for="city">City</label>
+                    <input class="form-control" #city="ngModel"
+                        pattern="^[a-zA-Z][\sa-zA-Z]*" type="text" id="city"
+                        autocomplete="off" name="city" [(ngModel)]="item.city"
+                        required />
+                    <div *ngIf="city.touched && city.invalid"
+                        class="alert-danger">
+                        Invalid City
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-6">
+                <div>
+                    <label for="pincode">ZIP Code</label>
+                    <input class="form-control" type="text" id="pincode"
+                        autocomplete="off" name="pincode" maxlength="6"
+                        (input)="validateZip($event)"
+                        (keydown)="inputZip($event)" [(ngModel)]="item.zip"
+                        required readonly />
+                    <h6 class="text-danger" *ngIf="invalidZip">
+                        {{ invalidZip ? "Invalid ZIP Code" : "" }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 add-user">
+                <button class="saveuserdetail btn btn-success my-3 form-control"
+                    [disabled]="signUpForm.invalid || invalidEmail ||
+                    invalidMobile || invalidZip" data-bs-dismiss="modal">Save
+                    Address</button>
+            </div>
+        </div>
+    </ng-container>
+</form>

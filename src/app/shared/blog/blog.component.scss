@@ -1,0 +1,443 @@
+.blog-section {
+    margin: 30px 0;
+
+    .container {
+        .responsive-blog-search {
+            display: none;
+        }
+
+        .blog-calltoaction {
+            display: grid;
+            grid-template-columns: 65% 33%;
+            grid-gap: 21px;
+
+            .blog {
+                .head-calltoaction {
+                    border-radius: 5px;
+                    height: 150px;
+                    // background-image: url("https://2022.ecolink.com/ecolink/assets/blog_1.jpeg");
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    align-items: center;
+                    position: relative;
+
+                    .shop-chemical {
+                        position: absolute;
+                        width: 100%;
+                        bottom: 20px;
+                        text-align: center;
+
+                        button {
+                            border: 1px solid var(--primary);
+                            background: var(--primary);
+                            border-radius: 5px;
+                            padding: 5px 10px;
+                            bottom: 0;
+
+                            a {
+                                color: white;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+
+                .blog-image {
+                    // margin: 30px 0;
+                    height: 250px;
+
+                    img {
+                        width: 100%;
+                        display: flex;
+                        height: 100%;
+                        border-radius: 10px;
+                        margin: auto;
+                    }
+                }
+
+                .card {
+                    padding: 20px 0;
+                    width: 100%;
+                    margin: 5px;
+                }
+
+                .blog-text {
+                    overflow: hidden;
+
+                    p {
+                        font-size: 18px;
+                        line-height: 30px;
+                        text-align: justify;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .digital-links {
+                    margin: 30px 0;
+                    width: 40%;
+
+                    ul {
+                        font-size: 20px;
+                        list-style: none;
+                        padding: 0;
+                        display: flex;
+                        justify-content: space-between;
+
+                        a {
+                            cursor: pointer;
+                            color: black;
+
+                            // &:hover {
+                            //     font-size: 25px;
+                            // }
+                        }
+                    }
+                }
+            }
+
+            .calltoactionshop {
+                position: relative;
+
+                .chemicalscalltoaction {
+                    // background-image: url("https://2022.ecolink.com/ecolink/assets/blog_2.jpeg");
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                    border: 1px solid #d7d1d1;
+                    border-radius: 10px;
+                    background-size: cover;
+                    align-items: center;
+                    position: relative;
+                    height: 300px;
+
+                    .chemical-div {
+                        position: absolute;
+                        width: 100%;
+                        bottom: 20px;
+                        text-align: center;
+
+                        button {
+                            border: 1px solid var(--primary);
+                            background: var(--primary);
+                            border-radius: 5px;
+                            padding: 5px 10px;
+                            bottom: 0;
+
+                            a {
+                                color: white;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+
+                .blog-search {
+                    text-align: center;
+                    padding: 20px 0;
+
+                    span {
+                        width: 100%;
+
+                        input {
+                            width: 100%;
+                            border-radius: 20px;
+                            border: 1px solid lightgray;
+                            height: 35px;
+                            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+                            padding-left: 25px;
+                        }
+                    }
+                }
+
+                .ctasection {
+                    // height: calc(100% - 377px);
+                    height: 350px;
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                    border: 1px solid #d7d1d1;
+                    border-radius: 10px;
+                    background: whitesmoke;
+                    position: relative;
+                    background-size: cover;
+                    object-fit: cover;
+
+                    // background-image: url("https://2022.ecolink.com/ecolink/assets/blog_3.jpeg");
+                    // position: sticky;
+                    // top: 15%;
+                    .innerctadiv {
+                        position: absolute;
+                        width: 100%;
+                        bottom: 10%;
+                        text-align: center;
+
+                        button {
+                            border: 1px solid var(--primary);
+                            background: var(--primary);
+                            border-radius: 5px;
+                            padding: 5px 10px;
+                            bottom: 0;
+
+                            a {
+                                color: white;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+
+                .inner_sidebar {
+                    position: sticky;
+                    top: 4%;
+                    margin-top: 30px;
+
+                    .widget {
+                        margin-bottom: 100px;
+
+                        ul {
+                            list-style: none;
+                            padding: 0;
+
+                            li {
+                                // padding: 10px 0;
+                                color: #3f661c;
+                            }
+
+                            li:hover {
+                                color: #0a6fbd;
+                            }
+                        }
+                    }
+
+                    .widget_text {
+                        .textwidget {
+
+                            // p {
+                            i {
+                                margin: 0 10px;
+                            }
+
+                            .shopButton2020 {
+                                a {
+                                    color: #ffffff;
+                                    text-decoration: none;
+                                }
+
+                                background-color: #0a6fbd;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+
+                            .requestButton2020 {
+                                background-color: #009e49;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+
+                            .pdsButton2020 {
+                                background-color: #000000;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+
+                            .contactButton2020 {
+                                background-color: #777777;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .blog-section {
+        .container {
+            .responsive-blog-search {
+                display: block;
+                text-align: center;
+                padding: 20px 0;
+
+                span {
+                    width: 100%;
+
+                    input {
+                        width: 100%;
+                        border-radius: 20px;
+                        border: 1px solid lightgray;
+                        height: 35px;
+                        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+                        padding-left: 25px;
+                    }
+                }
+            }
+
+            .blog-search {
+                display: none;
+            }
+
+            .search-result {
+                display: none;
+            }
+
+            .blog-calltoaction {
+                grid-template-columns: 100%;
+
+                .calltoactionshop {
+                    .chemicalscalltoaction {
+                        margin-bottom: 30px;
+                        height: 270px;
+                    }
+
+                    .ctasection {
+                        height: 270px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.search-result {
+    background: white;
+    width: 90%;
+    min-height: 10px;
+    max-height: 350px;
+    position: absolute;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+    top: 371px;
+    z-index: 999;
+    padding: 20px 20px 0 5px;
+    overflow-y: scroll;
+    left: 15px;
+
+    ul {
+        padding-left: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        li {
+            list-style: none;
+            // text-decoration: underline;
+        }
+
+        hr {
+            height: 0.5px;
+        }
+    }
+}
+
+.responsive-search-result {
+    position: absolute;
+    background: #fff;
+    width: 88%;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+    left: 45px;
+    min-height: 10px;
+    max-height: 350px;
+    overflow-y: scroll;
+    top: 190px;
+    padding: 20px 20px 0 5px;
+
+    ul {
+        padding-left: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        li {
+            list-style: none;
+            // text-decoration: underline;
+        }
+
+        hr {
+            height: 0.5px;
+        }
+    }
+}
+
+#search-result {
+    .modal-body {
+        ul {
+            padding-left: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            li {
+                list-style: none;
+                // text-decoration: underline;
+            }
+
+            hr {
+                height: 0.5px;
+            }
+        }
+    }
+}
+
+@media (max-width : 426px) {
+    .responsive-search-result {
+        left: 26px;
+        top: 210px;
+    }
+
+    .blog-section {
+        .container {
+            .blog-calltoaction {
+                .blog {
+                    .digital-links {
+                        width: 70%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+    @media (max-width : 321px) {
+        .responsive-search-result {
+            left: 20px;
+            top: 255px;
+        }
+    }

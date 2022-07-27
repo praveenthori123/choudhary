@@ -1,0 +1,253 @@
+<div class="Order-History-section" *ngIf="showdesc == 'Order History'">
+    <!-- <h3>Order History</h3> -->
+    <!-- <div class="order-history-header">
+        <div class="search-ordered-item">
+            <input type="text" pInputText placeholder="Search Ordered Item...." [(ngModel)]="searchItem"
+                (input)="getSuggestions()" />
+            <button pButton pRipple type="button" label="Search" class="p-button-success"
+                (click)="FetchSearchedData()"></button>
+        </div>
+        <div class="card history_product_search" *ngIf="suggestions">
+            <ul *ngFor="let i of searchProductArray | searchPipe : searchItem">
+                <li (click)="getselecteddata(i.name)">{{i.name}}</li>
+            </ul>
+        </div>
+    </div> -->
+
+    <!-- list-card -->
+    <ng-container *ngIf="!detailcheck">
+        <h3>Order History</h3>
+        <ng-container *ngIf="shimmarload">
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+                <div class="col-12 mt-3">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+                </div>
+            </div>
+        </ng-container>
+        <div class="history-list-card">
+            <div class="table-div" *ngIf="show">
+                <ng-container *ngFor="let data of orderData; index as index">
+                    <div class="my-2" *ngIf="data.items?.length > 0">
+                        <table class="table">
+                            <thead>
+                                <tr class="head_row">
+                                    <th scope="col">Order ID #{{data.order_no}}</th>
+                                    <!-- <th></th>
+                                    <th></th>
+                                    <th></th> -->
+                                    <th class="total_amount">Order Date & Time: {{data.created_at.slice(0,10) | date:"MM/dd/YYYY"}} at {{data.created_at.slice(11,16)}}<br>
+                                    <!-- <span class="total_amount">Order Time : {{data.created_at}}</span></th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="body_row">
+                                    <td class="total_amount">
+                                        <p> <span style="font-weight: bold;">Total Amount :</span> ${{data.total_amount | number}}
+                                        </p>
+                                        <p> <span style="font-weight: bold;">Total Product :</span> {{data.items?.length | number}}
+                                        </p>
+                                    </td>
+                                    <!-- <td></td>
+                                    <td></td>
+                                    <td></td> -->
+                                    <td class="total_amount">
+                                            <p *ngIf="spinnercheck" style="font-weight: bold;"><b>Order Status :</b> 
+                                                <span > <i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i></span></p>
+                                                <div *ngIf="!spinnercheck">
+                                                    <p *ngIf="data.order_status == 'pending'" style="font-weight: bold;">Order Status : 
+                                                        <span class="status" style="color: #FF8C00;">{{data.order_status | titlecase}} </span></p>
+                                                    <p *ngIf="data.order_status == 'completed'">Order Status : 
+                                                        <span class="status text-success" style="font-weight: bold;"> {{data.order_status | titlecase}} </span></p>
+                                                    <p *ngIf="data.order_status == 'cancelled'" style="font-weight: bold;">Order Status : 
+                                                        <span class="status text-danger"> {{data.order_status | titlecase}} </span></p>
+                                                </div>
+                                                <p class="show_button btn" style="background:#2774ba;color: white;font-size: 11px;" (click)="showdetail(data.id)">Show Details</p>
+                                    </td>
+                                </tr>
+                                <!-- <ng-container *ngFor="let item of data.items; index as index">
+                                    <tr *ngIf="index==0" class="image_row">
+                                        <td>
+                                            <div class="cart_image" style="cursor: pointer;">
+                                                <img src="{{item.product.ImagePath}}"
+                                                    >
+                                            </div>
+                                            <p class="show_button btn my-4" style="background:#2774ba;color: white;font-size: 11px;" (click)="showdetail(data.id)">Show Details</p>
+                                        </td>
+                                        <input type="hidden" [value]="item.order_id" [(ngModel)] = "order_id">
+                                        <td class="product_detail">
+                                            <h6 class="head">{{item.product.name}}</h6>
+                                            <p style="margin-bottom:0.5rem ;"><span style="font-weight: bold;">Quantity :</span>
+                                                {{item.quantity}}</p>
+                                            <p><span style="font-weight: bold;">Product Amount : </span>$
+                                                {{item.product.sale_price | number}}</p>
+                                                
+                                            </td>
+                                        </tr>
+                                    </ng-container> -->
+                                    <!-- <p class="order-show-button" routerLink="/shop/{{item.product.category.name}}/{{item.product.slug}}">Show Details</p> -->
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <ng-template pTemplate="header">
+                        <tr class="heading-row">
+                            <th></th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>SubTotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template> -->
+                </ng-container>
+                <ng-container>
+                    <div class="pagination" style="align-items: center;justify-content: right;">
+                        <i style="font-size: 30px;
+                        padding: 0 10px;
+                        background: #2774ba;
+                        border-radius: 5px;
+                        color: white;
+                        cursor: pointer;" class="fa fa-angle-left" (click)="pagechange(count-1)"></i>
+                        <span style="padding: 10px 20px;font-size:18px">{{count}}/{{totalpage>=1?totalpage:1}}</span>
+                        <i style="font-size: 30px;
+                        padding: 0 10px;
+                        background: #2774ba;
+                        border-radius: 5px;
+                        color: white;
+                        cursor: pointer;" class="fa fa-angle-right" (click)="pagechange(count+1)"></i>
+                    </div>
+                </ng-container>
+                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="detailcheck">
+        <div style="display: flex;justify-content:space-between;align-items:center;">
+            <h3>Order Detail</h3>
+            <div style="cursor: pointer;text-align: right;" (click)="showOrders()">
+                <p class="back_button btn m-0" style="background: #56b15c;color:white;">Back</p>
+            </div>
+        </div>
+        <ng-container *ngFor="let item of orderData">
+            <ng-container *ngIf="item.id==UserOrder_id">
+                <div class="order_summary">
+                    <div class="shippingdetail">
+                        <h5>Shipping Address</h5>
+                        <p>{{item.shipping_landmark}}, {{item.shipping_address}}</p>
+                        <p>{{item.shipping_city}}({{item.shipping_zip}})</p>
+                        <p>{{item.shipping_state}}, {{item.shipping_country}}</p>
+                        <h5>Shipping Via</h5>
+                        <P>{{item.shippment_via | uppercase}}</P>
+                    </div> 
+                    <div class="order_amount_summary">
+                        <table class="table mt-4">
+                            <tbody>
+                              <ng-container>
+                                <tr *ngIf="item.order_amount>0">
+                                  <th>Order Amount : </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{item.order_amount | number}}</th>
+                                </tr>
+                                <tr *ngIf="item.shippment_rate>0">
+                                  <th>Shipping Charge: </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{item.shippment_rate | number}}</th>
+                                </tr>
+                                <tr *ngIf="item.tax_amount>0">
+                                  <th>Taxes: </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{item.tax_amount | number}}</th>
+                                </tr>
+                                <tr *ngIf="item.hazardous_amt>0">
+                                  <th>Hazardous: </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{item.hazardous_amt | number}}</th>
+                                </tr>
+                                <tr *ngIf="item.lift_gate_amt>0">
+                                  <th>Lift Gate Service: </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{item.lift_gate_amt | number}}</th>
+                                </tr>
+                                <tr *ngIf="item.coupon_discount>0">
+                                  <th>Coupon Discount: </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{item.coupon_discount | number}}</th>
+                                </tr>
+                                <tr>
+                                  <th>Total Amount: </th>
+                                  <td></td>
+                                  <td></td>
+                                  <th>${{(item.order_amount -- item.shippment_rate -- item.tax_amount -- item.hazardous_amt -- item.lift_gate_amt - item.coupon_discount) | number}}</th>
+                                </tr>
+                              </ng-container>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <div class="my-2 detail_table" *ngIf="item.items?.length > 0">
+                    <table class="table">
+                        <tbody>
+                                <tr class="image_row" *ngFor="let product of item.items;">
+                                    <td>
+                                        <div class="cart_image" style="cursor: pointer;">
+                                            <img src="{{product.product.ImagePath}}"
+                                                >
+                                        </div>
+                                    </td>
+                                    <input type="hidden" [value]="product.order_id" [(ngModel)] = "order_id">
+                                    <td class="product_detail">
+                                        <h6 class="head">{{product.product.name}}</h6>
+                                        <p style="margin-bottom:0.5rem ;"><span style="font-weight: bold;">Quantity :</span>
+                                            {{product.quantity}}</p>
+                                        <p><span style="font-weight: bold;">Product Amount : </span>${{product.product.sale_price | number}}</p>
+                                        <!-- <p class="order-show-button" routerLink="/shop/{{item.product.category.name}}/{{item.product.slug}}">Show Details</p> -->
+                                        <!-- <p class="order-show-button" (click)="showdetail(product.id)">Show Details</p> -->
+                                    </td>
+                                </tr>
+                                <tr *ngIf="item.order_status == 'pending'">
+                                    
+                                    <td><p class="cancel_button btn btn-danger" style="white-space: nowrap;" data-bs-toggle="modal" data-bs-target="#confirmationModal"
+                                        >Cancel Order</p></td>
+                                    </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="item.order_status == 'cancelled'">
+                        <p class="text-danger" 
+                            >Order Cancelled!</p>
+                        </div>
+                          
+                          <!-- Modal -->
+                          <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Order Cancellation</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="popup_image" style="text-align: center;padding: 15px 15px 0 15px;">
+                                    <i class="fa fa-times-circle" style="font-size: 90px;"></i>
+                                </div>
+                                <div class="modal-body" style="text-align:center;font-size: 18px;">
+                                  Do you want to cancel this order?
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn" data-bs-dismiss="modal" style="padding: 6px 28px;border: 1px solid gray;">No</button>
+                                  <button type="button" class="btn" data-bs-dismiss="modal" (click)="orderCancel(item.id)" style="padding: 6px 28px;background-color: #56b15c;color: white;">Yes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</div>

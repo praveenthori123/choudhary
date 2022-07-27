@@ -1,0 +1,19 @@
+:root {
+    --primary: #55b15c;
+    --primary-btn: #55b15c;
+    --primary-hvr: rgba(140, 233, 147, 0.05);
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.captcha-css{
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dc3545;
+    width: 100%;
+}
+
+
+

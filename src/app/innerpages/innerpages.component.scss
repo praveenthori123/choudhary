@@ -1,0 +1,250 @@
+.inner-pages {
+    margin-top: 30px;
+    .container {
+        .list-heading {
+            margin-bottom: 2rem;
+            span {
+                a {
+                    font-size: 0.9rem;
+                    color: rgb(87, 87, 87);
+                }
+            }
+        }
+        .row {
+            .col-8 {
+                border-right: 2px solid rgb(231, 231, 231);
+                .page-desc {
+                    text-align: justify;
+                    a {
+                        text-decoration: none;
+                    }
+                    h2 {
+                        font-size: 10px !important;
+                    }
+                    .entry-content {
+                        padding-right: 50px;
+                        text-align: justify;
+                        ul {
+                            padding-left: 1rem;
+                        }
+                    }
+                }
+            }
+            .inner_sidebar {
+                // margin-left: 50px;
+                // position: sticky;
+                top: 80px;
+                .widget {
+                    margin-bottom: 100px;
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        li {
+                            // padding: 10px 0;
+                            color: #3f661c;
+                        }
+                        li:hover {
+                            color: #0a6fbd;
+                        }
+                    }
+                }
+                .widget_text {
+                    .textwidget {
+                        // p {
+                            i {
+                                margin: 0 10px;
+                            }
+                            .shopButton2020 {
+                                a {
+                                    color: #ffffff;
+                                    text-decoration: none;
+                                }
+                                background-color: #0a6fbd;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+                            .requestButton2020 {
+                                background-color: #009e49;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+                            .pdsButton2020 {
+                                background-color: #000000;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                                margin-bottom: 30px;
+                            }
+                            .contactButton2020 {
+                                background-color: #777777;
+                                border-radius: 3px;
+                                display: inline-block;
+                                cursor: pointer;
+                                color: #ffffff !important;
+                                font-family: Arial;
+                                font-size: 17px;
+                                padding: 16px 31px;
+                                text-decoration: none;
+                                width: 100%;
+                                text-align: center;
+                            }
+                        // }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .inner-pages {
+        .container {
+            .row {
+                .inner_sidebar {
+                    margin-left: 0;
+                    .widget_text {
+                        .textwidget {
+                            text-align: center;
+                            p {
+                                .shopButton2020 {
+                                    padding: 10px 20px;
+                                    width: 80%;
+                                    margin-bottom: 20px;
+                                    font-size: 14px;
+                                }
+                                .requestButton2020 {
+                                    padding: 10px 20px;
+                                    width: 80%;
+                                    margin-bottom: 20px;
+                                    font-size: 14px;
+                                }
+                                .pdsButton2020 {
+                                    padding: 10px 20px;
+                                    width: 80%;
+                                    margin-bottom: 20px;
+                                    font-size: 14px;
+                                }
+                                .contactButton2020 {
+                                    padding: 10px 20px;
+                                    width: 80%;
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .inner-pages {
+        .container {
+            .col-4 {
+                display: none;
+            }
+            .col-8 {
+                width: 100%;
+                border-right: none !important;
+            }
+        }
+    }
+}
+
+::ng-deep {
+    .inner-pages {
+        .list-heading {
+            .shimmer-loading .ngx-shimmer {
+                height: 50px !important;
+            }
+        }
+        .page-desc {
+            .shimmer-loading .ngx-shimmer {
+                height: 500px !important;
+            }
+        }
+        .inner_sidebar {
+            .shimmer-loading .ngx-shimmer {
+                height: 500px !important;
+            }
+        }
+    }
+    .post-entry {
+        width: -webkit-fill-available !important;
+    }
+    .big-preview {
+        img {
+            width: -webkit-fill-available !important;
+        }
+    }
+    .template-page {
+        border: none !important;
+    }
+    .sidebar_right {
+        border: none !important;
+        display: none;
+    }
+    .entry-content-wrapper {
+        padding: 0 !important;
+    }
+    .avia_textblock {
+        h2 {
+            font-size: 1.4rem !important;
+        }
+    }
+    .entry-content-wrapper {
+        padding: 0 !important;
+    }
+    .responsive-table {
+        table {
+            tr {
+                th {
+                    width: 30%;
+                }
+            }
+        }
+    }
+    a {
+        text-decoration: none !important;
+    }
+    @media (max-width: 1399px) {
+        .template-page {
+            width: 100% !important;
+            padding-top: 0 !important;
+        }
+    }
+    @media (max-width:425px) {
+        h2 {
+            font-size: 1.4rem !important;
+        }
+        h1 {
+            font-size: 1.4rem !important;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<!-- All product category -->
+<section class="shop-categories">
+    <div class="container">
+        <div class="categories-text">
+            <div class="shop-text">
+                <h3>Shop Chemicals</h3>
+                <ng-container *ngFor="let item of CategoryContent">
+                    <p style="text-align:center;" *ngIf="item.id==2">{{item.value}}
+                    </p>
+                </ng-container>
+            </div>
+            <div class="product-category">
+                <ng-container *ngFor="let item of CategoryContent">
+                    <div class="heading-section" *ngIf="item.id==1">
+                        <h3>{{item.value}}</h3>
+                    </div>
+                </ng-container>
+                <div class="categories">
+                    <ng-container *ngFor="let category of getCategory">
+                        <div class="category-card" routerLink="/product-category/{{category.slug}}">
+                            <div class="category-image">
+                                <img src="{{category.image}}" alt="">
+                            </div>
+                            <div class="category-text">
+                                <div class="content">
+                                    <h5>{{category.name}}</h5>
+                                    <p>{{category.short_desc}}</p>
+                                    <div class="button-div">
+                                        <button>Shop Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

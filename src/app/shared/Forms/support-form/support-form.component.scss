@@ -1,0 +1,23 @@
+.container {
+    .request-form {
+        .fa-close:hover {
+            cursor: pointer;
+        }
+        form {
+            .proceed {
+                .proceed-button {
+                    button {
+                        box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+                        border: 1px solid #d7d1d1;
+                        border-radius: 5px;
+                        font-size: 18px;
+                        margin: 20px auto;
+                        color: white;
+                        background: #55b15c;
+                        padding: 5px 25px;
+                    }
+                }
+            }
+        }
+    }
+}

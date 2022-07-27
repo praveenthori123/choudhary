@@ -1,0 +1,101 @@
+<div class="footer-div">
+    <!-- Footer button -->
+    <section class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <h4>Didn't find what you were looking for?</h4>
+                <div class="footer-button-div">
+                    <!-- <button class="footer-button">
+                        <a (click)="routeOnSamePage('contact/ask-the-chemist')">Ask The Chemist</a>
+                    </button>-->
+                    <button class="footer-button">
+                        <a (click)="routeOnSamePage('/contact')">Contact Us</a>
+                    </button> 
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer links -->
+    <section class="footer-links">
+        <div class="container">
+            <div class="footer-heading">
+                <div class="d-flex">
+                    <div class="footer-image">
+                        <img src="https://ecolink.com/wp-content/uploads/2017/09/New_Ecolink_Logo-33.png" alt="">
+                    </div>
+                    <h4>ECOLINK</h4>
+                </div>
+                <div class="search-bar">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="your@gmail.com" aria-label="email" [(ngModel)]="newsletter_email" (input)="validateEmail($event)" required>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <a (click)="subscribe()" class="text-white" style="cursor: pointer;">Stay
+                                    Informed
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <h6 class="text-danger" *ngIf="invalidEmail">
+                        {{ invalidEmail ? "Invalid Email" : "" }}
+                    </h6>
+                </div>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-contact">
+                    <h5>Contact us</h5>
+                    <p>PO Box 9 Tucker, GA 30085</p>
+                    <p>Phone : (800) 563 - 1665</p>
+                    <p>Email : info@ecolink.com</p>
+                </div>
+                <div class="footer-help">
+                    <h5>Help</h5>
+                    <p>Newsletter</p>
+                    <p>Feedback</p>
+                    <p routerLink="/manufacture">Manufactures</p>
+                </div>
+                <div class="footer-about">
+                    <h5 routerLink="/about-us">About</h5>
+                    <p>Impact</p>
+                    <p>Privacy Policy</p>
+                    <p>Return Policy</p>
+                </div>
+                <div class="footer-media">
+                    <h5 routerLink="/media">Media</h5>
+                    <p routerLink="/info">Blogs</p>
+                    <p>Videos</p>
+                    <p routerLink="/about-us">Who is Ecolink</p>
+                </div>
+                <div class="footer-shop">
+                    <h5>Shop</h5>
+                    <p routerLink="/shop">Categories</p>
+                    <p routerLink="/shop">Pricing</p>
+                    <p>Terms & Conditions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer social media icons -->
+    <section class="media-links">
+        <div class="container">
+            <div class="copyright">
+                <p>Copyright - Ecolink.com | © 1992-2022 | All Rights Reserved</p>
+            </div>
+            <div class="media-icons">
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-twitter"></i>
+                <i class="fa fa-linkedin"></i>
+                <i class="fa fa-youtube"></i>
+                <!-- <i class="fa fa-pinterest"></i> -->
+                <!-- <i class="fa fa-wifi"></i> -->
+                <a href="mailto:info@ecolink.com "><i class="fa fa-envelope"></i></a>
+            </div>
+        </div>
+    </section>
+    <!-- down to up scroll button -->
+    <div class="back-to-top" *ngIf="isShow">
+        <button (click)="scrollToTop()">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i> 
+        </button>
+    </div>
+</div>

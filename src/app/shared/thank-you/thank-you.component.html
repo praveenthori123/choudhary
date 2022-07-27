@@ -1,0 +1,102 @@
+<app-header></app-header>
+<section class="thankyou-section">
+  <div class="container">
+    <div class="body">
+      <h3 class="display-3">Thank You!</h3>
+      <!-- <i class="fa fa-check main-content__checkmark" id="checkmark"></i> -->
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+        <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1"
+          cy="65.1" r="62.1" />
+        <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round"
+          stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+      </svg>
+      <p class="lead"><strong>Your Order has been Placed Successfully!</strong>
+      </p>
+      <p>
+        Having trouble? <a href="/contact">Contact us</a>
+      </p>
+      <p class="lead">
+        <a class="btn btn-shop btn-sm" href="/shop" role="button">Continue Shopping
+          <img src="assets\icons8-shopping-cart-16.png" alt=""> </a>
+      </p>
+    </div>
+  </div>
+</section>
+<section class="container">
+  <div class="my-5">
+    <h4 class="mb-3">Order Detail #{{order_id}}</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">S No.</th>
+          <th scope="col">Product</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of user_order_detail; index as index">
+          <tr>
+            <th scope="row">{{index+1}}</th>
+            <td>{{item.product_name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>${{item.product_price | number}}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div style="width: 100%;display: flex;justify-content: right;">
+      <table class="table mt-4 total_table">
+        <tbody>
+          <ng-container *ngFor="let total of total_payable_detail">
+            <tr *ngIf="total.payable>0">
+              <th>Order Amount : </th>
+              <td></td>
+              <td></td>
+              <th>${{total.payable | number}}</th>
+            </tr>
+            <tr *ngIf="total.shippingCharge>0">
+              <th>Shipping Charge: </th>
+              <td></td>
+              <td></td>
+              <th>${{total.shippingCharge | number}}</th>
+            </tr>
+            <tr *ngIf="total.tax>0">
+              <th>Taxes: </th>
+              <td></td>
+              <td></td>
+              <th>${{total.tax}}</th>
+            </tr>
+            <tr *ngIf="total.hazardous>0">
+              <th>Hazardous: </th>
+              <td></td>
+              <td></td>
+              <th>${{total.hazardous}}</th>
+            </tr>
+            <tr *ngIf="total.lift_gate>0">
+              <th>Lift Gate Service: </th>
+              <td></td>
+              <td></td>
+              <th>${{total.lift_gate | number}}</th>
+            </tr>
+            <tr *ngIf="total.coupon_discount>0">
+              <th>Coupon Discount: </th>
+              <td></td>
+              <td></td>
+              <th>${{total.coupon_discount | number}}</th>
+            </tr>
+            <tr>
+              <th style="font-size: 20px;">Total Amount: </th>
+              <td></td>
+              <td></td>
+              <th style="font-size: 20px;">$ {{((total.payable) -- (total.lift_gate) -- (total.hazardous) -- (total.tax) -- (total.shippingCharge) -
+                total.coupon_discount) | number:'2.1-2' }}</th>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+<app-footer></app-footer>

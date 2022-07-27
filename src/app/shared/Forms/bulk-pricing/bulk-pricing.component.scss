@@ -1,0 +1,113 @@
+.container {
+    .bulk-pricing-form {
+        .fa-close:hover {
+            cursor: pointer;
+        }
+        .head {
+            .banner {
+                margin-bottom: 30px;
+                // background-image: url("https://2022.ecolink.com/assets/form_background_image.jpeg");
+                .title {
+                    padding: 50px 0;
+                    h2 {
+                        color: #ffffff;
+                        text-align: center;
+                        font-size: 1.6rem;
+                    }
+                    .heading {
+                        margin: 40px 0;
+                    }
+                    .sub-heading {
+                        margin: 20px 0;
+                    }
+                }
+            }
+        }
+        .form-head {
+            h3 {
+                margin: 25px 0;
+            }
+        }
+        .gfield .ginput_container .gfield_select {
+            border-color: #e1e1e1;
+            background-color: #fcfcfc;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+        .proceed {
+            text-align: left;
+            button {
+                box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+                border: 1px solid #d7d1d1;
+                border-radius: 5px;
+                font-size: 18px;
+                margin: 20px auto 0px auto;
+                color: white;
+                background: #55b15c;
+                padding: 5px 25px;
+            }
+        }
+    }
+}
+@media (max-width: 1200px) {
+    .container {
+        .bulk-pricing-form {
+            .head {
+                .banner {
+                    .title {
+                        padding: 20px 0;
+                        h2 {
+                            font-size: 1.2rem !important;
+                        }
+                        .heading {
+                            margin: 20px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 992px) {
+    .container {
+        .bulk-pricing-form {
+            .head {
+                .banner {
+                    .title {
+                        h2 {
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        .bulk-pricing-form {
+            .proceed {
+                text-align: center;
+            }
+            .head {
+                .banner {
+                    .title {
+                        padding: 20px 0;
+                        h2 {
+                            font-size: 1.2rem;
+                        }
+                        .heading {
+                            margin: 20px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+<!-- shimmar effect -->
+<div class="spinner" *ngIf="cartUpdated">
+    <div class="spinner-border" role="status">
+        <span class="sr-only" id="loading"></span>
+    </div>
+</div>
+
+<ng-container *ngIf="wishlistShimmer; then elseblock else thenblock"></ng-container>
+<ng-template #elseblock>
+    <div class="container mt-5">
+        <div class="cart-heading">
+            <h1 style="white-space: nowrap;">My Wishlist</h1>
+        </div>
+        <div class="cart-body">
+            <div class="card-elements table-responsive">
+                <ng-container *ngFor="let data of [].constructor(3)">
+                    <ngx-shimmer-loading [shape]="'square'" width="'100%'" height="'200px'"></ngx-shimmer-loading>
+                </ng-container>
+            </div>
+
+            <div class="cart cart-total pt-0">
+                <ngx-shimmer-loading [shape]="'square'" width="'100%'"></ngx-shimmer-loading>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #thenblock>
+    <ng-container *ngIf="!wishlistShimmer">
+        <div class="container">
+            <div class="cart-heading">
+                <h3>My Wishlist</h3>
+            </div>
+            <!-- wishlist product table -->
+            <div class="cart-body" *ngIf="product.length>0">
+                <div class="cart-elements ">
+                    <p-table [value]="product[0]"  #thenblock>
+                        <ng-template pTemplate="header">
+                            <tr class="heading-row">
+                                <th></th>
+                                <th>Name</th>
+                                <th>Stock</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-prod let-rowIndex="rowIndex">
+                            <tr class="table-body">
+                                <td class="prod-details">
+                                    <div class="product_name">
+                                        <div class="cart_image">
+                                            <img [src]="prod.product.image" alt="">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td  class="product_desc">
+                                        <div>
+                                            <h6>{{prod.product.name}}</h6>
+                                        </div>
+                                </td>
+                                <td class="prod-stock">
+                                    <mark style="background:#4BB543;color: white;">In Stock</mark>
+                                </td>
+                                <td class="prod-price">{{prod.product.sale_price | currency:'USD'}}</td>
+                                <td class="prod-cart">
+                                    <div class="price-row">
+                                        <button (click)="addProductToCart(prod)">Add to Cart</button>
+                                        <span class="delete_item" (click)="deleteWishlistItems(prod.product.id)"><i class="pi pi-times"></i></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="summary">
+                            <div *ngIf="product[0].length==1" class="p-d-flex p-ai-center p-jc-between">
+                                In Total There is {{product[0] ? product[0].length : 0 }} Product in wishlist
+                            </div>
+                            <div *ngIf="product[0].length>1" class="p-d-flex p-ai-center p-jc-between">
+                                In Total There are {{product[0] ? product[0].length : 0 }} Products in wishlist
+                            </div>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <!-- when wishlist is empty -->
+            <div class="empty-cart" *ngIf="product.length==0">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body cart">
+                            <div class="col-sm-12 empty-cart-cls text-center"> <img
+                                    src="{{imageurl}}wishlist.png" width="130" height="130"
+                                    class="img-fluid mb-4 mr-3">
+                                <h3><strong>Your Wishlist is Empty</strong></h3>
+                                 <a routerLink="/shop"
+                                    class="btn btn-success cart-btn-transform m-3" data-abc="true">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
